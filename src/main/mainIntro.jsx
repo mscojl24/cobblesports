@@ -1,9 +1,13 @@
 import styled from 'styled-components';
+import { useAtom } from 'jotai';
+import { scrollYState } from '../atoms/useIndexState';
 
 function MainIntro() {
+    const [scrollY] = useAtom(scrollYState);
+
     return (
         <IntroBox className="flex-center">
-            <LeftIntro>
+            <LeftIntro scrollY={scrollY}>
                 <p className="category">About us</p>
                 <h1>
                     Your joy,
@@ -12,7 +16,7 @@ function MainIntro() {
                 </h1>
                 <p className="sub_text">당신이 즐기는 순간이 우리의 브랜드입니다.</p>
             </LeftIntro>
-            <RightIntro>
+            <RightIntro scrollY={scrollY}>
                 <p className="sub_text">
                     <span>유한회사 코블스포츠(Cobble sports)</span>는 2015년 설립 이후 9년간 스포츠와 레저 분야에서
                     끊임없이 성장해 온 전문 기업입니다. 저희는 세계적으로 유명한{' '}
@@ -29,15 +33,16 @@ function MainIntro() {
 const IntroBox = styled.div`
     width: 100%;
     height: 440px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid #eeeeee;
 `;
 
 const LeftIntro = styled.div`
     width: 100%;
     margin-left: 200px;
 
-    transform: translateX(-100px);
-    transition: all ease-in-out 1s;
+    transform: translateX(${(props) => (props.scrollY > 200 ? '0px' : '-100px')});
+    opacity: ${(props) => (props.scrollY > 200 ? '1' : '0')};
+    transition: all ease-in-out 0.5s;
 
     > * {
         margin: 30px 0px;
@@ -50,8 +55,14 @@ const LeftIntro = styled.div`
     }
 
     h1 {
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(rgba(23, 23, 29, 0.8), rgba(76, 76, 97, 0.8)),
+            url(../asset/Fenix8-main-banner.jpg);
+        background-size: cover;
         font-family: 'Raleway';
-        color: #343434;
+        /* color: #343434; */
         font-size: 46px;
         line-height: 110%;
         text-transform: uppercase;
@@ -68,6 +79,10 @@ const LeftIntro = styled.div`
 const RightIntro = styled.div`
     width: 100%;
     margin-right: 200px;
+
+    transform: translateX(${(props) => (props.scrollY > 400 ? '0px' : '-100px')});
+    opacity: ${(props) => (props.scrollY > 400 ? '1' : '0')};
+    transition: all ease-in-out 0.5s;
 
     .sub_text {
         color: #343434;

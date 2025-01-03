@@ -10,6 +10,7 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 import MainIntro from './mainIntro';
+import MainBusiness from './mainBusiness';
 
 function MainSection() {
     const [swiperData, setSwiperData] = useState(swiperMainData);
@@ -54,6 +55,7 @@ function MainSection() {
                 ))}
             </Swiper>
             <MainIntro />
+            <MainBusiness />
         </MainBox>
     );
 }

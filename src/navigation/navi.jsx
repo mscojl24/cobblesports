@@ -1,19 +1,11 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { useAtom } from 'jotai';
+import { scrollYState } from '../atoms/useIndexState';
+
 function Navi() {
-    const [scrollY, setScrollY] = useState(0);
-
-    const handleScroll = () => {
-        setScrollY(window.scrollY);
-    };
-
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
+    const [scrollY, setScrollY] = useAtom(scrollYState);
 
     return (
         <>
