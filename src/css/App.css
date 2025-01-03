@@ -1,0 +1,35 @@
+:root {
+    /*color*/
+
+    --color-main-001: #ffffff;
+    --color-main-002: #a0a0a0;
+    --color-main-003: #454545;
+    --color-main-004: #232323;
+
+    --color-sub-001: #7f6aff;
+    --color-sub-002: #35fff3;
+
+    /*size*/
+
+    --font-size-Nomal: 20px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-h-center {
+    display: flex;
+    align-items: center;
+}
+
+.flex-v-center {
+    display: flex;
+    justify-content: center;
+}
+
+.column {
+    flex-direction: column;
+}
