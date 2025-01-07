@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import styled from 'styled-components';
 import { GiPauseButton } from 'react-icons/gi';
-import { BsGrid3X3GapFill } from 'react-icons/bs';
+import { ImYoutube2 } from 'react-icons/im';
 
 function SwiperMain(data) {
-    const { title, image, subtitle, index, linkBtn } = data.data;
+    const { title, image, subtitle, index, linkBtn, video, videoURL } = data.data;
+
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.play();
+        }
+    }, []);
 
     const formattedTitle = title.split(' ').map((word, index) => (
         <>
@@ -16,12 +24,14 @@ function SwiperMain(data) {
 
     return (
         <>
-            <MainBanner bgimg={image}>
-                <div className="background"></div>
+            <MainBanner bgimg={image} className="flex-h-center">
+                <div className={`${video ? 'background-color' : 'background'}`}></div>
+                {video && <video ref={videoRef} src={videoURL} muted autoplay playsinline loop />}
                 <TitleText className="flex-v-center column">
                     <h1 className="ani">{formattedTitle}</h1>
-                    <div className="sub-text ani2">
+                    <div className="sub-text ani2 flex-h-center">
                         {index === 1 && <img src="../asset/Garmin_B-white.png" alt="garmin-logo" height="20px" />}
+                        {index === 3 && <img src="../asset/Youtube_B-white.png" alt="youtube-logo" height="20px" />}
                         <span>{subtitle}</span>
                     </div>
                     <ActButton>
@@ -41,8 +51,7 @@ function SwiperMain(data) {
 
 const MainBanner = styled.article`
     position: relative;
-    width: 100%;
-    height: 100vh;
+    height: 90vh;
     overflow: hidden;
 
     -webkit-user-select: none;
@@ -61,6 +70,24 @@ const MainBanner = styled.article`
         animation: bgmove 30s ease-in-out infinite;
     }
 
+    .background-color {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(rgba(23, 23, 29, 1), rgba(76, 76, 97, 1));
+    }
+
+    video {
+        position: absolute;
+        object-fit: cover;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        opacity: 0.2;
+        background-color: #000;
+    }
     @keyframes bgmove {
         50% {
             transform: scale(1.3);
@@ -71,7 +98,7 @@ const MainBanner = styled.article`
 const TitleText = styled.div`
     position: relative;
     height: 100vh;
-    margin: 0px 200px;
+    margin: 0px 150px;
     color: var(--color-main-001);
     font-size: 22px;
 

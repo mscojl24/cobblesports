@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import SwiperMain from '../swiper/swiperMain';
 import { useState } from 'react';
+import { useAtom } from 'jotai';
+import { scrollYState } from '../atoms/useIndexState';
 
 import { swiperMainData } from '../data/swiperMainData';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -14,6 +16,8 @@ import MainBusiness from './mainBusiness';
 
 function MainSection() {
     const [swiperData, setSwiperData] = useState(swiperMainData);
+
+    const [scrollY, setScrollY] = useAtom(scrollYState);
 
     const handleSlideChange = () => {
         //슬라이드가 변경될 때마다 애니메이션 초기화
@@ -31,38 +35,55 @@ function MainSection() {
     };
 
     return (
-        <MainBox>
-            <Swiper
-                spaceBetween={30}
-                effect={'fade'}
-                loop={true}
-                autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                }}
-                navigation={true}
-                pagination={{
-                    clickable: true,
-                    dynamicBullets: true,
-                }}
-                modules={[EffectFade, Pagination, Autoplay]}
-                className="mySwiper"
-                onSlideChange={handleSlideChange}>
-                {swiperData.map((data, index) => (
-                    <SwiperSlide key={index}>
-                        <SwiperMain data={data} />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-            <MainIntro />
-            <MainBusiness />
+        <MainBox scrollY={scrollY}>
+            <div className="main-swiper">
+                <Swiper
+                    spaceBetween={30}
+                    effect={'fade'}
+                    loop={true}
+                    autoplay={{
+                        delay: 6000,
+                        disableOnInteraction: false,
+                    }}
+                    navigation={true}
+                    pagination={{
+                        clickable: true,
+                        dynamicBullets: true,
+                    }}
+                    modules={[EffectFade, Pagination, Autoplay]}
+                    className="mySwiper"
+                    onSlideChange={handleSlideChange}>
+                    {swiperData.map((data, index) => (
+                        <SwiperSlide key={index}>
+                            <SwiperMain data={data} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+            <div className="main-contents">
+                <MainIntro />
+                <MainBusiness />
+            </div>
         </MainBox>
     );
 }
 
 const MainBox = styled.section`
-    width: 100%;
-    height: 200vh;
+    height: 300vh;
+    .main-swiper {
+        overflow: hidden;
+        animation: moveSlider 1s ease-in-out 1s forwards;
+        @keyframes moveSlider {
+            100% {
+                margin: 150px 200px 0px 200px;
+                border-radius: 50px;
+            }
+        }
+    }
+
+    .main-contents {
+        margin: 0px 200px;
+    }
 `;
 
 export default MainSection;

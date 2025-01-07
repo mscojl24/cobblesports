@@ -2,22 +2,24 @@ import styled from 'styled-components';
 import { useAtom } from 'jotai';
 import { scrollYState } from '../atoms/useIndexState';
 import { companyData } from '../data/companyData';
+import { useEffect, useState } from 'react';
 
 function MainBusiness() {
     const [scrollY] = useAtom(scrollYState);
 
     return (
-        <IntroBox className="flex-center">
-            <LeftIntro scrollY={scrollY}>
+        <IntroBox>
+            <LeftIntro scrollY={scrollY} className="flex-h-center">
                 {companyData.map((data, index) => (
-                    <div className="com-goals" key={index}>
+                    <div className="com-goals flex-v-center column" key={index}>
+                        <img src={data.image} alt={data.category} />
                         <p>[{data.category}]</p>
                         <h2>{data.title}</h2>
                         <h4>{data.subTitle}</h4>
                     </div>
                 ))}
             </LeftIntro>
-            <RightIntro scrollY={scrollY}></RightIntro>
+            {/* <RightIntro scrollY={scrollY}></RightIntro> */}
         </IntroBox>
     );
 }
@@ -27,22 +29,72 @@ const IntroBox = styled.div`
 `;
 
 const LeftIntro = styled.div`
-    width: 100%;
-    margin-left: 200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
     .com-goals {
-        width: 100%;
+        width: 24%;
+        position: relative;
         height: 300px;
-        background-image: linear-gradient(rgba(82, 87, 99, 0.2), rgba(82, 87, 99, 0.2)), url(${(props) => props.image});
-        background-size: cover;
-        /** 백그라운드 어떻게 넣을것인지 고민해야함. 맵 돌린 상태에서 스타일드 컴포넌트에 데이터를 넣어야함. */
-        margin-bottom: 20px;
+        margin: 10px 0px;
+        border-radius: 20px;
+        overflow: hidden;
+        background-color: rgba(82, 87, 99, 1);
+        transition: all 1s ease-in-out 0s;
+        opacity: ${(props) => (props.scrollY < 600 ? '0' : '1')};
+        transform: ${(props) => (props.scrollY < 600 ? 'translateX(-100px)' : 'translateX(0px)')};
+
+        p,
+        h2,
+        h4 {
+            position: relative;
+            color: var(--color-main-001);
+            margin: 20px 70px;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 40px;
+            font-weight: 600;
+        }
+        img {
+            position: absolute;
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            opacity: 0.8;
+            transition: all 0.2s ease-in-out 0s;
+        }
+    }
+    .com-goals:hover {
+        img {
+            transform: scale(1.2);
+        }
+    }
+
+    @keyframes fadeinContents {
+        100% {
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+
+    @media (max-width: 1650px) {
+        .com-goals {
+            flex: 0 1 49%;
+        }
     }
 `;
 
-const RightIntro = styled.div`
-    width: 100%;
-    margin-right: 200px;
-`;
+// const RightIntro = styled.div`
+//     width: 100%;
+//     margin-right: 200px;
+// `;
 
 export default MainBusiness;

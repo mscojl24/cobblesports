@@ -27,29 +27,39 @@ function Navi() {
 
 const NavigateSection = styled.nav`
     width: 100%;
-    height: 100px;
     display: flex;
     justify-content: space-between;
-
     position: fixed;
+    top: 0px;
     font-size: var(--font-size-Nomal);
-    padding: 0px 50px;
+    padding: 0px 200px;
     z-index: 99;
 
     /** ------- 스크롤 이동 시 변경 */
 
     transition: all 0.3s ease-in-out;
 
-    height: ${(props) => (props.scrollY > 500 ? '80px' : '100px')};
+    /* height: ${(props) => (props.scrollY > 500 ? '80px' : '100px')};
     font-size: ${(props) => (props.scrollY > 500 ? '18px' : 'var(--font-size-Nomal)')};
     color: ${(props) => (props.scrollY > 500 ? '#585858' : 'var(--color-main-001)')};
     font-weight: ${(props) => (props.scrollY > 500 ? '400' : '300')};
     border-bottom: ${(props) => (props.scrollY > 500 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
-    background-color: ${(props) => (props.scrollY > 500 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
+    background-color: ${(props) => (props.scrollY > 500 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')}; */
+
+    height: ${(props) => (props.scrollY > 100 ? '80px' : '150px')};
+    font-size: ${(props) => (props.scrollY > 100 ? '16px' : 'var(--font-size-Nomal)')};
+    color: '#585858';
+    font-weight: '400';
+    border-bottom: ${(props) => (props.scrollY > 100 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
+    background-color: ${(props) => (props.scrollY > 100 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
 `;
 
 const LogoBox = styled.div`
     width: 200px;
+    font-family: 'Raleway';
+    font-weight: 800;
+    font-size: 22px;
+    color: #3b3b3b;
 `;
 
 const MenuList = styled.ul`
@@ -61,18 +71,22 @@ const MenuList = styled.ul`
 
 const LoginBtn = styled.div`
     width: 200px;
+
     button {
         border: none;
-        /* padding: 10px 45px; */
         border-radius: 100px;
-        font-size: var(--font-size-Nomal);
 
         /** ------- 스크롤 이동 시 변경 */
         transition: all 0.3s ease-in-out;
-        padding: ${(props) => (props.scrollY > 500 ? '10px 30px' : '10px 45px')};
-        font-size: ${(props) => (props.scrollY > 500 ? '18px' : 'var(--font-size-Nomal)')};
-        background-color: ${(props) => (props.scrollY > 500 ? '#333' : '#fff')};
-        color: ${(props) => (props.scrollY > 500 ? 'var(--color-main-001)' : '#333')};
+        padding: ${(props) => (props.scrollY > 100 ? '10px 30px' : '10px 30px')};
+        font-size: ${(props) => (props.scrollY > 100 ? '16px' : 'var(--font-size-Nomal)')};
+        background-color: '#252525';
+        color: 'var(--color-main-001)';
+    }
+
+    button:hover {
+        background-color: '#252525';
+        color: 'var(--color-main-001)';
     }
 `;
 

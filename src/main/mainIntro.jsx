@@ -33,12 +33,10 @@ function MainIntro() {
 const IntroBox = styled.div`
     width: 100%;
     height: 440px;
-    border-bottom: 1px solid #eeeeee;
 `;
 
 const LeftIntro = styled.div`
     width: 100%;
-    margin-left: 200px;
 
     transform: translateX(${(props) => (props.scrollY > 200 ? '0px' : '-100px')});
     opacity: ${(props) => (props.scrollY > 200 ? '1' : '0')};
@@ -78,10 +76,10 @@ const LeftIntro = styled.div`
 
 const RightIntro = styled.div`
     width: 100%;
-    margin-right: 200px;
+    /* margin-right: 200px; */
 
-    transform: translateX(${(props) => (props.scrollY > 400 ? '0px' : '-100px')});
-    opacity: ${(props) => (props.scrollY > 400 ? '1' : '0')};
+    transform: translateX(${(props) => (props.scrollY > 500 ? '0px' : '-100px')});
+    opacity: ${(props) => (props.scrollY > 500 ? '1' : '0')};
     transition: all ease-in-out 0.5s;
 
     .sub_text {
