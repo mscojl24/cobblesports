@@ -2,43 +2,30 @@ import './css/App.css';
 import Navi from './navigation/navi';
 import MainSection from './main/mainSection';
 import LoderPage from './loderPage';
-// import { supabase } from './supabase';
+import * as XLSX from 'xlsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
-import { scrollYState } from './atoms/useIndexState';
-
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { productsState, scrollYState } from './atoms/useIndexState';
+import { useEffect } from 'react';
 
 function App() {
-    const [scrollY, setScrollY] = useAtom(scrollYState);
-    const [products, setProducts] = useState([]);
+    const [, setScrollY] = useAtom(scrollYState);
+    const [products, setProducts] = useAtom(productsState);
+    console.log(products);
 
-    // products가 변경될 때 한 번만 실행
     useEffect(() => {
-        if (products.length > 0) {
-            console.log(products); // products가 갱신된 후 한 번만 호출됨
-        }
-    }, [products]); // products가 업데이트 될 때만 실행
+        const fetchExcelFile = async () => {
+            const response = await fetch(process.env.REACT_APP_PRODUCTS_DATA_URL); // 엑셀 파일 경로
+            const arrayBuffer = await response.arrayBuffer();
+            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+            const sheet = workbook.Sheets[workbook.SheetNames[0]];
+            const jsonData = XLSX.utils.sheet_to_json(sheet); // JSON으로 변환
+            setProducts(jsonData);
+        };
 
-    // Axios로 GET 요청 보내기
-    useEffect(() => {
-        async function fetchProducts() {
-            try {
-                const response = await axios.get(`${process.env.REACT_APP_SUPABASE_URL}/rest/v1/products`, {
-                    headers: {
-                        apikey: process.env.REACT_APP_SUPABASE_API_KEY,
-                        Authorization: `Bearer ${process.env.REACT_APP_SUPABASE_API_KEY}`,
-                    },
-                });
-                setProducts(response.data); // 데이터 받아오기
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        }
-        fetchProducts();
-    }, []); // 이 useEffect는 한 번만 실행되도록 빈 배열([])을 의존성으로 사용
+        fetchExcelFile();
+    }, []);
 
     // 스크롤 이벤트 핸들러
     const handleScroll = () => {

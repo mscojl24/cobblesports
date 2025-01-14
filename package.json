@@ -6,6 +6,7 @@
     "@supabase/supabase-js": "^2.47.10",
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
+    "exceljs": "^4.4.0",
     "jotai": "^2.11.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -14,7 +15,9 @@
     "react-scripts": "5.0.1",
     "recoil": "^0.7.7",
     "styled-components": "^6.1.13",
-    "swiper": "^11.2.0"
+    "swiper": "^11.2.0",
+    "uuid": "^11.0.5",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",
