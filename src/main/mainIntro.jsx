@@ -7,7 +7,7 @@ function MainIntro() {
 
     return (
         <IntroBox className="flex-center">
-            <LeftIntro scrollY={scrollY}>
+            <LeftIntro scrolly={scrollY}>
                 <p className="category">About us</p>
                 <h1>
                     Your joy,
@@ -16,7 +16,7 @@ function MainIntro() {
                 </h1>
                 <p className="sub_text">당신이 즐기는 순간이 우리의 브랜드입니다.</p>
             </LeftIntro>
-            <RightIntro scrollY={scrollY}>
+            <RightIntro scrolly={scrollY}>
                 <p className="sub_text">
                     <span>유한회사 코블스포츠(Cobble sports)</span>는 2015년 설립 이후 9년간 스포츠와 레저 분야에서
                     끊임없이 성장해 온 전문 기업입니다. 저희는 세계적으로 유명한{' '}
@@ -38,8 +38,8 @@ const IntroBox = styled.div`
 const LeftIntro = styled.div`
     width: 100%;
 
-    transform: translateX(${(props) => (props.scrollY > 200 ? '0px' : '-100px')});
-    opacity: ${(props) => (props.scrollY > 200 ? '1' : '0')};
+    transform: translateX(${(props) => (props.scrolly > 200 ? '0px' : '-100px')});
+    opacity: ${(props) => (props.scrolly > 200 ? '1' : '0')};
     transition: all ease-in-out 0.5s;
 
     > * {
@@ -78,8 +78,8 @@ const RightIntro = styled.div`
     width: 100%;
     /* margin-right: 200px; */
 
-    transform: translateX(${(props) => (props.scrollY > 500 ? '0px' : '-100px')});
-    opacity: ${(props) => (props.scrollY > 500 ? '1' : '0')};
+    transform: translateX(${(props) => (props.scrolly > 500 ? '0px' : '-100px')});
+    opacity: ${(props) => (props.scrolly > 500 ? '1' : '0')};
     transition: all ease-in-out 0.5s;
 
     .sub_text {

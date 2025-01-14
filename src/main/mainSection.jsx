@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import SwiperMain from '../swiper/swiperMain';
 import { useState } from 'react';
-import { useAtom } from 'jotai';
-import { scrollYState } from '../atoms/useIndexState';
 
 import { swiperMainData } from '../data/swiperMainData';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -17,8 +15,6 @@ import MainInfo from './mainInfo';
 
 function MainSection() {
     const [swiperData, setSwiperData] = useState(swiperMainData);
-
-    const [scrollY, setScrollY] = useAtom(scrollYState);
 
     const handleSlideChange = () => {
         //슬라이드가 변경될 때마다 애니메이션 초기화
@@ -36,7 +32,7 @@ function MainSection() {
     };
 
     return (
-        <MainBox scrollY={scrollY}>
+        <MainBox>
             <div className="main-swiper">
                 <Swiper
                     spaceBetween={30}

@@ -1,13 +1,47 @@
+import { useAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { scrollYState } from '../atoms/useIndexState';
+import useNumberCounting from '../hooks/useNumberCounting';
 
 function MainInfo() {
+    const [scrollY] = useAtom(scrollYState);
+
+    const [career, setCareer] = useState(0);
+    const [gpa, setGpa] = useState(0);
+    const [sales, setSales] = useState(0);
+    const [like, setLike] = useState(0);
+
+    useNumberCounting({
+        condition: scrollY >= 1000,
+        targetValue: 2015,
+        incrementStep: 100,
+        duration: 10,
+        setState: setCareer,
+    });
+
+    useNumberCounting({
+        condition: scrollY >= 1000,
+        targetValue: 25000,
+        incrementStep: 200,
+        duration: 20,
+        setState: setSales,
+    });
+
+    useNumberCounting({
+        condition: scrollY >= 1000,
+        targetValue: 17000,
+        incrementStep: 200,
+        duration: 20,
+        setState: setLike,
+    });
+
     return (
         <Container>
             <Header>
                 <Card>
                     <p>누적 업력</p>
-                    <h1>2015</h1>
+                    <h1>{Math.floor(career)}</h1>
                     <span>년</span>
                 </Card>
                 <Card>

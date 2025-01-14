@@ -11,8 +11,8 @@ import { useEffect } from 'react';
 
 function App() {
     const [, setScrollY] = useAtom(scrollYState);
-    const [products, setProducts] = useAtom(productsState);
-    console.log(products);
+    const [pro, setProducts] = useAtom(productsState);
+    console.log(pro);
 
     useEffect(() => {
         const fetchExcelFile = async () => {

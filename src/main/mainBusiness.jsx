@@ -9,7 +9,7 @@ function MainBusiness() {
 
     return (
         <IntroBox>
-            <IntroCard scrollY={scrollY} className="flex-h-center">
+            <IntroCard scrolly={scrollY} className="flex-h-center">
                 {companyData.map((data, index) => (
                     <div className="com-goals flex-v-center column" key={index}>
                         <img src={data.image} alt={data.category} />
@@ -42,8 +42,8 @@ const IntroCard = styled.div`
         overflow: hidden;
         background-color: rgba(82, 87, 99, 1);
         transition: all 1s ease-in-out 0s;
-        opacity: ${(props) => (props.scrollY < 700 ? '0' : '1')};
-        transform: ${(props) => (props.scrollY < 700 ? 'translateX(-100px)' : 'translateX(0px)')};
+        opacity: ${(props) => (props.scrolly < 700 ? '0' : '1')};
+        transform: ${(props) => (props.scrolly < 700 ? 'translateX(-100px)' : 'translateX(0px)')};
 
         p,
         h2,

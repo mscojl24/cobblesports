@@ -1,15 +1,14 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { useAtom } from 'jotai';
 import { scrollYState } from '../atoms/useIndexState';
 
 function Navi() {
-    const [scrollY, setScrollY] = useAtom(scrollYState);
+    const [scrollY] = useAtom(scrollYState);
 
     return (
         <>
-            <NavigateSection scrollY={scrollY}>
+            <NavigateSection scrolly={scrollY}>
                 <LogoBox className="flex-center">COBBLE SPORTS</LogoBox>
                 <MenuList className="flex-center">
                     <li>회사소개</li>
@@ -17,7 +16,7 @@ function Navi() {
                     <li>코블NEWS</li>
                     <li>공식스토어</li>
                 </MenuList>
-                <LoginBtn className="flex-center" scrollY={scrollY}>
+                <LoginBtn className="flex-center" scrolly={scrollY}>
                     <button className="flex-center">로그인</button>
                 </LoginBtn>
             </NavigateSection>
@@ -39,19 +38,12 @@ const NavigateSection = styled.nav`
 
     transition: all 0.3s ease-in-out;
 
-    /* height: ${(props) => (props.scrollY > 500 ? '80px' : '100px')};
-    font-size: ${(props) => (props.scrollY > 500 ? '18px' : 'var(--font-size-Nomal)')};
-    color: ${(props) => (props.scrollY > 500 ? '#585858' : 'var(--color-main-001)')};
-    font-weight: ${(props) => (props.scrollY > 500 ? '400' : '300')};
-    border-bottom: ${(props) => (props.scrollY > 500 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
-    background-color: ${(props) => (props.scrollY > 500 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')}; */
-
-    height: ${(props) => (props.scrollY > 100 ? '80px' : '150px')};
-    font-size: ${(props) => (props.scrollY > 100 ? '16px' : 'var(--font-size-Nomal)')};
+    height: ${(props) => (props.scrolly > 100 ? '80px' : '150px')};
+    font-size: ${(props) => (props.scrolly > 100 ? '16px' : 'var(--font-size-Nomal)')};
     color: '#585858';
     font-weight: '400';
-    border-bottom: ${(props) => (props.scrollY > 100 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
-    background-color: ${(props) => (props.scrollY > 100 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
+    border-bottom: ${(props) => (props.scrolly > 100 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
+    background-color: ${(props) => (props.scrolly > 100 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
 `;
 
 const LogoBox = styled.div`
@@ -78,8 +70,8 @@ const LoginBtn = styled.div`
 
         /** ------- 스크롤 이동 시 변경 */
         transition: all 0.3s ease-in-out;
-        padding: ${(props) => (props.scrollY > 100 ? '10px 30px' : '10px 30px')};
-        font-size: ${(props) => (props.scrollY > 100 ? '16px' : 'var(--font-size-Nomal)')};
+        padding: ${(props) => (props.scrolly > 100 ? '10px 30px' : '10px 30px')};
+        font-size: ${(props) => (props.scrolly > 100 ? '16px' : 'var(--font-size-Nomal)')};
         background-color: '#252525';
         color: 'var(--color-main-001)';
     }

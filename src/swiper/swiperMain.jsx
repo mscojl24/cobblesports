@@ -16,17 +16,17 @@ function SwiperMain(data) {
     }, []);
 
     const formattedTitle = title.split(' ').map((word, index) => (
-        <>
+        <p key={index}>
             {word}
             <br />
-        </>
+        </p>
     ));
 
     return (
         <>
             <MainBanner bgimg={image} className="flex-h-center">
                 <div className={`${video ? 'background-color' : 'background'}`}></div>
-                {video && <video ref={videoRef} src={videoURL} muted autoplay playsinline loop />}
+                {video && <video ref={videoRef} src={videoURL} muted autoPlay playsInline loop />}
                 <TitleText className="flex-v-center column">
                     <h1 className="ani">{formattedTitle}</h1>
                     <div className="sub-text ani2 flex-h-center">
