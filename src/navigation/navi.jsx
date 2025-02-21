@@ -9,15 +9,17 @@ function Navi() {
     return (
         <>
             <NavigateSection scrolly={scrollY}>
-                <LogoBox className="flex-center">COBBLE SPORTS</LogoBox>
+                <LogoBox className="flex-center">
+                    <img src="./asset/cobblesports-logo.png" height="60px" />
+                </LogoBox>
                 <MenuList className="flex-center">
-                    <li>회사소개</li>
-                    <li>판매제품</li>
-                    <li>코블NEWS</li>
-                    <li>공식스토어</li>
+                    <li>Company</li>
+                    <li>Prodouct</li>
+                    <li>News</li>
+                    <li>Smart Store</li>
                 </MenuList>
                 <LoginBtn className="flex-center" scrolly={scrollY}>
-                    <button className="flex-center">로그인</button>
+                    <button className="flex-center">오프라인 매장</button>
                 </LoginBtn>
             </NavigateSection>
         </>
@@ -38,25 +40,23 @@ const NavigateSection = styled.nav`
 
     transition: all 0.3s ease-in-out;
 
-    height: ${(props) => (props.scrolly > 100 ? '80px' : '150px')};
-    font-size: ${(props) => (props.scrolly > 100 ? '16px' : 'var(--font-size-Nomal)')};
-    color: '#585858';
+    position: ${(props) => (props.scrolly > 800 ? '80px' : '150px')};
+
+    height: ${(props) => (props.scrolly > 800 ? '80px' : '150px')};
+    font-size: ${(props) => (props.scrolly > 800 ? '16px' : 'var(--font-size-Nomal)')};
+    color: ${(props) => (props.scrolly > 800 ? '#222' : '#fff')};
     font-weight: '400';
-    border-bottom: ${(props) => (props.scrolly > 100 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
-    background-color: ${(props) => (props.scrolly > 100 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
+    border-bottom: ${(props) => (props.scrolly > 800 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
+    background-color: ${(props) => (props.scrolly > 800 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
 `;
 
 const LogoBox = styled.div`
-    width: 200px;
-    font-family: 'Raleway';
-    font-weight: 800;
     font-size: 22px;
-    color: #3b3b3b;
 `;
 
 const MenuList = styled.ul`
     li {
-        padding: 25px;
+        padding: 30px;
         text-align: center;
     }
 `;
@@ -65,20 +65,20 @@ const LoginBtn = styled.div`
     width: 200px;
 
     button {
-        border: none;
-        border-radius: 100px;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 7px;
 
         /** ------- 스크롤 이동 시 변경 */
+        background-color: rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease-in-out;
-        padding: ${(props) => (props.scrolly > 100 ? '10px 30px' : '10px 30px')};
-        font-size: ${(props) => (props.scrolly > 100 ? '16px' : 'var(--font-size-Nomal)')};
-        background-color: '#252525';
-        color: 'var(--color-main-001)';
+        padding: ${(props) => (props.scrolly > 800 ? '10px 30px' : '10px 30px')};
+        font-size: ${(props) => (props.scrolly > 800 ? '16px' : 'var(--font-size-Nomal)')};
+        color: ${(props) => (props.scrolly > 800 ? '#222222' : '#fff')};
     }
 
     button:hover {
-        background-color: '#252525';
-        color: 'var(--color-main-001)';
+        background-color: var(--color-main-004);
+        color: #f0f0f0;
     }
 `;
 

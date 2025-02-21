@@ -43,7 +43,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<MainSection />} />
             </Routes>
-            <LoderPage />
+            {/* <LoderPage /> */}
         </Router>
     );
 }

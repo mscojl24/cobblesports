@@ -89,7 +89,7 @@ video {
     font: inherit;
     vertical-align: baseline;
     box-sizing: border-box;
-    font-family: 'Noto Sans KR', serif;
+    font-family: Raleway, 'Noto Sans KR', serif;
 }
 
 article,
@@ -130,5 +130,5 @@ table {
 
 button {
     font-family: 'Noto Sans KR', serif;
-    font-weight: 400;
+    font-weight: 300;
 }

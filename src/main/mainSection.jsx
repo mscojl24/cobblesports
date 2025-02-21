@@ -67,16 +67,8 @@ function MainSection() {
 }
 
 const MainBox = styled.section`
-    height: 300vh;
     .main-swiper {
         overflow: hidden;
-        animation: moveSlider 1s ease-in-out 1s forwards;
-        @keyframes moveSlider {
-            100% {
-                margin: 150px 200px 0px 200px;
-                border-radius: 50px;
-            }
-        }
     }
 
     .main-contents {
