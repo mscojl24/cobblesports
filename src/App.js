@@ -2,7 +2,7 @@ import './css/App.css';
 import Navi from './navigation/navi';
 import MainSection from './main/mainSection';
 import LoderPage from './loderPage';
-import * as XLSX from 'xlsx';
+// import * as XLSX from 'xlsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
@@ -14,18 +14,18 @@ function App() {
     const [pro, setProducts] = useAtom(productsState);
     console.log(pro);
 
-    useEffect(() => {
-        const fetchExcelFile = async () => {
-            const response = await fetch(process.env.REACT_APP_PRODUCTS_DATA_URL); // 엑셀 파일 경로
-            const arrayBuffer = await response.arrayBuffer();
-            const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-            const sheet = workbook.Sheets[workbook.SheetNames[0]];
-            const jsonData = XLSX.utils.sheet_to_json(sheet); // JSON으로 변환
-            setProducts(jsonData);
-        };
+    // useEffect(() => {
+    //     const fetchExcelFile = async () => {
+    //         const response = await fetch(process.env.REACT_APP_PRODUCTS_DATA_URL); // 엑셀 파일 경로
+    //         const arrayBuffer = await response.arrayBuffer();
+    //         const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+    //         const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    //         const jsonData = XLSX.utils.sheet_to_json(sheet); // JSON으로 변환
+    //         setProducts(jsonData);
+    //     };
 
-        fetchExcelFile();
-    }, []);
+    //     fetchExcelFile();
+    // }, []);
 
     // 스크롤 이벤트 핸들러
     const handleScroll = () => {
@@ -43,7 +43,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<MainSection />} />
             </Routes>
-            {/* <LoderPage /> */}
+            <LoderPage />
         </Router>
     );
 }

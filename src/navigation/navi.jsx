@@ -9,10 +9,17 @@ function Navi() {
     return (
         <>
             <NavigateSection scrolly={scrollY}>
-                <LogoBox className="flex-center">
-                    <img src="./asset/cobblesports-logo.png" height="60px" />
+                <LogoBox className="flex-center" scrolly={scrollY}>
+                    <img
+                        src={
+                            scrollY > 800
+                                ? './asset/cobblesports-logo-black.png'
+                                : './asset/cobblesports-logo-white.png'
+                        }
+                        height="50px"
+                    />
                 </LogoBox>
-                <MenuList className="flex-center">
+                <MenuList className="flex-center" scrolly={scrollY}>
                     <li>Company</li>
                     <li>Prodouct</li>
                     <li>News</li>
@@ -30,7 +37,6 @@ const NavigateSection = styled.nav`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    position: fixed;
     top: 0px;
     font-size: var(--font-size-Nomal);
     padding: 0px 200px;
@@ -40,24 +46,23 @@ const NavigateSection = styled.nav`
 
     transition: all 0.3s ease-in-out;
 
-    position: ${(props) => (props.scrolly > 800 ? '80px' : '150px')};
+    position: ${(props) => (props.scrolly > 800 ? 'fixed' : 'absolute')};
 
     height: ${(props) => (props.scrolly > 800 ? '80px' : '150px')};
     font-size: ${(props) => (props.scrolly > 800 ? '16px' : 'var(--font-size-Nomal)')};
     color: ${(props) => (props.scrolly > 800 ? '#222' : '#fff')};
     font-weight: '400';
     border-bottom: ${(props) => (props.scrolly > 800 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
-    background-color: ${(props) => (props.scrolly > 800 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
+    background-color: ${(props) => (props.scrolly > 800 ? 'rgb(255,255,255,0.9)' : 'rgb(0,0,0,0)')};
 `;
 
-const LogoBox = styled.div`
-    font-size: 22px;
-`;
+const LogoBox = styled.div``;
 
 const MenuList = styled.ul`
     li {
         padding: 30px;
         text-align: center;
+        text-shadow: ${(props) => (props.scrolly > 800 ? 'none' : ' 0px 0px 3px #000;')};
     }
 `;
 

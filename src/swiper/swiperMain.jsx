@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 import styled from 'styled-components';
-import { GiPauseButton } from 'react-icons/gi';
-import { ImYoutube2 } from 'react-icons/im';
 
 function SwiperMain(data) {
     const { title, image, subtitle, index, linkBtn, video, videoURL, description } = data.data;
@@ -25,15 +23,24 @@ function SwiperMain(data) {
     return (
         <>
             <MainBanner bgimg={image} className="flex-center">
+                {/* {videoURL && (
+                    <iframe
+                        className="video"
+                        src={`${videoURL}?autoplay=1&mute=1&playsinline=1&controls=0&modestbranding=1&showinfo=0&rel=0&loop=1&fs=0`}
+                        title="garmin YouTube video player"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; autoplay"
+                        allowFullScreen></iframe>
+                )} */}
                 <div className={`${video ? 'background-color' : 'background'}`}></div>
-                {video && <video ref={videoRef} src={videoURL} muted autoPlay playsInline loop />}
                 <TitleText className="flex-center column">
                     <h1 className="title">{formattedTitle}</h1>
                     <span className="sub-title">{subtitle}</span>
                     <span className="sub-script">{description}</span>
                     <ActButton>
                         <button className="store-btn flex-center">
-                            <span>{linkBtn.text}</span>　{linkBtn.icon}
+                            <span className="btn-text">{linkBtn.text}</span>
+                            {linkBtn.icon}
                         </button>
                     </ActButton>
                 </TitleText>
@@ -69,17 +76,17 @@ const MainBanner = styled.article`
         top: 0px;
         left: 0px;
         width: 100%;
-        height: 100vh;
-        background: linear-gradient(rgba(23, 23, 29, 1), rgba(76, 76, 97, 1));
+        height: 100%;
+        background: linear-gradient(rgba(23, 23, 29, 0.5), #000000);
     }
 
-    video {
+    .video {
         position: absolute;
         object-fit: cover;
-        top: 0px;
+        top: -80px;
         left: 0px;
-        height: 100%;
-        opacity: 0.2;
+        width: 100%;
+        height: 110%;
         background-color: #000;
     }
     @keyframes bgmove {
@@ -99,6 +106,7 @@ const TitleText = styled.div`
     .title {
         font-weight: 700;
         font-size: 86px;
+        text-shadow: 0px 0px 5px #000;
     }
 
     /* 서브 타이틀 CSS */
@@ -106,6 +114,7 @@ const TitleText = styled.div`
         font-size: 24px;
         font-weight: 300;
         margin-top: 40px;
+        text-shadow: 0px 0px 5px #000;
     }
 
     /* 설명문 CSS */
@@ -115,6 +124,7 @@ const TitleText = styled.div`
         font-weight: 300;
         margin-top: 40px;
         line-height: 150%;
+        text-shadow: 0px 0px 5px #000;
     }
 `;
 
@@ -147,6 +157,10 @@ const ActButton = styled.div`
     .store-btn:hover {
         background: #292929;
         color: #ffffff;
+    }
+
+    .btn-text {
+        margin-right: 10px;
     }
 `;
 

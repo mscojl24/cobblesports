@@ -4,32 +4,30 @@ import { useState } from 'react';
 
 import { swiperMainData } from '../data/swiperMainData';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
+import { Autoplay, EffectFade, Pagination, Navigation } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/effect-fade';
-import 'swiper/css/pagination';
-import MainIntro from './mainIntro';
-import MainBusiness from './mainBusiness';
-import MainInfo from './mainInfo';
+import 'swiper/css/navigation';
+import CompanyIntro from './companyIntro.jsx';
 
 function MainSection() {
-    const [swiperData, setSwiperData] = useState(swiperMainData);
+    const [swiperData] = useState(swiperMainData);
 
-    const handleSlideChange = () => {
-        //슬라이드가 변경될 때마다 애니메이션 초기화
-        const slides = document.querySelectorAll('h1');
-        slides.forEach((slide) => {
-            slide.classList.remove('ani'); // 기존 애니메이션 제거
-            setTimeout(() => slide.classList.add('ani'), 10); // 10ms 후 애니메이션 다시 추가
-        });
+    // const handleSlideChange = () => {
+    //     //슬라이드가 변경될 때마다 애니메이션 초기화
+    //     const slides = document.querySelectorAll('h1');
+    //     slides.forEach((slide) => {
+    //         slide.classList.remove('ani'); // 기존 애니메이션 제거
+    //         setTimeout(() => slide.classList.add('ani'), 10); // 10ms 후 애니메이션 다시 추가
+    //     });
 
-        const slides2 = document.querySelectorAll('div');
-        slides2.forEach((slide2) => {
-            slide2.classList.remove('ani2');
-            setTimeout(() => slide2.classList.add('ani2'), 10);
-        });
-    };
+    //     const slides2 = document.querySelectorAll('div');
+    //     slides2.forEach((slide2) => {
+    //         slide2.classList.remove('ani2');
+    //         setTimeout(() => slide2.classList.add('ani2'), 10);
+    //     });
+    // };
 
     return (
         <MainBox>
@@ -43,13 +41,8 @@ function MainSection() {
                         disableOnInteraction: false,
                     }}
                     navigation={true}
-                    pagination={{
-                        clickable: true,
-                        dynamicBullets: true,
-                    }}
-                    modules={[EffectFade, Pagination, Autoplay]}
-                    className="mySwiper"
-                    onSlideChange={handleSlideChange}>
+                    modules={[EffectFade, Autoplay, Navigation]}
+                    className="mySwiper">
                     {swiperData.map((data, index) => (
                         <SwiperSlide key={index}>
                             <SwiperMain data={data} />
@@ -58,21 +51,44 @@ function MainSection() {
                 </Swiper>
             </div>
             <div className="main-contents">
-                <MainIntro />
-                <MainBusiness />
-                <MainInfo />
+                <CompanyIntro />
             </div>
         </MainBox>
     );
 }
 
 const MainBox = styled.section`
-    .main-swiper {
-        overflow: hidden;
+    /* 기본 네비게이션 버튼 오버라이드 */
+    .swiper-button-prev,
+    .swiper-button-next {
+        &::after {
+            font-family: cursive;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.05);
+            font-size: 20px;
+            margin: 50px;
+            border-radius: 100px;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    .swiper-button-prev::after {
+        content: '<'; /* 왼쪽 화살표 (예시) */
+        left: 0px;
     }
 
-    .main-contents {
-        margin: 0px 200px;
+    .swiper-button-next::after {
+        content: '>'; /* 오른쪽 화살표 (예시) */
+        right: 0px;
+    }
+
+    .main-swiper {
+        overflow: hidden;
     }
 `;
 
