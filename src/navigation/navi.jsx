@@ -53,7 +53,7 @@ const NavigateSection = styled.nav`
     color: ${(props) => (props.scrolly > 800 ? '#222' : '#fff')};
     font-weight: '400';
     border-bottom: ${(props) => (props.scrolly > 800 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
-    background-color: ${(props) => (props.scrolly > 800 ? 'rgb(255,255,255,0.9)' : 'rgb(0,0,0,0)')};
+    background-color: ${(props) => (props.scrolly > 800 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
 `;
 
 const LogoBox = styled.div``;

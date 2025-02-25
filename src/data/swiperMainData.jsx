@@ -37,7 +37,7 @@ export const swiperMainData = [
         description:
             'The Garmin Tactix 8 is designed for professionals who demand precision, durability, and tactical functionality. Now featuring a built-in speaker, microphone, and dive capability, it performs in the toughest environments. Stay ahead with advanced GPS, night vision compatibility, and a rugged military-grade design—your ultimate tactical companion.',
 
-        image: '',
+        image: '../asset/cobble-background-image-03.png',
         linkBtn: {
             text: '신제품 확인하기',
             icon: <FcFlashOn size="24px" />,
@@ -50,7 +50,7 @@ export const swiperMainData = [
         description:
             'The Garmin Instinct 3 is designed for those who embrace the outdoors. With military-grade durability, advanced GPS, and long battery life, it keeps you on track in any environment. Stay connected with smart features, health monitoring, and real-time navigation—your perfect adventure companion.',
 
-        image: '',
+        image: '../asset/cobble-background-image-04.png',
         linkBtn: {
             text: '신제품 확인하기',
             icon: <FcFlashOn size="24px" />,
@@ -63,7 +63,20 @@ export const swiperMainData = [
         description:
             'The Garmin Descent G2 is built for divers who seek precision and reliability. With advanced dive modes, GPS surface tracking, and a rugged design, it ensures a safe and seamless diving experience. Stay connected with health monitoring and real-time dive data—your ultimate underwater companion.',
 
-        image: '',
+        image: '../asset/cobble-background-image-05.png',
+        linkBtn: {
+            text: '신제품 확인하기',
+            icon: <FcFlashOn size="24px" />,
+        },
+    },
+    {
+        index: 6,
+        title: 'Garmin/Approach S50',
+        subtitle: '어드벤스드 GPS 골프 스마트워치',
+        description:
+            'The Garmin Approach S50 is a premium golf GPS smartwatch featuring a 1.2-inch AMOLED display and access to over 43,000 preloaded courses. It offers precise yardages, hazard information, and health tracking, including heart rate monitoring and Body Battery energy levels, ensuring peak performance on and off the course.',
+
+        image: '../asset/cobble-background-image-06.png',
         linkBtn: {
             text: '신제품 확인하기',
             icon: <FcFlashOn size="24px" />,

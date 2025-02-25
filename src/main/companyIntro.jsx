@@ -56,7 +56,7 @@ function CompanyIntro() {
 
     return (
         <IntroBox>
-            <IntroDescription>
+            <IntroDescription scrolly={scrollY}>
                 <h1>
                     Company
                     <br />
@@ -116,6 +116,10 @@ const IntroDescription = styled.aside`
     h1 {
         font-size: 64px;
         font-weight: 700;
+        line-height: 120%;
+        opacity: ${(props) => (props.scrolly > 500 ? '1' : '0')};
+        transform: ${(props) => (props.scrolly > 500 ? 'translateX(0px)' : 'translateX(-50px)')};
+        transition: all ease-in-out 1s;
     }
 
     .com-script {
@@ -125,6 +129,10 @@ const IntroDescription = styled.aside`
         line-height: 200%;
         width: 650px;
         color: #343434;
+
+        opacity: ${(props) => (props.scrolly > 800 ? '1' : '0')};
+        transform: ${(props) => (props.scrolly > 800 ? 'translateX(0px)' : 'translateX(-50px)')};
+        transition: all ease-in-out 1s;
 
         span {
             font-weight: 700;
@@ -184,15 +192,15 @@ const IntroCard = styled.div`
     }
 
     transition: all ease-in-out 0.5s;
-    opacity: ${(props) => (props.scrolly < 1200 ? '0' : '1')};
-    transform: ${(props) => (props.scrolly < 1200 ? 'translateX(20px)' : 'translateX(0px)')};
+
+    opacity: ${(props) => (props.scrolly > 1200 ? '1' : '0')};
+    transform: ${(props) => (props.scrolly > 1200 ? 'scale(1)' : 'scale(0.9)')};
 `;
 
 const IntroCard2 = styled(IntroCard)`
     height: 300px;
     background: url('./asset/intro/Intro-background-image-02.png');
     background-size: cover;
-    transition: all ease-in-out 1s;
 `;
 
 const IntroCard3 = styled(IntroCard)`
@@ -200,15 +208,13 @@ const IntroCard3 = styled(IntroCard)`
     height: 300px;
     background: url('./asset/intro/Intro-background-image-03.png');
     background-size: cover;
-    transform: ${(props) => (props.scrolly < 1200 ? 'translateX(-150px)' : 'translateX(-170px)')};
-    transition: all ease-in-out 1.5s;
+    margin-left: -150px;
 `;
 const IntroCard4 = styled(IntroCard)`
     margin-top: 20px;
     height: 450px;
     background: url('./asset/intro/Intro-background-image-04.png');
     background-size: cover;
-    transition: all ease-in-out 2s;
 `;
 
 export default CompanyIntro;
