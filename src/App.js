@@ -6,13 +6,13 @@ import LoderPage from './loderPage';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
-import { productsState, scrollYState } from './atoms/useIndexState';
+import { scrollYState } from './atoms/useIndexState';
 import { useEffect } from 'react';
 
 function App() {
     const [, setScrollY] = useAtom(scrollYState);
-    const [pro, setProducts] = useAtom(productsState);
-    console.log(pro);
+    // const [pro, setProducts] = useAtom(productsState);
+    // console.log(pro);
 
     // useEffect(() => {
     //     const fetchExcelFile = async () => {

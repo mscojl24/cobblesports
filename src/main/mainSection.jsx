@@ -4,12 +4,13 @@ import { useState } from 'react';
 
 import { swiperMainData } from '../data/swiperMainData';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Pagination, Navigation } from 'swiper/modules';
+import { Autoplay, EffectFade, Navigation } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import CompanyIntro from './companyIntro.jsx';
+import NewProdouct from './newProdouct.jsx';
 
 function MainSection() {
     const [swiperData] = useState(swiperMainData);
@@ -31,7 +32,7 @@ function MainSection() {
 
     return (
         <MainBox>
-            <div className="main-swiper">
+            <div className='main-swiper'>
                 <Swiper
                     spaceBetween={30}
                     effect={'fade'}
@@ -42,7 +43,8 @@ function MainSection() {
                     }}
                     navigation={true}
                     modules={[EffectFade, Autoplay, Navigation]}
-                    className="mySwiper">
+                    className='mySwiper'
+                >
                     {swiperData.map((data, index) => (
                         <SwiperSlide key={index}>
                             <SwiperMain data={data} />
@@ -50,9 +52,9 @@ function MainSection() {
                     ))}
                 </Swiper>
             </div>
-            <div className="main-contents">
-                <CompanyIntro />
-            </div>
+            <CompanyIntro />
+            <NewProdouct />
+            <NewProdouct />
         </MainBox>
     );
 }
