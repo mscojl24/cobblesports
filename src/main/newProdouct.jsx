@@ -6,7 +6,7 @@ import 'swiper/css/pagination';
 import styled from 'styled-components';
 import { TfiArrowRight } from 'react-icons/tfi';
 
-import { Autoplay, Navigation } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 import { useState } from 'react';
 import { prodouctData } from '../data/prodouctsData';
 
@@ -38,20 +38,18 @@ function NewProdouct() {
                     }}
                     slidesPerView={3}
                     spaceBetween={30}
-                    navigation={true}
                     loop={true}
-                    modules={[Autoplay, Navigation]}
-                    className='mySwiper'
-                >
+                    modules={[Autoplay]}
+                    className="mySwiper">
                     {item.map((item, index) => (
                         <SwiperSlide key={index}>
-                            <div className='prodoct-image'></div>
-                            <ul className='prodoct-color flex-center'>
+                            <div className="prodoct-image"></div>
+                            <ul className="prodoct-color flex-center">
                                 {item.option.colorCode.map((color, idx) => (
                                     <Color color={color} key={idx}></Color>
                                 ))}
                             </ul>
-                            <ul className='prodoct-script'>
+                            <ul className="prodoct-script">
                                 <li>
                                     <h4>{item.title}</h4>
                                     <p>{item.script}</p>

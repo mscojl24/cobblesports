@@ -85,6 +85,10 @@ const Card = styled.article`
 
     &:hover {
         transform: scale(0.9);
+
+        .cg-arrow {
+            transform: rotate(-90deg);
+        }
     }
 
     .cg-text {
@@ -94,6 +98,7 @@ const Card = styled.article`
 
         small {
             font-size: 20px;
+            opacity: 0.3;
         }
 
         h3 {
@@ -103,6 +108,7 @@ const Card = styled.article`
     }
 
     .cg-arrow {
+        transition: all 0.3s ease-in-out;
         align-self: flex-end;
         font-size: 50px;
         opacity: 0.2;

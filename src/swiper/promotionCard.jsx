@@ -13,19 +13,28 @@ function PromotionCard() {
         {
             title: '프라이스 파이터 할인 최대 38%',
             subtitle: '가민 인기 제품을 합리적인 가격으로 만나보세요',
-            image: '/promotion/card-image-01.png',
+            image: `/asset/promotion/card-image-01.png`,
+            color: '#ebdbd0',
+            fontcolor: '#945e3a',
         },
         {
             title: '가민 챌린저스 운동인증 EVENT',
             subtitle: '하루하루를 더욱 건강하게',
-            image: '/promotion/card-image-01.png',
+            image: `/asset/promotion/card-image-02.png`,
+            color: '#d0ddeb',
+            fontcolor: '#3a5e94',
         },
         {
             title: '우리, 오늘부터 친구할래?',
             subtitle: '코블스포츠 카카오톡 채널 친구추가 이벤트',
-            image: '/promotion/card-image-01.png',
+            image: `/asset/promotion/card-image-03.png`,
+            color: '#ebe7d0',
+            fontcolor: '#63591f',
         },
     ];
+
+    console.log(`${promotion[1].image}`);
+
     return (
         <Section>
             <Swiper
@@ -40,7 +49,7 @@ function PromotionCard() {
                 className="mySwiper">
                 {promotion.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <Promotion className="flex-v-center column">
+                        <Promotion className="flex-v-center column" color={item.color} fontcolor={item.fontcolor}>
                             <p className="promotion-sub">{item.subtitle}</p>
                             <h1 className="promotion-title">{item.title}</h1>
                             <img
@@ -66,33 +75,32 @@ const Promotion = styled.article`
     width: 100%;
     height: 230px;
     border-radius: 20px;
-    background-color: #dde6ee;
+    background: linear-gradient(160deg, ${(props) => props.color} 50%, ${(props) => props.fontcolor} 180%);
     margin: 60px 0px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 
     & > * {
         margin: 7px 50px;
-        color: #ffffff;
+        color: ${(props) => props.fontcolor};
     }
 
     .promotion-sub {
         font-size: 22px;
-        font-weight: 300;
+        font-weight: 400;
     }
 
     .promotion-title {
         font-size: 36px;
-        font-weight: 600;
+        font-weight: 700;
     }
 
     .promotion-image {
         position: absolute;
-        border: 1px solid red;
         right: 0px;
         width: 500px;
         height: 280px;
-        margin-bottom: 60px;
+        margin-bottom: 57px;
     }
 `;
 
