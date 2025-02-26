@@ -13,8 +13,8 @@ function Navi() {
                     <img
                         src={
                             scrollY > 800
-                                ? './asset/cobblesports-logo-black.png'
-                                : './asset/cobblesports-logo-white.png'
+                                ? `${process.env.PUBLIC_URL}/asset/cobblesports-logo-black.png`
+                                : `${process.env.PUBLIC_URL}/asset/cobblesports-logo-white.png`
                         }
                         height="50px"
                     />

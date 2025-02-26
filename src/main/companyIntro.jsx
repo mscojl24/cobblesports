@@ -62,7 +62,7 @@ function CompanyIntro() {
                     <br />
                     Introduction
                 </h1>
-                <div className='com-script'>
+                <div className="com-script">
                     <span>유한회사 코블스포츠</span> Cobble sports 는 2015년 설립 이후 9년간 스포츠와 레저 분야에서
                     끊임없이 성장해 온 전문 기업입니다. 저희는 세계적으로 유명한{' '}
                     <span>GARMIN 제품의 정식 유통 및 판매를 담당하는 공식 인증 브랜드사</span>로, GARMIN 관련 제품
@@ -169,7 +169,7 @@ const IntroCard = styled.div`
     padding: 50px;
 
     height: 700px;
-    background: url('./asset/intro/Intro-background-image-01.png');
+    background: url(${process.env.PUBLIC_URL}/asset/intro/Intro-background-image-01.png);
 
     border-radius: 20px;
     color: #fff;
@@ -198,21 +198,21 @@ const IntroCard = styled.div`
 
 const IntroCard2 = styled(IntroCard)`
     height: 300px;
-    background: url('./asset/intro/Intro-background-image-02.png');
+    background: url(${process.env.PUBLIC_URL}/asset/intro/Intro-background-image-02.png);
     background-size: cover;
 `;
 
 const IntroCard3 = styled(IntroCard)`
     width: 70%;
     height: 300px;
-    background: url('./asset/intro/Intro-background-image-03.png');
+    background: url(${process.env.PUBLIC_URL}/asset/intro/Intro-background-image-03.png);
     background-size: cover;
     margin-left: -150px;
 `;
 const IntroCard4 = styled(IntroCard)`
     margin-top: 20px;
     height: 450px;
-    background: url('./asset/intro/Intro-background-image-04.png');
+    background: url(${process.env.PUBLIC_URL}/asset/intro/Intro-background-image-04.png);
     background-size: cover;
 `;
 

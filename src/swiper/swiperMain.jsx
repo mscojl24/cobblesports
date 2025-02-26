@@ -66,7 +66,7 @@ const MainBanner = styled.article`
         left: 0px;
         width: 100%;
         height: 100%;
-        background-image: url(${(props) => props.bgimg});
+        background-image: url(${process.env.PUBLIC_URL}${(props) => props.bgimg});
         background-size: cover;
         animation: bgmove 20s ease-in-out infinite;
     }

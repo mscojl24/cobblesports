@@ -3,7 +3,7 @@ import Navi from './navigation/navi';
 import MainSection from './main/mainSection';
 import LoderPage from './loderPage';
 // import * as XLSX from 'xlsx';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
 import { scrollYState } from './atoms/useIndexState';

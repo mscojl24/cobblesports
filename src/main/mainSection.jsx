@@ -11,6 +11,7 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import CompanyIntro from './companyIntro.jsx';
 import NewProdouct from './newProdouct.jsx';
+import CategoryCard from './categoryCard.jsx';
 
 function MainSection() {
     const [swiperData] = useState(swiperMainData);
@@ -32,7 +33,7 @@ function MainSection() {
 
     return (
         <MainBox>
-            <div className='main-swiper'>
+            <div className="main-swiper">
                 <Swiper
                     spaceBetween={30}
                     effect={'fade'}
@@ -43,8 +44,7 @@ function MainSection() {
                     }}
                     navigation={true}
                     modules={[EffectFade, Autoplay, Navigation]}
-                    className='mySwiper'
-                >
+                    className="mySwiper">
                     {swiperData.map((data, index) => (
                         <SwiperSlide key={index}>
                             <SwiperMain data={data} />
@@ -55,6 +55,7 @@ function MainSection() {
             <CompanyIntro />
             <NewProdouct />
             <NewProdouct />
+            <CategoryCard />
         </MainBox>
     );
 }
@@ -77,8 +78,20 @@ const MainBox = styled.section`
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: all ease-in-out 0.2s;
         }
     }
+
+    .swiper-button-prev:hover,
+    .swiper-button-next:hover {
+        &::after {
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #7c7c7c;
+            scale: calc(0.85);
+        }
+    }
+
     .swiper-button-prev::after {
         content: '<'; /* 왼쪽 화살표 (예시) */
         left: 0px;
