@@ -75,11 +75,12 @@ const Card = styled.article`
     overflow: hidden;
     /* background: url(${(props) => props.bgImage}) center/cover no-repeat; */
     display: flex;
-    flex-direction: column;
+    align-items: end;
+    /* flex-direction: column; */
     justify-content: space-between;
     padding: 50px;
     background-color: #f1f2f3;
-    color: #222222;
+    color: #343434;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 
@@ -87,7 +88,7 @@ const Card = styled.article`
         transform: scale(0.9);
 
         .cg-arrow {
-            transform: rotate(-90deg);
+            transform: rotate(-45deg);
         }
     }
 
@@ -109,7 +110,7 @@ const Card = styled.article`
 
     .cg-arrow {
         transition: all 0.3s ease-in-out;
-        align-self: flex-end;
+        /* align-self: flex-end; */
         font-size: 50px;
         opacity: 0.2;
     }
