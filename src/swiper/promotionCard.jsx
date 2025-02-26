@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 
 import styled from 'styled-components';
 
@@ -44,8 +44,7 @@ function PromotionCard() {
                     disableOnInteraction: false,
                 }}
                 loop={true}
-                pagination={true}
-                modules={[Autoplay, Pagination]}
+                modules={[Autoplay]}
                 className="mySwiper">
                 {promotion.map((item, index) => (
                     <SwiperSlide key={index}>
@@ -67,7 +66,7 @@ function PromotionCard() {
 
 const Section = styled.section`
     position: relative;
-    transform: translateY(-30px);
+    transform: translateY(30px);
 `;
 
 const Promotion = styled.article`

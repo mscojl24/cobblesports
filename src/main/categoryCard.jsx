@@ -14,6 +14,7 @@ function CategoryCard() {
 
     return (
         <CategoryCardSection>
+            <PromotionCard />
             <CategoriesContainer>
                 {categories.slice(0, 2).map((category, index) => (
                     <Card key={index} bgImage={category.image}>
@@ -46,14 +47,13 @@ function CategoryCard() {
                     </Card>
                 ))}
             </CategoriesContainer>
-            <PromotionCard />
         </CategoryCardSection>
     );
 }
 
 const CategoryCardSection = styled.section`
     width: 100%;
-    padding: 0px 200px;
+    padding: 50px 200px;
 `;
 
 const CategoriesContainer = styled.div`
