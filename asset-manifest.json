@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/cobblesports/static/css/main.663376b9.css",
+    "main.js": "/cobblesports/static/js/main.32efbadb.js",
+    "index.html": "/cobblesports/index.html",
+    "main.663376b9.css.map": "/cobblesports/static/css/main.663376b9.css.map",
+    "main.32efbadb.js.map": "/cobblesports/static/js/main.32efbadb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.663376b9.css",
+    "static/js/main.32efbadb.js"
+  ]
+}
