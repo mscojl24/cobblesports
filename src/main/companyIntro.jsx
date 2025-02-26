@@ -63,11 +63,10 @@ function CompanyIntro() {
                     Introduction
                 </h1>
                 <div className="com-script">
-                    <span>유한회사 코블스포츠</span> Cobble sports 는 2015년 설립 이후 9년간 스포츠와 레저 분야에서
-                    끊임없이 성장해 온 전문 기업입니다. 저희는 세계적으로 유명한{' '}
-                    <span>GARMIN 제품의 정식 유통 및 판매를 담당하는 공식 인증 브랜드사</span>로, GARMIN 관련 제품
-                    부문에서 네이버 스토어 점유율 1위를 기록하며 시장에서 신뢰받고 있습니다. 단순한 물류·유통을 넘어
-                    스포츠 용품 개발, 레저/취미 관련 콘텐츠 제작 등 다양한 스포츠 관련 분야에서 활약중입니다.
+                    2015년 설립된 COBBLE SPORTS는 스포츠와 레저 분야에서 꾸준히 성장해 온 전문 브랜드입니다. GARMIN 공식
+                    인증 브랜드사로서 네이버 스토어 GARMIN 부문 점유율 1위를 기록하며 신뢰받는 기업으로 자리 잡았습니다.
+                    우리는 단순한 유통을 넘어 스포츠 용품 개발, 레저·취미 콘텐츠 제작 등 다양한 분야에서 새로운 가치를
+                    만들어가고 있습니다. 스포츠를 더 즐겁고 혁신적으로 즐길 수 있도록, COBBLE SPORTS가 함께하겠습니다.
                 </div>
             </IntroDescription>
             <IntroCardSection>
@@ -123,10 +122,10 @@ const IntroDescription = styled.aside`
 
     .com-script {
         margin-top: 40px;
-        font-size: 16px;
+        font-size: 15px;
         font-family: '42dot Sans';
-        line-height: 200%;
-        width: 650px;
+        line-height: 180%;
+        max-width: 600px;
         color: #343434;
 
         opacity: ${(props) => (props.scrolly > 800 ? '1' : '0')};

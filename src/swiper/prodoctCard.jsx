@@ -1,32 +1,25 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
+import styled from 'styled-components';
+import { TfiArrowRight, TfiShoppingCartFull } from 'react-icons/tfi';
+import { TbShoppingCartShare } from 'react-icons/tb';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import styled from 'styled-components';
-import { TfiArrowRight } from 'react-icons/tfi';
-
 import { Autoplay } from 'swiper/modules';
 import { useState } from 'react';
-import { prodouctData } from '../data/prodouctsData';
 
-function NewProdouct() {
-    const [item] = useState(prodouctData);
+function ProdouctCard({ data }) {
+    const [cardData] = useState(data[0]);
+    const [item] = useState(cardData.prodouct);
 
     return (
         <NewProdouctSection>
             <NPTextBox>
-                <h1>
-                    New <br />
-                    Prodouct
-                </h1>
-                <p>
-                    {' '}
-                    최신 기술과 트렌드를 반영한 신상품이 입고되었습니다. 러닝, 사이클, 수영, 피트니스 등 다양한 종목에
-                    맞춘 최적의 제품을 지금 바로 확인해보세요.
-                </p>
+                <h1>{cardData.title}</h1>
+                <p>{cardData.subtitle}</p>
                 <button>
-                    <span>더 많은 제품</span>
+                    <span>More</span>
                     <TfiArrowRight />
                 </button>
             </NPTextBox>
@@ -37,7 +30,7 @@ function NewProdouct() {
                         disableOnInteraction: true,
                     }}
                     slidesPerView={3}
-                    spaceBetween={30}
+                    spaceBetween={20}
                     loop={true}
                     modules={[Autoplay]}
                     className="mySwiper"
@@ -47,16 +40,18 @@ function NewProdouct() {
                             <div className="prodoct-image"></div>
                             <ul className="prodoct-color flex-center">
                                 {item.option.colorCode.map((color, idx) => (
-                                    <Color color={color} key={idx}></Color>
+                                    <ColorIcon color={color} key={idx}></ColorIcon>
                                 ))}
                             </ul>
                             <ul className="prodoct-script">
                                 <li>
                                     <h4>{item.title}</h4>
-                                    <p>{item.script}</p>
+                                    <p>₩ {item.option.price}</p>
                                 </li>
                                 <li>
-                                    <button> 제품 보러가기 </button>
+                                    <button className="flex-center">
+                                        <TbShoppingCartShare />
+                                    </button>
                                 </li>
                             </ul>
                         </SwiperSlide>
@@ -69,33 +64,35 @@ function NewProdouct() {
 
 const NewProdouctSection = styled.section`
     display: flex;
-    margin: 250px 0px;
+    margin: 200px 0px;
 `;
 /* <-------------------------- BOX 텍스트 섹션 -------------------------------> */
 
 const NPTextBox = styled.aside`
-    width: 500px;
+    width: 300px;
     margin: 0px 120px 0px 200px;
     color: #343434;
 
     h1 {
-        font-size: 64px;
+        font-size: 50px;
         font-weight: 700;
     }
 
     p {
         margin: 40px 0px;
-        line-height: 200%;
+        line-height: 180%;
+        font-family: '42dot Sans';
+        min-width: 250px;
     }
 
     button {
-        width: 90%;
+        width: 200px;
         height: 70px;
         border-radius: 100px;
         border: 1px solid rgba(0, 0, 0, 0.1);
         background-color: rgba(0, 0, 0, 0);
-        font-size: 20px;
-        font-weight: 400;
+        font-size: 16px;
+        font-weight: 600;
         padding: 0px 40px;
 
         transition: all ease-in-out 0.3s;
@@ -107,7 +104,7 @@ const NPTextBox = styled.aside`
     }
 
     button:hover {
-        width: 100%;
+        width: 250px;
         border: 1px solid rgba(0, 0, 0, 0.5);
 
         > &:nth-child(2) {
@@ -127,13 +124,9 @@ const NPItem = styled.aside`
 
     .prodoct-image {
         width: 100%;
-        height: 480px;
+        height: 400px;
         background-color: #f2f3f6;
-        border-radius: 20px;
-    }
-    /* <-------------------------- Swiper 컬러 아이콘콘 섹션 -------------------------------> */
-
-    .prodoct-color {
+        /* border-radius: 20px; */
     }
     /* <-------------------------- Swiper 스크립트 섹션 -------------------------------> */
     .prodoct-script {
@@ -142,35 +135,45 @@ const NPItem = styled.aside`
 
         h4 {
             font-family: '42dot Sans';
-            font-size: 22px;
-            font-weight: 500;
-            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
         }
 
         p {
-            font-size: 14px;
+            font-family: '42dot Sans';
+            font-size: 16px;
             font-weight: 300;
             color: #909090;
         }
 
         button {
             height: 100%;
-            width: 150px;
-            font-size: 16px;
-            font-weight: 400;
+            width: 50px;
+            font-size: 18px;
             background-color: #fff;
             border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            border-radius: 5px;
+            color: #909090;
+            transition: all ease-in-out 0.3s;
+        }
+
+        button:hover {
+            background-color: #1f1f1f;
+            color: #f1f1f1;
+            border: 1px solid rgba(0, 0, 0, 0);
         }
     }
 `;
+/* <-------------------------- Swiper 컬러 아이콘콘 섹션 -------------------------------> */
 
-const Color = styled.div`
-    width: 15px;
-    height: 15px;
-    border-radius: 15px;
+const ColorIcon = styled.div`
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: ${(props) => props.color};
-    margin: 40px 5px;
+    margin: 30px 5px;
 `;
 
-export default NewProdouct;
+export default ProdouctCard;

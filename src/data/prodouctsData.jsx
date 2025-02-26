@@ -6,7 +6,7 @@ export const prodouctData = [
         script: '프리미엄 멀티스포츠 GPS 스마트워치',
         option: {
             size: ['51mm', '47mm', '43mm'],
-            price: '1,690,000 ~ 1,890,000',
+            price: '819,000 ~',
             colorName: ['블랙', '오렌지', '소프트 골드'],
             colorCode: ['#141414', '#ff9100', '#f1eacf'],
             img: {
@@ -56,7 +56,7 @@ export const prodouctData = [
         script: 'GPS 다이빙 컴퓨터 & 스마트워치',
         option: {
             size: ['51mm', '47mm', '43mm'],
-            price: '1,690,000 ~ 1,890,000',
+            price: '1,690,000 ~',
             colorName: ['블랙', '오렌지', '소프트 골드'],
             colorCode: ['#141414', '#ffe3d3'],
             img: {
@@ -106,7 +106,7 @@ export const prodouctData = [
         script: '프리미엄 GPS 전술 스마트워치',
         option: {
             size: ['51mm', '47mm', '43mm'],
-            price: '1,690,000 ~ 1,890,000',
+            price: '2,090,000',
             colorName: ['블랙', '오렌지', '소프트 골드'],
             colorCode: ['#eedecc', '#2b6b34', '#d689ee'],
             img: {
@@ -156,7 +156,7 @@ export const prodouctData = [
         script: '프리미엄 GPS 전술 스마트워치',
         option: {
             size: ['51mm', '47mm', '43mm'],
-            price: '1,690,000 ~ 1,890,000',
+            price: '320,000',
             colorName: ['블랙'],
             colorCode: ['#141414'],
             img: {

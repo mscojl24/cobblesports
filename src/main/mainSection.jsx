@@ -10,26 +10,30 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import CompanyIntro from './companyIntro.jsx';
-import NewProdouct from './newProdouct.jsx';
 import CategoryCard from './categoryCard.jsx';
+import ProdouctCard from '../swiper/prodoctCard.jsx';
+import { prodouctData } from '../data/prodouctsData.jsx';
 
 function MainSection() {
     const [swiperData] = useState(swiperMainData);
 
-    // const handleSlideChange = () => {
-    //     //슬라이드가 변경될 때마다 애니메이션 초기화
-    //     const slides = document.querySelectorAll('h1');
-    //     slides.forEach((slide) => {
-    //         slide.classList.remove('ani'); // 기존 애니메이션 제거
-    //         setTimeout(() => slide.classList.add('ani'), 10); // 10ms 후 애니메이션 다시 추가
-    //     });
+    const newProdouct = [
+        {
+            title: 'NEW ARRIVALS',
+            subtitle: '가민의 신제품과 함께 더 빠르게, 더 강하게, 더 멀리!',
+            link: '/',
+            prodouct: prodouctData,
+        },
+    ];
 
-    //     const slides2 = document.querySelectorAll('div');
-    //     slides2.forEach((slide2) => {
-    //         slide2.classList.remove('ani2');
-    //         setTimeout(() => slide2.classList.add('ani2'), 10);
-    //     });
-    // };
+    const highlights = [
+        {
+            title: 'BEST SELLRES',
+            subtitle: '컨슈머들이 선택한 가민의 인기 제품을 만나보세요!',
+            link: '/',
+            prodouct: prodouctData,
+        },
+    ];
 
     return (
         <MainBox>
@@ -44,7 +48,8 @@ function MainSection() {
                     }}
                     navigation={true}
                     modules={[EffectFade, Autoplay, Navigation]}
-                    className="mySwiper">
+                    className="mySwiper"
+                >
                     {swiperData.map((data, index) => (
                         <SwiperSlide key={index}>
                             <SwiperMain data={data} />
@@ -53,8 +58,8 @@ function MainSection() {
                 </Swiper>
             </div>
             <CompanyIntro />
-            <NewProdouct />
-            <NewProdouct />
+            <ProdouctCard data={newProdouct} />
+            <ProdouctCard data={highlights} />
             <CategoryCard />
         </MainBox>
     );

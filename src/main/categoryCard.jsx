@@ -31,8 +31,7 @@ function CategoryCard() {
                     <h2>Shop by category</h2>
                     <p>
                         러닝, 사이클, 수영, 등산, 피트니스 등 당신이 즐기는 스포츠에 맞춘 최적의 제품을 한곳에서
-                        만나보세요. 원하는 운동을 선택하면 필요한 장비와 필수 아이템을 빠르게 찾아볼 수 있어 더욱
-                        스마트한 쇼핑이 가능합니다.
+                        만나보세요. 당신의 니즈에 따라 완벽한 아이템을 추천해드립니다.
                     </p>
                 </CategoriesScript>
                 {categories.slice(2).map((category, index) => (
@@ -59,7 +58,7 @@ const CategoryCardSection = styled.section`
 const CategoriesContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    gap: 20px;
     align-items: center;
 
     @media (max-width: 768px) {
@@ -71,12 +70,10 @@ const Card = styled.article`
     position: relative;
     width: 100%;
     height: 300px;
-    border-radius: 15px;
+    border-radius: 10px;
     overflow: hidden;
-    /* background: url(${(props) => props.bgImage}) center/cover no-repeat; */
     display: flex;
     align-items: end;
-    /* flex-direction: column; */
     justify-content: space-between;
     padding: 50px;
     background-color: #f1f2f3;
@@ -94,24 +91,25 @@ const Card = styled.article`
 
     .cg-text {
         & > * {
-            margin: 6px 0px;
+            margin: 10px 0px;
         }
 
         small {
-            font-size: 20px;
+            font-size: 18px;
             opacity: 0.3;
         }
 
         h3 {
-            font-size: 35px;
-            font-weight: bold;
+            font-size: 24px;
+            font-weight: 700;
         }
     }
 
     .cg-arrow {
+        display: flex;
+        justify-content: end;
         transition: all 0.3s ease-in-out;
-        /* align-self: flex-end; */
-        font-size: 50px;
+        font-size: 40px;
         opacity: 0.2;
     }
 `;
@@ -119,11 +117,12 @@ const Card = styled.article`
 const CategoriesScript = styled.aside`
     grid-column: span 2;
     overflow: hidden;
-    padding: 0px 50px;
+    padding: 0px 100px;
     color: #343434;
 
     h2 {
-        font-size: 64px;
+        font-size: 50px;
+
         font-weight: 700;
         padding-bottom: 30px;
     }

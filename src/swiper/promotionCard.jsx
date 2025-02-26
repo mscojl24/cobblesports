@@ -72,14 +72,14 @@ function PromotionCard() {
 
 const Section = styled.section`
     position: relative;
-    transform: translateY(30px);
+    transform: translateY(40px);
 `;
 
 const Promotion = styled.article`
     position: relative;
     width: 100%;
     height: 230px;
-    border-radius: 20px;
+    border-radius: 10px;
     background: linear-gradient(160deg, ${(props) => props.color} 50%, ${(props) => props.fontcolor} 180%);
     margin: 60px 0px;
     transition: all 0.3s ease-in-out;
