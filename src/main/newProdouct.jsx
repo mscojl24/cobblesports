@@ -40,7 +40,8 @@ function NewProdouct() {
                     spaceBetween={30}
                     loop={true}
                     modules={[Autoplay]}
-                    className="mySwiper">
+                    className="mySwiper"
+                >
                     {item.map((item, index) => (
                         <SwiperSlide key={index}>
                             <div className="prodoct-image"></div>
@@ -106,7 +107,7 @@ const NPTextBox = styled.aside`
     }
 
     button:hover {
-        width: 110%;
+        width: 100%;
         border: 1px solid rgba(0, 0, 0, 0.5);
 
         > &:nth-child(2) {
