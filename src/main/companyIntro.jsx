@@ -63,10 +63,9 @@ function CompanyIntro() {
                     Introduction
                 </h1>
                 <div className="com-script">
-                    2015년 설립된 COBBLE SPORTS는 스포츠와 레저 분야에서 꾸준히 성장해 온 전문 브랜드입니다. GARMIN 공식
-                    인증 브랜드사로서 네이버 스토어 GARMIN 부문 점유율 1위를 기록하며 신뢰받는 기업으로 자리 잡았습니다.
-                    우리는 단순한 유통을 넘어 스포츠 용품 개발, 레저·취미 콘텐츠 제작 등 다양한 분야에서 새로운 가치를
-                    만들어가고 있습니다. 스포츠를 더 즐겁고 혁신적으로 즐길 수 있도록, COBBLE SPORTS가 함께하겠습니다.
+                    2015년 설립된 COBBLE SPORTS 는 스포츠와 레저 분야에서 꾸준히 성장해 온 전문 브랜드입니다. 유통을
+                    넘어 스포츠 용품 개발, 레저·취미 콘텐츠 제작 등 다양한 분야에서 새로운 가치를 만들어가고 있습니다.
+                    스포츠를 더 즐겁고 혁신적으로 즐길 수 있도록, COBBLE SPORTS 가 함께하겠습니다.
                 </div>
             </IntroDescription>
             <IntroCardSection>

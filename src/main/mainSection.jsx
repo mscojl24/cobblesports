@@ -13,6 +13,7 @@ import CompanyIntro from './companyIntro.jsx';
 import CategoryCard from './categoryCard.jsx';
 import ProdouctCard from '../swiper/prodoctCard.jsx';
 import { prodouctData } from '../data/prodouctsData.jsx';
+import Recommended from './recommended.jsx';
 
 function MainSection() {
     const [swiperData] = useState(swiperMainData);
@@ -48,8 +49,7 @@ function MainSection() {
                     }}
                     navigation={true}
                     modules={[EffectFade, Autoplay, Navigation]}
-                    className="mySwiper"
-                >
+                    className="mySwiper">
                     {swiperData.map((data, index) => (
                         <SwiperSlide key={index}>
                             <SwiperMain data={data} />
@@ -57,6 +57,7 @@ function MainSection() {
                     ))}
                 </Swiper>
             </div>
+            <Recommended />
             <CompanyIntro />
             <ProdouctCard data={newProdouct} />
             <ProdouctCard data={highlights} />
