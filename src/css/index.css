@@ -127,6 +127,12 @@ table {
 }
 
 button {
+    border: 1px solid rgb(192, 192, 192);
+    background: none;
+    color: #1b1b1b;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
     font-family: Raleway, '42dot Sans', serif;
     font-weight: 300;
 }

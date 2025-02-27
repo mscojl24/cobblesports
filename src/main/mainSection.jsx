@@ -59,9 +59,9 @@ function MainSection() {
             </div>
             <Recommended />
             <CompanyIntro />
+            <CategoryCard />
             <ProdouctCard data={newProdouct} />
             <ProdouctCard data={highlights} />
-            <CategoryCard />
         </MainBox>
     );
 }

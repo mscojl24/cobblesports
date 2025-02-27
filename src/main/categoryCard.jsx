@@ -52,7 +52,7 @@ function CategoryCard() {
 
 const CategoryCardSection = styled.section`
     width: 100%;
-    padding: 50px 200px;
+    padding: 200px;
 `;
 
 const CategoriesContainer = styled.div`
@@ -122,7 +122,6 @@ const CategoriesScript = styled.aside`
 
     h2 {
         font-size: 50px;
-
         font-weight: 700;
         padding-bottom: 30px;
     }

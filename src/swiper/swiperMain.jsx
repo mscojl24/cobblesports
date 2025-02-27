@@ -155,7 +155,7 @@ const ActButton = styled.div`
     }
 
     .store-btn:hover {
-        background: #292929;
+        background: #070707;
         color: #ffffff;
     }
 

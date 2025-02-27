@@ -114,8 +114,8 @@ const IntroDescription = styled.aside`
         font-size: 64px;
         font-weight: 700;
         line-height: 120%;
-        opacity: ${(props) => (props.scrolly > 500 ? '1' : '0')};
-        transform: ${(props) => (props.scrolly > 500 ? 'translateX(0px)' : 'translateX(-50px)')};
+        opacity: ${(props) => (props.scrolly > 1000 ? '1' : '0')};
+        transform: ${(props) => (props.scrolly > 1000 ? 'translateX(0px)' : 'translateX(-50px)')};
         transition: all ease-in-out 1s;
     }
 
@@ -127,8 +127,8 @@ const IntroDescription = styled.aside`
         max-width: 600px;
         color: #343434;
 
-        opacity: ${(props) => (props.scrolly > 800 ? '1' : '0')};
-        transform: ${(props) => (props.scrolly > 800 ? 'translateX(0px)' : 'translateX(-50px)')};
+        opacity: ${(props) => (props.scrolly > 1800 ? '1' : '0')};
+        transform: ${(props) => (props.scrolly > 1800 ? 'translateX(0px)' : 'translateX(-50px)')};
         transition: all ease-in-out 1s;
 
         span {
@@ -190,8 +190,8 @@ const IntroCard = styled.div`
 
     transition: all ease-in-out 0.5s;
 
-    opacity: ${(props) => (props.scrolly > 1200 ? '1' : '0')};
-    transform: ${(props) => (props.scrolly > 1200 ? 'scale(1)' : 'scale(0.9)')};
+    opacity: ${(props) => (props.scrolly > 2200 ? '1' : '0')};
+    transform: ${(props) => (props.scrolly > 2200 ? 'scale(1)' : 'scale(0.9)')};
 `;
 
 const IntroCard2 = styled(IntroCard)`

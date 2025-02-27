@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { useAtom } from 'jotai';
 import { scrollYState } from '../atoms/useIndexState';
+import LoderPage from '../cobbleLogo';
 
 function Navi() {
     const [scrollY] = useAtom(scrollYState);
@@ -9,15 +10,16 @@ function Navi() {
     return (
         <>
             <NavigateSection scrolly={scrollY}>
-                <LogoBox className="flex-center" scrolly={scrollY}>
-                    <img
+                <LogoBox className="flex-h-center" scrolly={scrollY}>
+                    <LoderPage />
+                    {/* <img
                         src={
                             scrollY > 800
                                 ? `${process.env.PUBLIC_URL}/asset/cobblesports-logo-black.png`
                                 : `${process.env.PUBLIC_URL}/asset/cobblesports-logo-white.png`
                         }
                         height="50px"
-                    />
+                    /> */}
                 </LogoBox>
                 <MenuList className="flex-center" scrolly={scrollY}>
                     <li>Company</li>
@@ -56,7 +58,9 @@ const NavigateSection = styled.nav`
     background-color: ${(props) => (props.scrolly > 800 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
 `;
 
-const LogoBox = styled.div``;
+const LogoBox = styled.div`
+    width: 200px;
+`;
 
 const MenuList = styled.ul`
     li {
@@ -82,7 +86,7 @@ const LoginBtn = styled.div`
     }
 
     button:hover {
-        background-color: var(--color-main-004);
+        background-color: #000000;
         color: #f0f0f0;
     }
 `;
