@@ -29,12 +29,11 @@ function ProdouctCard({ data }) {
                         delay: 2000,
                         disableOnInteraction: true,
                     }}
-                    slidesPerView={3}
+                    slidesPerView={4}
                     spaceBetween={20}
                     loop={true}
                     modules={[Autoplay]}
-                    className="mySwiper"
-                >
+                    className="mySwiper">
                     {item.map((item, index) => (
                         <SwiperSlide key={index}>
                             <div className="prodoct-image"></div>
@@ -64,13 +63,13 @@ function ProdouctCard({ data }) {
 
 const NewProdouctSection = styled.section`
     display: flex;
-    margin: 200px 0px;
+    margin: 200px 30px;
 `;
 /* <-------------------------- BOX 텍스트 섹션 -------------------------------> */
 
 const NPTextBox = styled.aside`
     width: 300px;
-    margin: 0px 120px 0px 200px;
+    margin-right: 30px;
     color: #343434;
 
     h1 {

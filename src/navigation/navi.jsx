@@ -30,18 +30,21 @@ function Navi() {
         };
     }, [lastScrollY]);
 
+    // 스크롤 값이 200 이하일 때는 원래 디자인 유지
+    const scrollingUp = scrollY > 200 && isScrollingUp;
+
     return (
-        <NavigateSection scrollingUp={isScrollingUp}>
+        <NavigateSection scrollingUp={scrollingUp}>
             <LogoBox className="flex-h-center">
                 <CobbleLogo />
             </LogoBox>
-            <MenuList className="flex-center" scrollingUp={isScrollingUp}>
+            <MenuList className="flex-center" scrollingUp={scrollingUp}>
                 <li>Company</li>
                 <li>Product</li>
                 <li>News</li>
                 <li>Smart Store</li>
             </MenuList>
-            <LoginBtn className="flex-center" scrollingUp={isScrollingUp}>
+            <LoginBtn className="flex-center" scrollingUp={scrollingUp}>
                 <button className="flex-center">오프라인 매장</button>
             </LoginBtn>
         </NavigateSection>
@@ -57,6 +60,8 @@ const NavigateSection = styled.nav`
     padding: 0px 200px;
     z-index: 99;
     transition: all 0.3s ease-in-out;
+
+    /* 스크롤 값이 200 이하이면 원래 스타일 유지 */
     position: ${(props) => (props.scrollingUp ? 'fixed' : 'absolute')};
     height: ${(props) => (props.scrollingUp ? '80px' : '150px')};
     font-size: ${(props) => (props.scrollingUp ? '16px' : 'var(--font-size-Nomal)')};
