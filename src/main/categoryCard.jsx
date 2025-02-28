@@ -4,7 +4,7 @@ import PromotionCard from '../swiper/promotionCard';
 
 function CategoryCard() {
     const categories = [
-        { subtitle: 'Running', title: '러닝', image: '/categories/running.jpg' },
+        { subtitle: 'Youtube', title: '유튜브채널', image: '/categories/running.jpg' },
         { subtitle: 'Cycling', title: '자전거', image: '/categories/cycling.jpg' },
         { subtitle: 'Adventure', title: '아웃도어', image: '/categories/adventure.jpg' },
         { subtitle: 'water', title: '수영/다이빙', image: '/categories/water.jpg' },

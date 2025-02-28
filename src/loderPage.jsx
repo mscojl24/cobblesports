@@ -1,37 +1,27 @@
 import styled from 'styled-components';
+import { useMemo } from 'react';
 
 function LoderPage() {
+    const letters = useMemo(() => ['C', 'O', 'B', 'B', 'L', 'E'], []);
+
     return (
         <LoderSection>
-            <div className="flex-center">
+            <FadeBackground className="flex-center">
                 <ul className="flex-center">
-                    <LodingBar start="1">
-                        <span className="text-animation">C</span>
-                    </LodingBar>
-                    <LodingBar start="1.1">
-                        <span className="text-animation">O</span>
-                    </LodingBar>
-                    <LodingBar start="1.2">
-                        <span className="text-animation">B</span>
-                    </LodingBar>
-                    <LodingBar start="1.3">
-                        <span className="text-animation">B</span>
-                    </LodingBar>
-                    <LodingBar start="1.4">
-                        <span className="text-animation">L</span>
-                    </LodingBar>
-                    <LodingBar start="1.5">
-                        <span className="text-animation">E</span>
-                    </LodingBar>
+                    {letters.map((char, index) => (
+                        <LodingBar key={index} start={1 + index * 0.1}>
+                            <span className="text-animation">{char}</span>
+                        </LodingBar>
+                    ))}
                 </ul>
-            </div>
+            </FadeBackground>
         </LoderSection>
     );
 }
 
 const LoderSection = styled.div`
     position: fixed;
-    top: 0px;
+    top: 0;
     width: 100vw;
     height: 100vh;
     background-color: rgba(255, 255, 255, 0.3);
@@ -39,38 +29,40 @@ const LoderSection = styled.div`
     z-index: 999;
     overflow: hidden;
 
-    div {
-        position: absolute;
-        bottom: 0px;
-        width: 100vw;
-        height: 0vh;
-        background-color: rgba(0, 0, 0, 1);
+    /* 전체 화면 페이드 아웃 */
+    animation: fadeoutContainer 0.6s ease-in-out forwards 3s;
 
-        animation: fadeoutloder 0.6s ease-in-out forwards 0.5s;
+    @keyframes fadeoutContainer {
+        100% {
+            height: 0;
+        }
+    }
+`;
 
-        @keyframes fadeoutloder {
-            100% {
-                height: 100vh;
-            }
+const FadeBackground = styled.div`
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 0;
+    background-color: rgba(0, 0, 0, 1);
+
+    /* 배경 페이드 인 */
+    animation: fadeInBackground 0.6s ease-in-out forwards 0.5s;
+
+    @keyframes fadeInBackground {
+        100% {
+            height: 100vh;
         }
     }
 
     ul {
         opacity: 0;
-        animation: fadeoutloder1 0.6s ease-in-out forwards 1s;
+        animation: fadeInText 0.6s ease-in-out forwards 1s;
 
-        @keyframes fadeoutloder1 {
+        @keyframes fadeInText {
             to {
                 opacity: 1;
             }
-        }
-    }
-
-    animation: fadeoutloder2 0.6s ease-in-out forwards 3s;
-
-    @keyframes fadeoutloder2 {
-        100% {
-            height: 0vh;
         }
     }
 `;
@@ -79,32 +71,32 @@ const LodingBar = styled.li`
     display: flex;
     justify-content: center;
     align-items: center;
-
     font-size: 24px;
     color: #fff;
     margin: 0px 2px;
-
     overflow: hidden;
-    animation: textfadeout 0.5s ease-in-out forwards 2.5s;
+
+    animation: fadeOutText 0.5s ease-in-out forwards 2.5s;
 
     span {
         font-family: 'Anton', serif;
-        transform: translateY(-20px);
-        animation: moveloder 0.5s ease-in-out forwards;
+        transform: translate3d(0, -20px, 0);
+        will-change: transform, opacity;
+        animation: moveLoader 0.5s ease-in-out forwards;
         animation-delay: ${(props) => props.start}s;
     }
 
-    @keyframes moveloder {
+    @keyframes moveLoader {
         0% {
             opacity: 1;
         }
         100% {
-            transform: translateY(0px);
+            transform: translate3d(0, 0, 0);
             opacity: 1;
         }
     }
 
-    @keyframes textfadeout {
+    @keyframes fadeOutText {
         0% {
             opacity: 1;
         }

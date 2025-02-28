@@ -14,6 +14,7 @@ import CategoryCard from './categoryCard.jsx';
 import ProdouctCard from '../swiper/prodoctCard.jsx';
 import { prodouctData } from '../data/prodouctsData.jsx';
 import Recommended from './recommended.jsx';
+import CobbleNews from './cobbleNews.jsx';
 
 function MainSection() {
     const [swiperData] = useState(swiperMainData);
@@ -59,9 +60,10 @@ function MainSection() {
             </div>
             <Recommended />
             <CompanyIntro />
-            <CategoryCard />
             <ProdouctCard data={newProdouct} />
             <ProdouctCard data={highlights} />
+            {/* <CobbleNews /> */}
+            <CategoryCard />
         </MainBox>
     );
 }

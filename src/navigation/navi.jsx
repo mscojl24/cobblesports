@@ -1,37 +1,50 @@
 import styled from 'styled-components';
-
+import { useState, useEffect } from 'react';
 import { useAtom } from 'jotai';
 import { scrollYState } from '../atoms/useIndexState';
-import LoderPage from '../cobbleLogo';
+import CobbleLogo from '../cobbleLogo';
 
 function Navi() {
-    const [scrollY] = useAtom(scrollYState);
+    const [scrollY, setScrollY] = useAtom(scrollYState);
+    const [isScrollingUp, setIsScrollingUp] = useState(false);
+    const [lastScrollY, setLastScrollY] = useState(0);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY < lastScrollY) {
+                // 스크롤을 위로 올리는 경우
+                setIsScrollingUp(true);
+            } else {
+                // 스크롤을 아래로 내리는 경우
+                setIsScrollingUp(false);
+            }
+
+            setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [lastScrollY]);
 
     return (
-        <>
-            <NavigateSection scrolly={scrollY}>
-                <LogoBox className="flex-h-center" scrolly={scrollY}>
-                    <LoderPage />
-                    {/* <img
-                        src={
-                            scrollY > 800
-                                ? `${process.env.PUBLIC_URL}/asset/cobblesports-logo-black.png`
-                                : `${process.env.PUBLIC_URL}/asset/cobblesports-logo-white.png`
-                        }
-                        height="50px"
-                    /> */}
-                </LogoBox>
-                <MenuList className="flex-center" scrolly={scrollY}>
-                    <li>Company</li>
-                    <li>Prodouct</li>
-                    <li>News</li>
-                    <li>Smart Store</li>
-                </MenuList>
-                <LoginBtn className="flex-center" scrolly={scrollY}>
-                    <button className="flex-center">오프라인 매장</button>
-                </LoginBtn>
-            </NavigateSection>
-        </>
+        <NavigateSection scrollingUp={isScrollingUp}>
+            <LogoBox className="flex-h-center">
+                <CobbleLogo />
+            </LogoBox>
+            <MenuList className="flex-center" scrollingUp={isScrollingUp}>
+                <li>Company</li>
+                <li>Product</li>
+                <li>News</li>
+                <li>Smart Store</li>
+            </MenuList>
+            <LoginBtn className="flex-center" scrollingUp={isScrollingUp}>
+                <button className="flex-center">오프라인 매장</button>
+            </LoginBtn>
+        </NavigateSection>
     );
 }
 
@@ -43,19 +56,13 @@ const NavigateSection = styled.nav`
     font-size: var(--font-size-Nomal);
     padding: 0px 200px;
     z-index: 99;
-
-    /** ------- 스크롤 이동 시 변경 */
-
     transition: all 0.3s ease-in-out;
-
-    position: ${(props) => (props.scrolly > 800 ? 'fixed' : 'absolute')};
-
-    height: ${(props) => (props.scrolly > 800 ? '80px' : '150px')};
-    font-size: ${(props) => (props.scrolly > 800 ? '16px' : 'var(--font-size-Nomal)')};
-    color: ${(props) => (props.scrolly > 800 ? '#222' : '#fff')};
-    font-weight: '400';
-    border-bottom: ${(props) => (props.scrolly > 800 ? '1px solid #eeeeee' : '1px solid rgb(0,0,0,0)')};
-    background-color: ${(props) => (props.scrolly > 800 ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
+    position: ${(props) => (props.scrollingUp ? 'fixed' : 'absolute')};
+    height: ${(props) => (props.scrollingUp ? '80px' : '150px')};
+    font-size: ${(props) => (props.scrollingUp ? '16px' : 'var(--font-size-Nomal)')};
+    color: ${(props) => (props.scrollingUp ? '#222' : '#fff')};
+    border-bottom: ${(props) => (props.scrollingUp ? '1px solid #eeeeee' : '1px solid rgba(0,0,0,0)')};
+    background-color: ${(props) => (props.scrollingUp ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
 `;
 
 const LogoBox = styled.div`
@@ -66,7 +73,7 @@ const MenuList = styled.ul`
     li {
         padding: 30px;
         text-align: center;
-        text-shadow: ${(props) => (props.scrolly > 800 ? 'none' : ' 0px 0px 3px #000;')};
+        text-shadow: ${(props) => (props.scrollingUp ? 'none' : '0px 0px 3px #000')};
     }
 `;
 
@@ -76,13 +83,11 @@ const LoginBtn = styled.div`
     button {
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 7px;
-
-        /** ------- 스크롤 이동 시 변경 */
         background-color: rgba(255, 255, 255, 0.2);
         transition: all 0.3s ease-in-out;
-        padding: ${(props) => (props.scrolly > 800 ? '10px 30px' : '10px 30px')};
-        font-size: ${(props) => (props.scrolly > 800 ? '16px' : 'var(--font-size-Nomal)')};
-        color: ${(props) => (props.scrolly > 800 ? '#222222' : '#fff')};
+        padding: ${(props) => (props.scrollingUp ? '10px 30px' : '10px 30px')};
+        font-size: ${(props) => (props.scrollingUp ? '16px' : 'var(--font-size-Nomal)')};
+        color: ${(props) => (props.scrollingUp ? '#222222' : '#fff')};
     }
 
     button:hover {
