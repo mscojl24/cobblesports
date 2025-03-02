@@ -51,7 +51,7 @@ function SwiperMain(data) {
 
 const MainBanner = styled.article`
     position: relative;
-    height: 115vh;
+    height: 100vh;
     overflow: hidden;
     text-align: center;
 
@@ -66,7 +66,8 @@ const MainBanner = styled.article`
         left: 0px;
         width: 100%;
         height: 100%;
-        background-image: url(${process.env.PUBLIC_URL}${(props) => props.bgimg});
+        background-image: linear-gradient(rgba(0, 0, 0, 0) 60%, #000000),
+            url(${process.env.PUBLIC_URL}${(props) => props.bgimg});
         background-size: cover;
         animation: bgmove 20s ease-in-out infinite;
     }

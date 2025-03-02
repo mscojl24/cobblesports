@@ -16,10 +16,9 @@ const NewItemBox = styled.section`
     overflow: hidden;
     width: 100%;
     height: 100vh;
+    justify-content: space-between;
     background: url(${process.env.PUBLIC_URL}/asset/recommend-background-image-01.png);
     background-size: cover;
-
-    justify-content: space-between;
 
     button {
         cursor: pointer;
@@ -39,6 +38,7 @@ const NewItemBox = styled.section`
 `;
 
 const RecommendedScript = styled.div`
+    z-index: 9;
     color: #fff;
     text-align: center;
 

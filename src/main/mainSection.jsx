@@ -50,7 +50,8 @@ function MainSection() {
                     }}
                     navigation={true}
                     modules={[EffectFade, Autoplay, Navigation]}
-                    className="mySwiper">
+                    className="mySwiper"
+                >
                     {swiperData.map((data, index) => (
                         <SwiperSlide key={index}>
                             <SwiperMain data={data} />

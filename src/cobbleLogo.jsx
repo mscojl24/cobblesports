@@ -34,19 +34,39 @@ function CobbleLogo() {
 
     return (
         <LogoBox className="flex-center">
-            {letters.map((char, index) => (
-                <LogoText key={index} start={1 + index * 0.1} changeColor={shouldChangeColor}>
-                    <span className="text-animation">{char}</span>
-                </LogoText>
-            ))}
+            {scrollY > 200 && isScrollingUp ? (
+                <img src={`${process.env.PUBLIC_URL}/asset/cobblesports-logo-vacter2.png`} alt="logo-vacter" />
+            ) : (
+                <img src={`${process.env.PUBLIC_URL}/asset/cobblesports-logo-vacter.png`} alt="logo-vacter" />
+            )}
+            <div className="logo-text-box flex-center">
+                {letters.map((char, index) => (
+                    <LogoText key={index} start={1 + index * 0.1} changeColor={shouldChangeColor}>
+                        <span className="text-animation">{char}</span>
+                    </LogoText>
+                ))}
+            </div>
         </LogoBox>
     );
 }
 
 const LogoBox = styled.ul`
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+
+    img {
+        left: 0px;
+        position: absolute;
+        width: 80px;
+    }
+
+    .logo-text-box {
+        margin-left: 20px;
+        overflow: hidden;
+        padding: 0px 10px;
+    }
 `;
 
 const LogoText = styled.li`
@@ -54,15 +74,14 @@ const LogoText = styled.li`
     justify-content: center;
     align-items: center;
     font-size: 24px;
+    font-style: italic;
     color: ${(props) => (props.changeColor ? '#222' : '#fff')};
-    margin: 0px 1px;
-    overflow: hidden;
 
     span {
         font-family: 'Anton', serif;
         animation: moveloder 5s ease-in-out infinite both;
         animation-delay: ${(props) => props.start}s;
-        text-shadow: ${(props) => (props.changeColor ? 'none' : '0px 0px 3px rgba(0, 0, 0, 0.5)')};
+        /* text-shadow: ${(props) => (props.changeColor ? 'none' : '0px 0px 3px rgba(0, 0, 0, 0.5)')}; */
     }
 
     @keyframes moveloder {
