@@ -1,51 +1,93 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import styled from 'styled-components';
 
-function SwiperMain(data) {
-    const { title, image, subtitle, index, linkBtn, video, videoURL, description } = data.data;
+import { TfiArrowRight } from 'react-icons/tfi';
 
-    const videoRef = useRef(null);
+import { swiperMainData } from '../data/swiperMainData';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+
+function SwiperMain() {
+    const [progress, setProgress] = useState(0);
+    const slideDuration = 6000; // 6초
+    const requestRef = useRef(null);
+    const startTimeRef = useRef(null);
+
+    const animateProgress = (timestamp) => {
+        if (!startTimeRef.current) startTimeRef.current = timestamp;
+        const elapsed = timestamp - startTimeRef.current;
+        const newProgress = Math.min((elapsed / slideDuration) * 100, 100);
+        setProgress(newProgress);
+
+        if (newProgress < 100) {
+            requestRef.current = requestAnimationFrame(animateProgress);
+        }
+    };
+
+    function formattedTitle(title) {
+        return title.split('/').map((word, index) => (
+            <React.Fragment key={index}>
+                {word}
+                <br />
+            </React.Fragment>
+        ));
+    }
 
     useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play();
-        }
+        startTimeRef.current = null;
+        requestRef.current = requestAnimationFrame(animateProgress);
+        return () => cancelAnimationFrame(requestRef.current);
     }, []);
 
-    const formattedTitle = title.split('/').map((word, index) => (
-        <p key={index}>
-            {word}
-            <br />
-        </p>
-    ));
-
     return (
-        <>
-            <MainBanner bgimg={image} className="flex-center">
-                {/* {videoURL && (
-                    <iframe
-                        className="video"
-                        src={`${videoURL}?autoplay=1&mute=1&playsinline=1&controls=0&modestbranding=1&showinfo=0&rel=0&loop=1&fs=0`}
-                        title="garmin YouTube video player"
-                        referrerpolicy="strict-origin-when-cross-origin"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; autoplay"
-                        allowFullScreen></iframe>
-                )} */}
-                <div className={`${video ? 'background-color' : 'background'}`}></div>
-                <TitleText className="flex-center column">
-                    <h1 className="title">{formattedTitle}</h1>
-                    <span className="sub-title">{subtitle}</span>
-                    <span className="sub-script">{description}</span>
-                    <ActButton>
-                        <button className="store-btn flex-center">
-                            <span className="btn-text">{linkBtn.text}</span>
-                            {linkBtn.icon}
-                        </button>
-                    </ActButton>
-                </TitleText>
-            </MainBanner>
-        </>
+        <Swiper
+            spaceBetween={30}
+            effect={'fade'}
+            loop={true}
+            autoplay={{
+                delay: slideDuration,
+                disableOnInteraction: false,
+            }}
+            modules={[EffectFade, Autoplay]}
+            className="mySwiper"
+            onSlideChange={() => {
+                setProgress(0);
+                startTimeRef.current = null;
+                requestRef.current = requestAnimationFrame(animateProgress);
+            }}
+        >
+            {swiperMainData.map((data, index) => (
+                <SwiperSlide key={index}>
+                    <MainBanner bgimg={data.image} className="flex-center">
+                        <div className="background"></div>
+                        <div className="text-box">
+                            <TitleText className="flex-v-center column">
+                                <div className="title">
+                                    <h1>{formattedTitle(data.title)}</h1>
+                                </div>
+                                <div className="sub-title">
+                                    <p>{data.subtitle}</p>{' '}
+                                </div>
+                                <div className="sub-script">
+                                    <p>{data.description}</p>
+                                </div>
+                            </TitleText>
+                            <ActButton>
+                                <button className="store-btn flex-center">
+                                    <span className="btn-text">{data.linkBtn.text}</span>
+                                    <TfiArrowRight />
+                                </button>
+                            </ActButton>
+                        </div>
+                        <ProgressBar>
+                            <div className="progress" style={{ height: `${progress}%` }}></div>
+                        </ProgressBar>
+                    </MainBanner>
+                </SwiperSlide>
+            ))}
+        </Swiper>
     );
 }
 
@@ -81,74 +123,92 @@ const MainBanner = styled.article`
         background: linear-gradient(rgba(23, 23, 29, 0.5), #000000);
     }
 
-    .video {
-        position: absolute;
-        object-fit: cover;
-        top: -80px;
-        left: 0px;
-        width: 100%;
-        height: 110%;
-        background-color: #000;
-    }
     @keyframes bgmove {
         50% {
             transform: scale(1.1);
         }
     }
+
+    .text-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        margin: 0px 100px;
+        position: absolute;
+        bottom: 80px;
+        left: 0px;
+    }
 `;
 
 const TitleText = styled.div`
-    position: relative;
-    height: 100%;
-    margin: 0px 150px;
-    color: var(--color-main-001);
+    text-align: left;
+    color: #ffffff;
 
     /* 메인타이틀 CSS */
     .title {
-        font-weight: 700;
-        font-size: 86px;
-        text-shadow: 0px 0px 5px #000;
+        padding: 10px 0px;
+        overflow: hidden;
+        h1 {
+            font-weight: 700;
+            font-size: 80px;
+            line-height: 90%;
+            text-shadow: 0px 0px 2px #000;
+            transform: translateY(-100px);
+            animation: text-show 1s forwards 0s;
+        }
     }
 
     /* 서브 타이틀 CSS */
     .sub-title {
-        font-size: 24px;
-        font-weight: 300;
-        margin-top: 40px;
-        text-shadow: 0px 0px 5px #000;
+        margin-top: 20px;
+        overflow: hidden;
+        p {
+            font-size: 32px;
+            font-weight: 300;
+            text-shadow: 0px 0px 2px #000;
+            transform: translateY(-100px);
+            animation: text-show 1s forwards 0.2s;
+        }
     }
 
     /* 설명문 CSS */
     .sub-script {
-        width: 45%;
-        font-size: 13px;
-        font-weight: 300;
+        width: 50%;
         margin-top: 40px;
-        line-height: 150%;
-        text-shadow: 0px 0px 5px #000;
+        overflow: hidden;
+        p {
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 150%;
+            color: rgba(255, 255, 255, 0.5);
+            text-shadow: 0px 0px 2px #000;
+            transform: translateY(-100px);
+            animation: text-show 1s forwards 0.4s;
+        }
+    }
+
+    @keyframes text-show {
+        100% {
+            transform: translateY(0);
+        }
     }
 `;
 
 const ActButton = styled.div`
-    margin-top: 100px;
-
-    /** URL 이동버튼 */
-
     .store-btn {
         margin-left: 25px;
         padding: 0px 40px;
         width: 250px;
         height: 65px;
-        border-radius: 100px;
-        background: rgba(255, 255, 255, 1);
-        border: none;
+        border-radius: 10px;
+        border: 1px solid #fff;
+        justify-content: space-between;
 
         /* 버튼 텍스트 디자인 */
-        color: #292929;
+        color: #fff;
         text-transform: uppercase;
         font-size: 18px;
-        font-weight: 600;
-        transition: all ease-in-out 0.1s;
+        transition: all ease-in-out 0.5s;
     }
 
     .store-btn:active {
@@ -156,12 +216,30 @@ const ActButton = styled.div`
     }
 
     .store-btn:hover {
-        background: #070707;
-        color: #ffffff;
+        background: #fff;
+        color: #1a1a1a;
+        font-weight: 600;
     }
 
     .btn-text {
         margin-right: 10px;
+    }
+`;
+
+const ProgressBar = styled.div`
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 5px;
+    height: 40%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    overflow: hidden;
+
+    .progress {
+        width: 100%;
+        background: #ffffff;
+        transition: height linear;
     }
 `;
 

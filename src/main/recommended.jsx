@@ -1,33 +1,49 @@
 import styled from 'styled-components';
+import { scrollYState } from '../atoms/useIndexState';
+import { useAtom } from 'jotai';
 
 function Recommended() {
+    const [scrollY] = useAtom(scrollYState);
+
     return (
-        <NewItemBox className="flex-h-center column">
-            <RecommendedScript>
-                <h1>Run-Ready Essentials</h1>
-                <p>완벽한 러닝을 위한 당신의 선택</p>
+        <NewItemBox className="column" scrollY={scrollY}>
+            <RecommendedScript scrollY={scrollY}>
+                <div className="text-ani1">
+                    <h1>Run-Ready Essentials</h1>
+                </div>
+                <div className="text-ani2">
+                    <p>완벽한 러닝을 위한 당신의 선택</p>
+                </div>
             </RecommendedScript>
-            <button> 제품 확인해보기 </button>
+            <button> Forerunner 965 </button>
         </NewItemBox>
     );
 }
 
 const NewItemBox = styled.section`
+    display: flex;
+    justify-items: right;
+    align-items: end;
+
     overflow: hidden;
     width: 100%;
     height: 100vh;
-    justify-content: space-between;
+    padding: 100px;
     background: url(${process.env.PUBLIC_URL}/asset/recommend-background-image-01.png);
     background-size: cover;
 
     button {
         cursor: pointer;
-        width: 300px;
-        height: 60px;
-        margin: 100px;
-        transition: all ease-in-out 0.2s;
-        font-size: 18px;
+        /* width: 250px;
+        height: 60px; */
+        padding: 20px 50px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 20px;
         color: #ffffff;
+        margin-top: 100px;
+        opacity: ${(props) => (props.scrollY > 300 ? '1' : '0')};
+        transition: all ease-in-out 0.5s;
     }
 
     button:hover {
@@ -38,23 +54,36 @@ const NewItemBox = styled.section`
 `;
 
 const RecommendedScript = styled.div`
-    z-index: 9;
+    width: 100%;
     color: #fff;
-    text-align: center;
+    text-align: right;
 
     h1 {
-        font-size: 80px;
-        font-weight: 600;
+        font-size: 65px;
+        font-weight: 800;
         text-transform: uppercase;
-        padding-top: 100px;
-        text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+        text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
+        transform: ${(props) => (props.scrollY > 300 ? 'translateY(0px);' : 'translateY(-100px);')};
+        transition: all ease-in-out 1s;
+        transition-delay: 0s;
     }
 
     p {
         font-weight: 300;
-        font-size: 24px;
-        margin: 40px;
-        text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.6);
+        font-size: 32px;
+        text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
+        transform: ${(props) => (props.scrollY > 300 ? 'translateY(0px);' : 'translateY(-80px);')};
+        transition: all ease-in-out 1s;
+        transition-delay: 0.2s;
+    }
+
+    .text-ani1 {
+        overflow: hidden;
+    }
+
+    .text-ani2 {
+        overflow: hidden;
+        margin-top: 20px;
     }
 `;
 

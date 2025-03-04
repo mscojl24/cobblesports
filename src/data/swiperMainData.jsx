@@ -11,9 +11,9 @@ export const swiperMainData = [
         subtitle: '당신의 승리를 쟁취하라',
         description:
             'Equip yourself with the best in performance sports gear, designed to push limits and enhance every stride. We curate and deliver top-tier athletic essentials, ensuring you stay ahead in every competition. Your journey to victory starts with the right gear—experience the difference today.',
-        image: '/asset/cobble-background-image-01.png',
+        image: '/asset/cobble-background-image-00.jpg',
         linkBtn: {
-            text: 'Brand shop',
+            text: '공식 브랜드샵',
             icon: <FcRightUp2 size="18px" />,
         },
     },

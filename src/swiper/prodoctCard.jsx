@@ -33,7 +33,8 @@ function ProdouctCard({ data }) {
                     spaceBetween={20}
                     loop={true}
                     modules={[Autoplay]}
-                    className="mySwiper">
+                    className="mySwiper"
+                >
                     {item.map((item, index) => (
                         <SwiperSlide key={index}>
                             <div className="prodoct-image"></div>
@@ -53,6 +54,16 @@ function ProdouctCard({ data }) {
                                     </button>
                                 </li>
                             </ul>
+                            <a
+                                href="https://orders.pay.naver.com/ordersheet/seller/dd174c33-318d-82e0-af84-a70d227795e0?backUrl=https%3A%2F%2Fsmartstore.naver.com%2Fcobblesports%2Fproducts%2F11520029652&nl-au=8eab022b74054d5c99c1c75e96ac39ee"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <img
+                                    src="https://ssl.pstatic.net/store/sell/static/images/btn_green_g.png"
+                                    alt="N 구매하기"
+                                />
+                            </a>
                         </SwiperSlide>
                     ))}
                 </Swiper>
@@ -63,7 +74,7 @@ function ProdouctCard({ data }) {
 
 const NewProdouctSection = styled.section`
     display: flex;
-    margin: 200px 30px;
+    margin: 200px 100px;
 `;
 /* <-------------------------- BOX 텍스트 섹션 -------------------------------> */
 
@@ -122,6 +133,7 @@ const NPItem = styled.aside`
     /* <-------------------------- Swiper 이미지지 섹션 -------------------------------> */
 
     .prodoct-image {
+        cursor: pointer;
         width: 100%;
         height: 400px;
         background-color: #f2f3f6;
@@ -147,9 +159,11 @@ const NPItem = styled.aside`
         }
 
         button {
+            cursor: pointer;
             height: 100%;
             width: 50px;
-            font-size: 18px;
+            padding: 0px;
+            font-size: px;
             background-color: #fff;
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 5px;

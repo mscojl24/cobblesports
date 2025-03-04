@@ -1,24 +1,13 @@
 import styled from 'styled-components';
 import SwiperMain from '../swiper/swiperMain';
-import { useState } from 'react';
-
-import { swiperMainData } from '../data/swiperMainData';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Navigation } from 'swiper/modules';
-
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/navigation';
 import CompanyIntro from './companyIntro.jsx';
 import CategoryCard from './categoryCard.jsx';
 import ProdouctCard from '../swiper/prodoctCard.jsx';
-import { prodouctData } from '../data/prodouctsData.jsx';
 import Recommended from './recommended.jsx';
-import CobbleNews from './cobbleNews.jsx';
+import { prodouctData } from '../data/prodouctsData.jsx';
+import CategoryList from './categoryList.jsx';
 
 function MainSection() {
-    const [swiperData] = useState(swiperMainData);
-
     const newProdouct = [
         {
             title: 'NEW ARRIVALS',
@@ -39,31 +28,11 @@ function MainSection() {
 
     return (
         <MainBox>
-            <div className="main-swiper">
-                <Swiper
-                    spaceBetween={30}
-                    effect={'fade'}
-                    loop={true}
-                    autoplay={{
-                        delay: 6000,
-                        disableOnInteraction: false,
-                    }}
-                    navigation={true}
-                    modules={[EffectFade, Autoplay, Navigation]}
-                    className="mySwiper"
-                >
-                    {swiperData.map((data, index) => (
-                        <SwiperSlide key={index}>
-                            <SwiperMain data={data} />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
+            <SwiperMain />
             <Recommended />
-            <CompanyIntro />
+            <CategoryList />
             <ProdouctCard data={newProdouct} />
             <ProdouctCard data={highlights} />
-            {/* <CobbleNews /> */}
             <CategoryCard />
         </MainBox>
     );
@@ -109,10 +78,6 @@ const MainBox = styled.section`
     .swiper-button-next::after {
         content: '>'; /* 오른쪽 화살표 (예시) */
         right: 0px;
-    }
-
-    .main-swiper {
-        overflow: hidden;
     }
 `;
 

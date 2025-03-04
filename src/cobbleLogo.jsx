@@ -5,7 +5,7 @@ import throttle from 'lodash/throttle';
 import { scrollYState } from './atoms/useIndexState';
 
 function CobbleLogo() {
-    const [scrollY, setScrollY] = useAtom(scrollYState);
+    const [scrollY] = useAtom(scrollYState);
     const [isScrollingUp, setIsScrollingUp] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -28,13 +28,13 @@ function CobbleLogo() {
     }, [lastScrollY]);
 
     // 200 이하에서는 원래 색상을 유지
-    const shouldChangeColor = scrollY > 200 && isScrollingUp;
+    const shouldChangeColor = scrollY > 0 && isScrollingUp;
 
     const letters = ['C', 'O', 'B', 'B', 'L', 'E'];
 
     return (
-        <LogoBox className="flex-center">
-            {scrollY > 200 && isScrollingUp ? (
+        <LogoBox className="flex-center" changeColor={shouldChangeColor}>
+            {scrollY > 0 && isScrollingUp ? (
                 <img src={`${process.env.PUBLIC_URL}/asset/cobblesports-logo-vacter2.png`} alt="logo-vacter" />
             ) : (
                 <img src={`${process.env.PUBLIC_URL}/asset/cobblesports-logo-vacter.png`} alt="logo-vacter" />
@@ -55,6 +55,8 @@ const LogoBox = styled.ul`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    transform: ${(props) => (props.changeColor ? 'scale(0.8)' : 'scale(1)')};
 
     img {
         left: 0px;
@@ -81,7 +83,6 @@ const LogoText = styled.li`
         font-family: 'Anton', serif;
         animation: moveloder 5s ease-in-out infinite both;
         animation-delay: ${(props) => props.start}s;
-        /* text-shadow: ${(props) => (props.changeColor ? 'none' : '0px 0px 3px rgba(0, 0, 0, 0.5)')}; */
     }
 
     @keyframes moveloder {
