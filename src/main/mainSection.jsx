@@ -6,6 +6,7 @@ import ProdouctCard from '../swiper/prodoctCard.jsx';
 import Recommended from './recommended.jsx';
 import { prodouctData } from '../data/prodouctsData.jsx';
 import CategoryList from './categoryList.jsx';
+import BestSeller from '../swiper/bestSeller.jsx';
 
 function MainSection() {
     const newProdouct = [
@@ -31,6 +32,7 @@ function MainSection() {
             <SwiperMain />
             <Recommended />
             <CategoryList />
+            <BestSeller />
             <ProdouctCard data={newProdouct} />
             <ProdouctCard data={highlights} />
             <CategoryCard />

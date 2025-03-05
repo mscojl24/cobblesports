@@ -56,11 +56,13 @@ function CategoryList() {
 export default CategoryList;
 
 const CategoryListBox = styled.section`
+    display: flex;
     width: 100%;
     background: url(${process.env.PUBLIC_URL}/asset/category-background-image-00.png);
 `;
 
 const TitleText = styled.div`
+    height: 100%;
     text-align: left;
     color: #ffffff;
     padding: 100px;
@@ -70,9 +72,8 @@ const TitleText = styled.div`
         padding: 10px 0px;
         overflow: hidden;
         h1 {
-            font-weight: 700;
+            font-family: Anton;
             font-size: 65px;
-            line-height: 90%;
             text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: ${(props) => (props.scrollY > 1000 ? 'text-show 1s forwards 0s' : '')};
@@ -118,6 +119,7 @@ const TitleText = styled.div`
 const CateList = styled.ul`
     width: 100%;
     color: #bababa;
+    border-left: 1px solid #636363;
 
     li {
         overflow: hidden;
@@ -126,7 +128,6 @@ const CateList = styled.ul`
         padding: 40px 100px;
         border-bottom: 1px solid #636363;
         transition: all ease-in-out 0.3s;
-        background: linear-gradient(145deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));
         cursor: pointer;
     }
 
@@ -140,9 +141,10 @@ const CateList = styled.ul`
 
     .text-num {
         font-family: '42dot Sans';
+        font-weight: 700;
         font-size: 55px;
-        font-weight: 800;
         margin-right: 60px;
+        color: #3d3d3d;
     }
 
     .text-kr {

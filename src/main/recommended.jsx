@@ -59,8 +59,8 @@ const RecommendedScript = styled.div`
     text-align: right;
 
     h1 {
+        font-family: Anton;
         font-size: 65px;
-        font-weight: 800;
         text-transform: uppercase;
         text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
         transform: ${(props) => (props.scrollY > 300 ? 'translateY(0px);' : 'translateY(-100px);')};

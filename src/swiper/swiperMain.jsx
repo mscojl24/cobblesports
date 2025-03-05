@@ -56,8 +56,7 @@ function SwiperMain() {
                 setProgress(0);
                 startTimeRef.current = null;
                 requestRef.current = requestAnimationFrame(animateProgress);
-            }}
-        >
+            }}>
             {swiperMainData.map((data, index) => (
                 <SwiperSlide key={index}>
                     <MainBanner bgimg={data.image} className="flex-center">
@@ -149,9 +148,9 @@ const TitleText = styled.div`
         padding: 10px 0px;
         overflow: hidden;
         h1 {
-            font-weight: 700;
+            font-family: Anton;
             font-size: 80px;
-            line-height: 90%;
+            line-height: 100%;
             text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: text-show 1s forwards 0s;
@@ -203,6 +202,7 @@ const ActButton = styled.div`
         border-radius: 10px;
         border: 1px solid #fff;
         justify-content: space-between;
+        cursor: pointer;
 
         /* 버튼 텍스트 디자인 */
         color: #fff;
@@ -231,7 +231,7 @@ const ProgressBar = styled.div`
     bottom: 0px;
     left: 0px;
     width: 5px;
-    height: 40%;
+    height: 50%;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
     overflow: hidden;
