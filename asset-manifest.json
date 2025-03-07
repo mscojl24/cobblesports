@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/cobblesports/static/css/main.53d27892.css",
-    "main.js": "/cobblesports/static/js/main.f1c81ad9.js",
+    "main.css": "/cobblesports/static/css/main.21307492.css",
+    "main.js": "/cobblesports/static/js/main.8d851b33.js",
     "index.html": "/cobblesports/index.html",
-    "main.53d27892.css.map": "/cobblesports/static/css/main.53d27892.css.map",
-    "main.f1c81ad9.js.map": "/cobblesports/static/js/main.f1c81ad9.js.map"
+    "main.21307492.css.map": "/cobblesports/static/css/main.21307492.css.map",
+    "main.8d851b33.js.map": "/cobblesports/static/js/main.8d851b33.js.map"
   },
   "entrypoints": [
-    "static/css/main.53d27892.css",
-    "static/js/main.f1c81ad9.js"
+    "static/css/main.21307492.css",
+    "static/js/main.8d851b33.js"
   ]
 }
