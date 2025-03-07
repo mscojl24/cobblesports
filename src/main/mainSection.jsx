@@ -10,15 +10,46 @@ import Highlights from '../swiper/highlights.jsx';
 import Footer from './footer.jsx';
 import ProdouctList from './prodouctList.jsx';
 import FindCategory from './findCategory.jsx';
+import { useEffect, useState } from 'react';
+import TopPicks from './topPicks.jsx';
+
+// function useCustomScroll(scrollAmount = 200, multiplier = 1, delay = 200) {
+//     const [isScrolling, setIsScrolling] = useState(false);
+
+//     useEffect(() => {
+//         const handleWheel = (event) => {
+//             if (isScrolling) return; // 현재 스크롤 중이면 무시
+//             setIsScrolling(true);
+
+//             event.preventDefault(); // 기본 스크롤 동작 방지
+//             window.scrollBy({
+//                 top: scrollAmount * multiplier * (event.deltaY > 0 ? 1 : -1),
+//                 behavior: 'smooth',
+//             });
+
+//             setTimeout(() => setIsScrolling(false), delay); // 일정 시간 동안 추가 입력 방지
+//         };
+
+//         window.addEventListener('wheel', handleWheel, { passive: false });
+
+//         return () => {
+//             window.removeEventListener('wheel', handleWheel);
+//         };
+//     }, [scrollAmount, multiplier, delay, isScrolling]);
+
+//     return null;
+// }
 
 function MainSection() {
+    // useCustomScroll(200, 2, 1000); // 속도 조절: 200px씩 이동, 400ms 지연
     return (
         <MainBox>
             <SwiperMain />
-            <Recommended />
             <FindCategory />
+            <TopPicks />
             {/* <ProdouctList /> */}
             <CategoryList />
+            <Recommended />
             <Footer />
         </MainBox>
     );

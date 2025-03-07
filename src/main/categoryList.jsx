@@ -18,16 +18,16 @@ function CategoryList() {
         <CategoryListBox>
             <TitleText className="flex-v-center column" scrollY={scrollY}>
                 <div className="title">
-                    <h1>Select Your Category</h1>
+                    <h1>Cobble News</h1>
                 </div>
                 <div className="sub-title">
-                    <p>당신의 카테고리를 선택하세요</p>
+                    <p>당신을 위한 스포츠뉴스를 확인하세요</p>
                 </div>
                 <div className="sub-script">
                     <p>
-                        Choose your sport and explore a curated selection of premium gear. Whether it’s running, golf,
-                        fitness, outdoor adventures, or swimming, we have the perfect products for you. Find
-                        high-quality equipment and apparel tailored to your active lifestyle.
+                        Get the latest updates on gear, trends, and insights from the world of sports. Whether it’s
+                        cutting-edge technology, training tips, or exclusive deals, Cobble News keeps you informed and
+                        inspired.
                     </p>
                 </div>
             </TitleText>
@@ -57,10 +57,11 @@ const CategoryListBox = styled.section`
     display: flex;
     width: 100%;
     background: url(${process.env.PUBLIC_URL}/asset/category-background-image-01.png);
+    background-size: cover;
 `;
 
 const TitleText = styled.div`
-    width: 80%;
+    width: 50%;
     height: 100%;
     text-align: left;
     color: #161616;
@@ -114,7 +115,6 @@ const TitleText = styled.div`
 const CateList = styled.ul`
     width: 100%;
     overflow: hidden;
-
     color: #161616;
     border-right: 1px solid rgba(0, 0, 0, 0.2);
 
@@ -134,7 +134,7 @@ const CateList = styled.ul`
 
     li:hover {
         background: linear-gradient(145deg, rgba(0, 0, 0, 0) 30%, rgba(68, 79, 80, 0.5));
-        /* padding-left: 100px; */
+        padding-left: 100px;
         .go-icon {
             transform: translateX(10px);
         }
@@ -145,7 +145,7 @@ const CateList = styled.ul`
         font-weight: 700;
         font-size: 55px;
         margin-right: 40px;
-        color: 33eE3E;
+        color: rgba(0, 0, 0, 0.3);
     }
 
     .text-kr {

@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 
 function App() {
     const [, setScrollY] = useAtom(scrollYState);
+
     // const [pro, setProducts] = useAtom(productsState);
     // console.log(pro);
 
