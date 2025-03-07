@@ -136,3 +136,9 @@ button {
     font-family: Raleway, '42dot Sans', serif;
     font-weight: 300;
 }
+
+* ::selection {
+    background-color: rgb(0, 0, 0); /* 드래그한 텍스트의 배경색 */
+    color: #ffffff;
+    text-shadow: none;
+}

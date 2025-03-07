@@ -109,6 +109,7 @@ const MainBanner = styled.article`
         height: 100%;
         background-image: linear-gradient(rgba(0, 0, 0, 0) 60%, #000000),
             url(${process.env.PUBLIC_URL}${(props) => props.bgimg});
+        background-attachment: fixed;
         background-size: cover;
         animation: bgmove 20s ease-in-out infinite;
     }

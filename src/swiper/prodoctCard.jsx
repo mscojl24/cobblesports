@@ -33,8 +33,7 @@ function ProdouctCard({ data }) {
                     spaceBetween={20}
                     loop={true}
                     modules={[Autoplay]}
-                    className="mySwiper"
-                >
+                    className="mySwiper">
                     {item.map((item, index) => (
                         <SwiperSlide key={index}>
                             <div className="prodoct-image"></div>
@@ -54,16 +53,6 @@ function ProdouctCard({ data }) {
                                     </button>
                                 </li>
                             </ul>
-                            <a
-                                href="https://orders.pay.naver.com/ordersheet/seller/dd174c33-318d-82e0-af84-a70d227795e0?backUrl=https%3A%2F%2Fsmartstore.naver.com%2Fcobblesports%2Fproducts%2F11520029652&nl-au=8eab022b74054d5c99c1c75e96ac39ee"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img
-                                    src="https://ssl.pstatic.net/store/sell/static/images/btn_green_g.png"
-                                    alt="N 구매하기"
-                                />
-                            </a>
                         </SwiperSlide>
                     ))}
                 </Swiper>

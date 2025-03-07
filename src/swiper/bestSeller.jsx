@@ -21,7 +21,7 @@ function BestSeller() {
     return (
         <BestSellerBox>
             <TitleBox>
-                <h1>Best Seller</h1>
+                <h1>Top Picks</h1>
                 <p>구매자들이 선택한 가민의 인기 제품을 만나보세요</p>
             </TitleBox>
             <ItemBox>
@@ -29,8 +29,8 @@ function BestSeller() {
                     autoplay={{
                         delay: 2000,
                     }}
-                    slidesPerView={4}
-                    spaceBetween={100}
+                    slidesPerView={3}
+                    spaceBetween={20}
                     loop={true}
                     modules={[Autoplay]}
                     className="mySwiper"
@@ -82,7 +82,7 @@ const TitleBox = styled.article`
 `;
 
 const ItemBox = styled.article`
-    margin-left: 20%;
+    padding-left: 20%;
     width: 100%;
 `;
 
@@ -95,7 +95,7 @@ const BestItem = styled.div`
         width: 40px;
         height: 40px;
         border-radius: 30px;
-        background-color: #242424;
+        background-color: #dddddd;
         color: #fff;
         font-family: '42dot Sans';
         transition: all ease-in-out 0.3s;
@@ -117,20 +117,21 @@ const BestItem = styled.div`
         position: relative;
         margin-top: 50px;
         width: 100%;
+        max-width: 350px;
         height: auto;
         aspect-ratio: 4 / 5;
         object-fit: cover;
         background-size: cover;
         background-position: center;
         background-image: url(${process.env.PUBLIC_URL}${(props) => props.bgimg});
-        border-radius: 50px;
+        border-radius: 0px;
         transition: all ease-in-out 0.3s;
     }
 
     .item-discount {
         position: absolute;
         padding: 20px;
-        background: #3263ce;
+        background: #f35129;
         aspect-ratio: 1 / 1;
         right: 0px;
         font-size: 35px;
@@ -147,7 +148,7 @@ const BestItem = styled.div`
     }
 
     &:hover .item-number {
-        background-color: #3263ce;
+        background-color: #232323;
     }
 `;
 

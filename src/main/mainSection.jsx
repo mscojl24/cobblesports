@@ -1,47 +1,31 @@
 import styled from 'styled-components';
 import SwiperMain from '../swiper/swiperMain';
-import CompanyIntro from './companyIntro.jsx';
 import CategoryCard from './categoryCard.jsx';
 import ProdouctCard from '../swiper/prodoctCard.jsx';
 import Recommended from './recommended.jsx';
 import { prodouctData } from '../data/prodouctsData.jsx';
 import CategoryList from './categoryList.jsx';
 import BestSeller from '../swiper/bestSeller.jsx';
+import Highlights from '../swiper/highlights.jsx';
+import Footer from './footer.jsx';
+import ProdouctList from './prodouctList.jsx';
+import FindCategory from './findCategory.jsx';
 
 function MainSection() {
-    const newProdouct = [
-        {
-            title: 'NEW ARRIVALS',
-            subtitle: '가민의 신제품과 함께 더 빠르게, 더 강하게, 더 멀리!',
-            link: '/',
-            prodouct: prodouctData,
-        },
-    ];
-
-    const highlights = [
-        {
-            title: 'BEST SELLRES',
-            subtitle: '컨슈머들이 선택한 가민의 인기 제품을 만나보세요!',
-            link: '/',
-            prodouct: prodouctData,
-        },
-    ];
-
     return (
         <MainBox>
             <SwiperMain />
             <Recommended />
+            <FindCategory />
+            {/* <ProdouctList /> */}
             <CategoryList />
-            <BestSeller />
-            <ProdouctCard data={newProdouct} />
-            <ProdouctCard data={highlights} />
-            <CategoryCard />
+            <Footer />
         </MainBox>
     );
 }
 
 const MainBox = styled.section`
-    /* 기본 네비게이션 버튼 오버라이드 */
+    /* 기본 네비게이션 버튼 오버라이드
     .swiper-button-prev,
     .swiper-button-next {
         &::after {
@@ -73,14 +57,14 @@ const MainBox = styled.section`
     }
 
     .swiper-button-prev::after {
-        content: '<'; /* 왼쪽 화살표 (예시) */
+        content: '<'; 
         left: 0px;
     }
 
     .swiper-button-next::after {
-        content: '>'; /* 오른쪽 화살표 (예시) */
+        content: '>'; 
         right: 0px;
-    }
+    } */
 `;
 
 export default MainSection;

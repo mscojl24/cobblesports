@@ -43,11 +43,12 @@ const FadeBackground = styled.div`
     position: absolute;
     bottom: 0;
     width: 100vw;
-    height: 0;
+    height: 100vh;
+    /* height: 0; */
     background-color: rgba(0, 0, 0, 1);
 
     /* 배경 페이드 인 */
-    animation: fadeInBackground 0.6s ease-in-out forwards 0.5s;
+    /* animation: fadeInBackground 0.6s ease-in-out forwards 0.5s; */
 
     @keyframes fadeInBackground {
         100% {

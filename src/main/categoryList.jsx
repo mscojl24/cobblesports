@@ -8,12 +8,10 @@ function CategoryList() {
     const [scrollY] = useAtom(scrollYState);
 
     const categories = [
-        { subtitle: 'Running', title: '러닝/마라톤', image: '/categories/running.jpg' },
-        { subtitle: 'Cycling', title: '자전거', image: '/categories/cycling.jpg' },
-        { subtitle: 'Adventure', title: '아웃도어', image: '/categories/adventure.jpg' },
-        { subtitle: 'water', title: '수영/다이빙', image: '/categories/water.jpg' },
-        { subtitle: 'Golf', title: '골프', image: '/categories/golf.jpg' },
-        { subtitle: 'Fitness', title: '피트니스', image: '/categories/fitness.jpg' },
+        { subtitle: 'Youtube', title: '유튜브채널' },
+        { subtitle: 'Naver Cafe', title: '스포츠 커뮤니티' },
+        { subtitle: 'Kakao Chanel', title: '카카오채널' },
+        { subtitle: 'Instargram', title: '인스타그램' },
     ];
 
     return (
@@ -58,13 +56,14 @@ export default CategoryList;
 const CategoryListBox = styled.section`
     display: flex;
     width: 100%;
-    background: url(${process.env.PUBLIC_URL}/asset/category-background-image-00.png);
+    background: url(${process.env.PUBLIC_URL}/asset/category-background-image-01.png);
 `;
 
 const TitleText = styled.div`
+    width: 80%;
     height: 100%;
     text-align: left;
-    color: #ffffff;
+    color: #161616;
     padding: 100px;
 
     /* 메인타이틀 CSS */
@@ -74,7 +73,6 @@ const TitleText = styled.div`
         h1 {
             font-family: Anton;
             font-size: 65px;
-            text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: ${(props) => (props.scrollY > 1000 ? 'text-show 1s forwards 0s' : '')};
         }
@@ -87,7 +85,6 @@ const TitleText = styled.div`
         p {
             font-size: 32px;
             font-weight: 300;
-            text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: ${(props) => (props.scrollY > 1000 ? 'text-show 1s forwards 0.2s' : '')};
         }
@@ -95,15 +92,13 @@ const TitleText = styled.div`
 
     /* 설명문 CSS */
     .sub-script {
-        max-width: 600px;
+        max-width: 80%;
         margin-top: 40px;
         overflow: hidden;
         p {
             font-size: 13px;
             font-weight: 300;
             line-height: 150%;
-            color: rgba(255, 255, 255, 0.5);
-            text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: ${(props) => (props.scrollY > 1000 ? 'text-show 1s forwards 0.4s' : '')};
         }
@@ -118,24 +113,30 @@ const TitleText = styled.div`
 
 const CateList = styled.ul`
     width: 100%;
-    color: #bababa;
-    border-left: 1px solid #636363;
+    overflow: hidden;
+
+    color: #161616;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
 
     li {
         overflow: hidden;
         width: 100%;
         justify-content: space-between;
-        padding: 40px 100px;
-        border-bottom: 1px solid #636363;
+        padding: 40px;
+        border-top: 1px solid rgba(0, 0, 0, 0.2);
         transition: all ease-in-out 0.3s;
         cursor: pointer;
     }
 
+    li:first-child {
+        border-top: none;
+    }
+
     li:hover {
-        background: linear-gradient(145deg, rgba(0, 0, 0, 0) 30%, rgba(149, 158, 159, 0.5));
-        padding-left: 200px;
+        background: linear-gradient(145deg, rgba(0, 0, 0, 0) 30%, rgba(68, 79, 80, 0.5));
+        /* padding-left: 100px; */
         .go-icon {
-            transform: translateX(20px);
+            transform: translateX(10px);
         }
     }
 
@@ -143,8 +144,8 @@ const CateList = styled.ul`
         font-family: '42dot Sans';
         font-weight: 700;
         font-size: 55px;
-        margin-right: 60px;
-        color: #3d3d3d;
+        margin-right: 40px;
+        color: 33eE3E;
     }
 
     .text-kr {
@@ -163,7 +164,7 @@ const CateList = styled.ul`
         display: flex;
         width: 110px;
         justify-content: space-between;
-        color: #bababa;
+        color: #161616;
         font-size: 25px;
         font-weight: 600;
         border: none;
