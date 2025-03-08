@@ -8,26 +8,28 @@ function CategoryList() {
     const [scrollY] = useAtom(scrollYState);
 
     const categories = [
-        { subtitle: 'Youtube', title: '유튜브채널' },
-        { subtitle: 'Naver Cafe', title: '스포츠 커뮤니티' },
-        { subtitle: 'Kakao Chanel', title: '카카오채널' },
-        { subtitle: 'Instargram', title: '인스타그램' },
+        { subtitle: 'Youtube', title: '유튜브채널', link: '' },
+        { subtitle: 'Naver Cafe', title: '스포츠 커뮤니티', link: 'https://cafe.naver.com/cobblesports' },
+        { subtitle: 'Kakao Chanel', title: '카카오채널', link: 'https://pf.kakao.com/_fcPxaG' },
+        { subtitle: 'Instargram', title: '인스타그램', link: 'https://www.instagram.com/cobblesports_official/' },
     ];
 
     return (
         <CategoryListBox>
             <TitleText className="flex-v-center column" scrollY={scrollY}>
                 <div className="title">
-                    <h1>Cobble News</h1>
+                    <h1>
+                        오늘의 <br />
+                        스포츠 <span>NEWS</span>
+                    </h1>
                 </div>
                 <div className="sub-title">
-                    <p>당신을 위한 스포츠뉴스를 확인하세요</p>
+                    <p>가장 먼저 제품소식을 확인하세요</p>
                 </div>
                 <div className="sub-script">
                     <p>
-                        Get the latest updates on gear, trends, and insights from the world of sports. Whether it’s
-                        cutting-edge technology, training tips, or exclusive deals, Cobble News keeps you informed and
-                        inspired.
+                        Get the most exciting sports stories right now. Real-time news and highlights on YouTube and
+                        Instagram, with in-depth analysis and community engagement on Kakao Channel and Naver Cafe.
                     </p>
                 </div>
             </TitleText>
@@ -72,22 +74,30 @@ const TitleText = styled.div`
         padding: 10px 0px;
         overflow: hidden;
         h1 {
-            font-family: Anton;
-            font-size: 65px;
-            transform: translateY(-100px);
-            animation: ${(props) => (props.scrollY > 1000 ? 'text-show 1s forwards 0s' : '')};
+            font-family: '42dot Sans';
+            font-weight: 700;
+            font-size: 50px;
+            line-height: 1.1;
+            transform: ${(props) => (props.scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
+            transition: all ease-in-out 1s;
+            transition-delay: 0s;
+        }
+        span {
+            color: rgba(0, 0, 0, 0.3);
         }
     }
 
     /* 서브 타이틀 CSS */
     .sub-title {
-        margin-top: 20px;
+        margin-top: 10px;
         overflow: hidden;
         p {
             font-size: 32px;
             font-weight: 300;
             transform: translateY(-100px);
-            animation: ${(props) => (props.scrollY > 1000 ? 'text-show 1s forwards 0.2s' : '')};
+            transform: ${(props) => (props.scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
+            transition: all ease-in-out 1s;
+            transition-delay: 0.2s;
         }
     }
 
@@ -101,13 +111,9 @@ const TitleText = styled.div`
             font-weight: 300;
             line-height: 150%;
             transform: translateY(-100px);
-            animation: ${(props) => (props.scrollY > 1000 ? 'text-show 1s forwards 0.4s' : '')};
-        }
-    }
-
-    @keyframes text-show {
-        100% {
-            transform: translateY(0);
+            transform: ${(props) => (props.scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
+            transition: all ease-in-out 1s;
+            transition-delay: 0.4s;
         }
     }
 `;
@@ -116,7 +122,7 @@ const CateList = styled.ul`
     width: 100%;
     overflow: hidden;
     color: #161616;
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    /* border-right: 1px solid rgba(0, 0, 0, 0.2); */
 
     li {
         overflow: hidden;
@@ -145,7 +151,7 @@ const CateList = styled.ul`
         font-weight: 700;
         font-size: 55px;
         margin-right: 40px;
-        color: rgba(0, 0, 0, 0.3);
+        color: rgba(0, 0, 0, 0.5);
     }
 
     .text-kr {

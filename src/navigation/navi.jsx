@@ -67,6 +67,7 @@ const NavigateSection = styled.nav`
     color: ${(props) => (props.scrollingUp ? '#222' : '#fff')};
     border-bottom: ${(props) => (props.scrollingUp ? '1px solid #eeeeee' : '1px solid rgba(0,0,0,0)')};
     background-color: ${(props) => (props.scrollingUp ? 'rgb(255,255,255,1)' : 'rgb(0,0,0,0)')};
+    box-shadow: ${(props) => (props.scrollingUp ? '0px 0px 20px rgba(0,0,0,0.1)' : 'rgb(0,0,0,0)')};
 `;
 
 const LogoBox = styled.div`

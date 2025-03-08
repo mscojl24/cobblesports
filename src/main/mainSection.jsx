@@ -5,7 +5,6 @@ import ProdouctCard from '../swiper/prodoctCard.jsx';
 import Recommended from './recommended.jsx';
 import { prodouctData } from '../data/prodouctsData.jsx';
 import CategoryList from './categoryList.jsx';
-import BestSeller from '../swiper/bestSeller.jsx';
 import Highlights from '../swiper/highlights.jsx';
 import Footer from './footer.jsx';
 import ProdouctList from './prodouctList.jsx';
@@ -45,10 +44,10 @@ function MainSection() {
     return (
         <MainBox>
             <SwiperMain />
+            <CategoryList />
             <FindCategory />
             <TopPicks />
             {/* <ProdouctList /> */}
-            <CategoryList />
             <Recommended />
             <Footer />
         </MainBox>

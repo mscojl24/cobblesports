@@ -4,19 +4,25 @@ import { bestSellersData } from '../data/bestSellersData';
 function TopPicks() {
     return (
         <TopPicksSection className="flex-center column">
-            <TopPicksTitle className="flex-center column">
-                <h1>Top Pick 5</h1>
-                <p>가민의 인기상품을 확인하세요</p>
+            <TopPicksTitle className="flex-v-center column">
+                <h1>
+                    셀러들이 선택한 <br />
+                    베스트상품 TOP5
+                </h1>
+                <p>수 많은 셀러들이 선택한 가민의 인기상품을 확인하세요</p>
             </TopPicksTitle>
             <TopPicksCard>
                 {bestSellersData.map((item, index) => (
                     <TPCard key={index + 1} bgimg={item.image}>
                         <div className="card-image"></div>
                         <div className="card-text">
-                            <h2 className="title">{item.title}</h2>
-                            <h3 className="subtitle">{item.subtitle}</h3>
+                            <h2 className="title">
+                                {item.title}
+                                <span className="subtitle">{item.subtitle}</span>
+                            </h2>
+
                             {item.discount && <span className="discount">{item.discount}%</span>}
-                            <span className="price">{item.price}</span>
+                            <span className="price">{item.price}원</span>
                         </div>
                     </TPCard>
                 ))}
@@ -30,23 +36,25 @@ export default TopPicks;
 const TopPicksSection = styled.section`
     display: flex;
     width: 100%;
-    padding: 100px;
+    padding: 0px 100px 100px 100px;
 `;
 
 const TopPicksTitle = styled.article`
-    text-align: center;
     text-transform: uppercase;
+    width: 100%;
 
     h1 {
-        font-family: Anton;
+        font-family: '42dot Sans';
+        font-weight: bold;
         font-size: 50px;
+        line-height: 1.2;
         color: #242424;
     }
 
     p {
         max-width: 800px;
-        margin-top: 30px;
-        font-size: 25px;
+        margin-top: 20px;
+        font-size: 20px;
         line-height: 150%;
     }
 `;
@@ -58,7 +66,6 @@ const TopPicksCard = styled.ul`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
     flex-wrap: wrap;
 `;
 
@@ -77,22 +84,35 @@ const TPCard = styled.li`
     }
 
     .card-image {
-        aspect-ratio: 4 / 2;
-        background: url(${process.env.PUBLIC_URL}${(props) => props.bgimg});
+        border-radius: 10px;
+        aspect-ratio: 2/1;
+        background: url(${process.env.PUBLIC_URL}${(props) => props.bgimg}), #f2f3f6;
         background-size: cover;
     }
 
     .card-text {
-        margin: 20px 0px;
+        margin: 20px 0px 30px 0px;
 
         > * {
-            margin: 5px 0px;
+            margin: 8px 0px;
             font-family: '42dot Sans';
         }
     }
 
     .card-text .title {
-        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .card-text .subtitle {
+        margin-left: 10px;
+
+        font-weight: 300;
+        font-family: '42dot Sans';
+        color: rgba(0, 0, 0, 0.7);
+    }
+
+    .card-text .discount {
+        color: #ff660d;
         font-weight: 600;
     }
 `;
