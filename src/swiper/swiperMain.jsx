@@ -56,7 +56,8 @@ function SwiperMain() {
                 setProgress(0);
                 startTimeRef.current = null;
                 requestRef.current = requestAnimationFrame(animateProgress);
-            }}>
+            }}
+        >
             {swiperMainData.map((data, index) => (
                 <SwiperSlide key={index}>
                     <MainBanner bgimg={data.image} className="flex-center">
@@ -81,7 +82,7 @@ function SwiperMain() {
                             </ActButton>
                         </div>
                         <ProgressBar>
-                            <div className="progress" style={{ height: `${progress}%` }}></div>
+                            <div className="progress" style={{ width: `${progress}%` }}></div>
                         </ProgressBar>
                     </MainBanner>
                 </SwiperSlide>
@@ -92,7 +93,8 @@ function SwiperMain() {
 
 const MainBanner = styled.article`
     position: relative;
-    height: 100vh;
+    height: calc(100vh - 70px);
+    margin-top: 70px;
     overflow: hidden;
     text-align: center;
 
@@ -107,7 +109,7 @@ const MainBanner = styled.article`
         left: 0px;
         width: 100%;
         height: 100%;
-        background-image: linear-gradient(rgba(0, 0, 0, 0) 60%, #000000),
+        background-image: linear-gradient(30deg, #000000, rgba(0, 0, 0, 0) 60%),
             url(${process.env.PUBLIC_URL}${(props) => props.bgimg});
         background-attachment: fixed;
         background-size: cover;
@@ -135,7 +137,7 @@ const MainBanner = styled.article`
         align-items: end;
         margin: 0px 100px;
         position: absolute;
-        bottom: 80px;
+        bottom: 100px;
         left: 0px;
     }
 `;
@@ -229,18 +231,18 @@ const ActButton = styled.div`
 
 const ProgressBar = styled.div`
     position: absolute;
-    bottom: 0px;
+    top: 0px;
     left: 0px;
-    width: 5px;
-    height: 50%;
+    width: 100%;
+    height: 5px;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 5px;
     overflow: hidden;
 
     .progress {
-        width: 100%;
-        background: #ffffff;
-        transition: height linear;
+        height: 100%;
+        background: #3467ff;
+        transition: width linear;
     }
 `;
 

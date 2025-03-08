@@ -1,8 +1,9 @@
-export const prodouctData = [
+export const productData = [
     {
         id: 1,
         category: 'watch',
         title: 'Fenix 8 AMOLED',
+        purpose: '아웃도어',
         script: '프리미엄 멀티스포츠 GPS 스마트워치',
         option: {
             size: ['51mm', '47mm', '43mm'],
@@ -54,6 +55,7 @@ export const prodouctData = [
         category: 'watch',
         title: 'Descent G2',
         script: 'GPS 다이빙 컴퓨터 & 스마트워치',
+        purpose: '다이빙',
         option: {
             size: ['51mm', '47mm', '43mm'],
             price: '1,690,000 ~',
@@ -104,6 +106,7 @@ export const prodouctData = [
         category: 'watch',
         title: 'Tactix 8 AMOLED',
         script: '프리미엄 GPS 전술 스마트워치',
+        purpose: '아웃도어',
         option: {
             size: ['51mm', '47mm', '43mm'],
             price: '2,090,000',
@@ -152,8 +155,9 @@ export const prodouctData = [
     {
         id: 1,
         category: 'watch',
-        title: 'Tactix 8 AMOLED',
-        script: '프리미엄 GPS 전술 스마트워치',
+        title: 'Approach S40',
+        script: '고급 GPS 골프 스마트워치',
+        purpose: '골프',
         option: {
             size: ['51mm', '47mm', '43mm'],
             price: '320,000',
@@ -202,8 +206,9 @@ export const prodouctData = [
     {
         id: 1,
         category: 'watch',
-        title: 'Tactix 8 AMOLED',
-        script: '프리미엄 GPS 전술 스마트워치',
+        title: 'Forerunner 265',
+        script: '고급 GPS 러닝 스마트워치',
+        purpose: '러닝닝',
         option: {
             size: ['51mm', '47mm', '43mm'],
             price: '320,000',
@@ -254,6 +259,7 @@ export const prodouctData = [
         category: 'watch',
         title: 'Fenix 8 AMOLED',
         script: '프리미엄 멀티스포츠 GPS 스마트워치',
+        purpose: '골프',
         option: {
             size: ['51mm', '47mm', '43mm'],
             price: '819,000 ~',

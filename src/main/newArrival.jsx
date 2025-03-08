@@ -1,0 +1,58 @@
+import styled from 'styled-components';
+import ProdouctCard from '../swiper/prodoctCard';
+import { productData } from '../data/productsData';
+
+function NewArrival() {
+    return (
+        <NewArrivalSection>
+            <NATitleBox>
+                <h1 className="flex-h-center">
+                    지금 가장 핫한
+                    <br />{' '}
+                    <img
+                        src={`${process.env.PUBLIC_URL}/asset/Garmin_C-black.png`}
+                        alt="garmin logo"
+                        height="40"
+                    />{' '}
+                    신제품 모음.zip
+                </h1>
+                <p>올해 가장 기대되는 신제품, 여기 다 모였다!</p>
+            </NATitleBox>
+            <NAItemBox>
+                <ProdouctCard products={productData} />
+            </NAItemBox>
+        </NewArrivalSection>
+    );
+}
+
+export default NewArrival;
+
+const NewArrivalSection = styled.section`
+    width: 100%;
+    padding: 0px 100px 100px 100px;
+`;
+
+const NATitleBox = styled.article`
+    width: 100%;
+
+    h1 {
+        font-family: '42dot Sans';
+        font-weight: bold;
+        font-size: 50px;
+        line-height: 1.2;
+        color: #242424;
+
+        img {
+            margin: 0px 10px;
+        }
+    }
+
+    p {
+        max-width: 800px;
+        margin-top: 20px;
+        font-size: 20px;
+        line-height: 150%;
+    }
+`;
+
+const NAItemBox = styled.article``;

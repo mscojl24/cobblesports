@@ -7,14 +7,16 @@ function TopPicks() {
             <TopPicksTitle className="flex-v-center column">
                 <h1>
                     셀러들이 선택한 <br />
-                    베스트상품 TOP5
+                    베스트상품 <span>TOP5</span>
                 </h1>
                 <p>수 많은 셀러들이 선택한 가민의 인기상품을 확인하세요</p>
             </TopPicksTitle>
             <TopPicksCard>
                 {bestSellersData.map((item, index) => (
                     <TPCard key={index + 1} bgimg={item.image}>
-                        <div className="card-image"></div>
+                        <div className="card-image">
+                            <div className="card-num flex-center">0{index + 1}</div>
+                        </div>
                         <div className="card-text">
                             <h2 className="title">
                                 {item.title}
@@ -34,7 +36,6 @@ function TopPicks() {
 export default TopPicks;
 
 const TopPicksSection = styled.section`
-    display: flex;
     width: 100%;
     padding: 0px 100px 100px 100px;
 `;
@@ -49,6 +50,11 @@ const TopPicksTitle = styled.article`
         font-size: 50px;
         line-height: 1.2;
         color: #242424;
+
+        span {
+            font-family: '42dot Sans';
+            color: rgba(0, 0, 0, 0.3);
+        }
     }
 
     p {
@@ -70,6 +76,9 @@ const TopPicksCard = styled.ul`
 `;
 
 const TPCard = styled.li`
+    position: relative;
+    cursor: pointer;
+
     /* 첫 번째 줄 (2개) */
     &:nth-child(1),
     &:nth-child(2) {
@@ -83,11 +92,32 @@ const TPCard = styled.li`
         flex: 0 1 calc(33% - 10px);
     }
 
+    .card-num {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background-color: #fff;
+        border-radius: 5px;
+        top: 20px;
+        left: 20px;
+
+        font-family: '42dot Sans';
+        font-size: 18px;
+        font-weight: 800;
+        color: #1b1b1b;
+    }
+
     .card-image {
         border-radius: 10px;
         aspect-ratio: 2/1;
         background: url(${process.env.PUBLIC_URL}${(props) => props.bgimg}), #f2f3f6;
-        background-size: cover;
+        background-size: 100%;
+        background-position: center;
+        transition: all ease-in-out 0.3s;
+    }
+
+    .card-image:hover {
+        background-size: 110%;
     }
 
     .card-text {
@@ -104,7 +134,7 @@ const TPCard = styled.li`
     }
 
     .card-text .subtitle {
-        margin-left: 10px;
+        margin-left: 8px;
 
         font-weight: 300;
         font-family: '42dot Sans';
@@ -112,7 +142,11 @@ const TPCard = styled.li`
     }
 
     .card-text .discount {
-        color: #ff660d;
+        color: #3467ff;
         font-weight: 600;
+    }
+
+    .card-text .price {
+        margin-left: 5px;
     }
 `;

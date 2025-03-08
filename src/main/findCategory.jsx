@@ -95,9 +95,9 @@ const FindCategoryTitle = styled.article`
 `;
 
 const TypingText = styled.span`
-    color: #bbbdbe;
+    color: rgba(0, 0, 0, 0.3);
     font-weight: bold;
-    border-right: 3px solid #bbbdbe;
+    border-right: 3px solid rgba(0, 0, 0, 0.3);
     padding-right: 5px;
     animation: blink 0.7s infinite alternate ease-out; // 부드러운 깜빡임 적용
 
@@ -187,6 +187,6 @@ const FCCard = styled.li`
 
     .card-button:hover {
         background: rgba(255, 255, 255, 1);
-        color: #465172;
+        color: #3467ff;
     }
 `;
