@@ -37,7 +37,7 @@ function BestSeller() {
                     onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}>
                     {bestSellersData.map((data, index) => (
                         <SwiperSlide key={index + 1}>
-                            <BestItem bgimg={data.image}>
+                            <BestItem $bgimg={data.image}>
                                 <dl>
                                     <dt className="flex-v-center column">
                                         <span className="item-number flex-center">{index + 1}</span>
@@ -123,7 +123,7 @@ const BestItem = styled.div`
         object-fit: cover;
         background-size: cover;
         background-position: center;
-        background-image: url(${process.env.PUBLIC_URL}${(props) => props.bgimg});
+        background-image: url(${process.env.PUBLIC_URL}${(props) => props.$bgimg});
         border-radius: 0px;
         transition: all ease-in-out 0.3s;
     }

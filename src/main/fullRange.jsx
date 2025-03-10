@@ -18,12 +18,6 @@ function FullRange() {
             </FRTitleBox>
             <FRItemBox className="flex-v-center">
                 <Products products={productData} />
-                <div className="test">
-                    <article className="special-offer">
-                        <p></p>
-                        <p></p>
-                    </article>
-                </div>
             </FRItemBox>
         </FullRangeSection>
     );
@@ -33,15 +27,17 @@ export default FullRange;
 
 const FullRangeSection = styled.section`
     width: 100%;
-    padding: 0px 100px 100px 100px;
+    padding: 200px 100px 100px 100px;
 `;
 
 const FRItemBox = styled.article`
     width: 100%;
     margin: 100px 0px 200px 0px;
+
     .test {
-        width: 80%;
+        width: 100%;
         max-height: 100%;
+        margin-left: 50px;
     }
 
     .special-offer {

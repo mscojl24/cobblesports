@@ -43,18 +43,16 @@ function PromotionCard() {
                 }}
                 loop={true}
                 modules={[Autoplay]}
-                className="mySwiper"
-            >
+                className="mySwiper">
                 {promotion.map((item, index) => (
                     <SwiperSlide key={index}>
                         <Promotion
                             className="flex-center column"
                             color={item.color}
-                            fontcolor={item.fontcolor}
+                            $fontcolor={item.fontcolor}
                             onClick={() => {
                                 window.open(item.link, '_blank', 'noopener,noreferrer');
-                            }}
-                        >
+                            }}>
                             <p className="promotion-sub">{item.subtitle}</p>
                             <h1 className="promotion-title">{item.title}</h1>
                         </Promotion>
@@ -70,14 +68,13 @@ const Promotion = styled.article`
     width: 100%;
     height: 200px;
     padding: 100px;
-    background: linear-gradient(160deg, ${(props) => props.color} 50%, ${(props) => props.fontcolor} 180%);
+    background: linear-gradient(160deg, ${(props) => props.color} 50%, ${(props) => props.$fontcolor} 180%);
     transition: all 0.3s ease-in-out;
     cursor: pointer;
-    margin-bottom: 200px;
 
     & > * {
         margin: 7px 0px;
-        color: ${(props) => props.fontcolor};
+        color: ${(props) => props.$fontcolor};
     }
 
     .promotion-sub {

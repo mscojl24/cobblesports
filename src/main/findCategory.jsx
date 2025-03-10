@@ -51,7 +51,7 @@ function FindCategory() {
             </FindCategoryTitle>
             <FindCategoryCard className="flex-center">
                 {categoriesData.map((item, index) => (
-                    <FCCard key={index + 1} bgimg={item.image}>
+                    <FCCard key={index + 1} $bgimg={item.image}>
                         <div className="card-box">
                             <h2 className="card-title">{item.title}</h2>
                             <h3 className="card-subtitle">{item.subtitle}</h3>
@@ -126,7 +126,7 @@ const FCCard = styled.li`
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: url(${(props) => props.bgimg});
+    background: url(${(props) => props.$bgimg});
     background-size: cover;
     background-position: center;
     border-radius: 10px;

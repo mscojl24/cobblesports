@@ -56,7 +56,7 @@ function CompanyIntro() {
 
     return (
         <IntroBox>
-            <IntroDescription scrolly={scrollY}>
+            <IntroDescription $scrolly={scrollY}>
                 <h1>
                     Company
                     <br />
@@ -70,13 +70,13 @@ function CompanyIntro() {
             </IntroDescription>
             <IntroCardSection>
                 <article>
-                    <IntroCard scrolly={scrollY}>
+                    <IntroCard $scrolly={scrollY}>
                         <span>관심고객수</span>
                         <h4>{formatNumber(like)}+</h4>
                     </IntroCard>
                 </article>
                 <article>
-                    <IntroCard2 scrolly={scrollY}>
+                    <IntroCard2 $scrolly={scrollY}>
                         <span>스토어평점</span>
                         <h4>
                             {gpa}.{gpaPoint}
@@ -85,14 +85,14 @@ function CompanyIntro() {
                     </IntroCard2>
                 </article>
                 <article>
-                    <IntroCard3 scrolly={scrollY}>
+                    <IntroCard3 $scrolly={scrollY}>
                         <span>누적업력</span>
                         <h4>
                             {career}
                             <span>년</span>
                         </h4>
                     </IntroCard3>
-                    <IntroCard4 scrolly={scrollY}>
+                    <IntroCard4 $scrolly={scrollY}>
                         <span>연 평균 판매수량</span>
                         <h4>{formatNumber(sales)}+</h4>
                     </IntroCard4>
@@ -114,8 +114,8 @@ const IntroDescription = styled.aside`
         font-size: 64px;
         font-weight: 700;
         line-height: 120%;
-        opacity: ${(props) => (props.scrolly > 1000 ? '1' : '0')};
-        transform: ${(props) => (props.scrolly > 1000 ? 'translateX(0px)' : 'translateX(-50px)')};
+        opacity: ${(props) => (props.$scrolly > 1000 ? '1' : '0')};
+        transform: ${(props) => (props.$scrolly > 1000 ? 'translateX(0px)' : 'translateX(-50px)')};
         transition: all ease-in-out 1s;
     }
 
@@ -127,8 +127,8 @@ const IntroDescription = styled.aside`
         max-width: 600px;
         color: #343434;
 
-        opacity: ${(props) => (props.scrolly > 1800 ? '1' : '0')};
-        transform: ${(props) => (props.scrolly > 1800 ? 'translateX(0px)' : 'translateX(-50px)')};
+        opacity: ${(props) => (props.$scrolly > 1800 ? '1' : '0')};
+        transform: ${(props) => (props.$scrolly > 1800 ? 'translateX(0px)' : 'translateX(-50px)')};
         transition: all ease-in-out 1s;
 
         span {
@@ -190,8 +190,8 @@ const IntroCard = styled.div`
 
     transition: all ease-in-out 0.5s;
 
-    opacity: ${(props) => (props.scrolly > 2200 ? '1' : '0')};
-    transform: ${(props) => (props.scrolly > 2200 ? 'scale(1)' : 'scale(0.9)')};
+    opacity: ${(props) => (props.$scrolly > 2200 ? '1' : '0')};
+    transform: ${(props) => (props.$scrolly > 2200 ? 'scale(1)' : 'scale(0.9)')};
 `;
 
 const IntroCard2 = styled(IntroCard)`

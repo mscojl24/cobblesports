@@ -31,11 +31,11 @@ function Navi() {
     ];
 
     return (
-        <NavigateSection scrollingUp={scrollingUp} scrollY={scrollY}>
+        <NavigateSection $scrollingUp={scrollingUp} $scrollY={scrollY}>
             <LogoBox className="flex-h-center">
                 <CobbleLogo />
             </LogoBox>
-            <MenuList className="flex-h-center" scrollingUp={scrollingUp}>
+            <MenuList className="flex-h-center">
                 {menulist.map((menu, index) => (
                     <li key={index} className="flex-h-center column">
                         <p className="default flex-center">{menu.name}</p>
@@ -43,7 +43,7 @@ function Navi() {
                     </li>
                 ))}
             </MenuList>
-            <LoginBtn className="flex-center" scrollingUp={scrollingUp}>
+            <LoginBtn className="flex-center">
                 <button className="flex-center btn-offline">공식 스토어</button>
                 <button className="flex-center btn-offline btn-online">
                     <FaLocationDot size={18} />
@@ -62,9 +62,9 @@ const NavigateSection = styled.nav`
     padding: 0px 100px;
 
     /* 애니메이션 효과 추가 */
-    opacity: ${(props) => (props.scrollingUp || props.scrollY === 0 ? '1' : '0')};
-    transform: ${(props) => (props.scrollingUp || props.scrollY === 0 ? 'translateY(0)' : 'translateY(-20px)')};
-    position: ${(props) => (props.scrollingUp ? 'fixed' : 'absolute')};
+    opacity: ${(props) => (props.$scrollingUp || props.$scrollY === 0 ? '1' : '0')};
+    transform: ${(props) => (props.$scrollingUp || props.$scrollY === 0 ? 'translateY(0)' : 'translateY(-20px)')};
+    position: ${(props) => (props.$scrollingUp ? 'fixed' : 'absolute')};
     transition: all 0.3s ease-in-out;
     z-index: 99;
 
@@ -86,7 +86,7 @@ const MenuList = styled.ul`
         cursor: pointer;
         transition: all ease-in-out 0.3s;
         overflow: hidden;
-        height: 15px;
+        height: 35px;
         text-transform: uppercase;
         font-size: 14px;
     }
@@ -95,17 +95,19 @@ const MenuList = styled.ul`
     .hovered {
         width: 100%;
         height: 100%;
+        padding: 10px;
         text-align: center;
-        transition: transform 0.1s ease-in-out;
-    }
-
-    .default .hovered {
         transform: translateY(0);
+        transition: transform 0.2s ease-in-out;
+    }
+    .hovered {
+        font-size: 16px;
     }
 
     li:hover .default,
     li:hover .hovered {
         transform: translateY(-100%);
+        color: rgba(0, 0, 0, 0.5);
     }
 `;
 

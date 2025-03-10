@@ -56,11 +56,10 @@ function SwiperMain() {
                 setProgress(0);
                 startTimeRef.current = null;
                 requestRef.current = requestAnimationFrame(animateProgress);
-            }}
-        >
+            }}>
             {swiperMainData.map((data, index) => (
                 <SwiperSlide key={index}>
-                    <MainBanner bgimg={data.image} className="flex-center">
+                    <MainBanner $bgimg={data.image} className="flex-center">
                         <div className="background"></div>
                         <div className="text-box">
                             <TitleText className="flex-v-center column">
@@ -110,7 +109,7 @@ const MainBanner = styled.article`
         width: 100%;
         height: 100%;
         background-image: linear-gradient(30deg, #000000, rgba(0, 0, 0, 0) 60%),
-            url(${process.env.PUBLIC_URL}${(props) => props.bgimg});
+            url(${process.env.PUBLIC_URL}${(props) => props.$bgimg});
         background-attachment: fixed;
         background-size: cover;
         animation: bgmove 20s ease-in-out infinite;
@@ -235,13 +234,13 @@ const ProgressBar = styled.div`
     left: 0px;
     width: 100%;
     height: 5px;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
     border-radius: 5px;
     overflow: hidden;
 
     .progress {
         height: 100%;
-        background: #3467ff;
+        background: #000000;
         transition: width linear;
     }
 `;

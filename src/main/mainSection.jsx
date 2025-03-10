@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import SwiperMain from '../swiper/swiperMain';
+import SpecialOffer from '../swiper/specialOffer';
 import Recommended from './recommended.jsx';
 import CategoryList from './categoryList.jsx';
 import Footer from './footer.jsx';
@@ -16,10 +17,10 @@ function MainSection() {
             <Recommended />
             <FindCategory />
             <TopPicks />
-            <PromotionCard />
             <NewArrival />
-            <FullRange />
             <CategoryList />
+            <FullRange />
+            <PromotionCard />
             <Footer />
         </MainBox>
     );

@@ -13,7 +13,7 @@ function TopPicks() {
             </TopPicksTitle>
             <TopPicksCard>
                 {bestSellersData.map((item, index) => (
-                    <TPCard key={index + 1} bgimg={item.image}>
+                    <TPCard key={index + 1} $bgimg={item.image}>
                         <div className="card-image">
                             <div className="card-num flex-center">0{index + 1}</div>
                         </div>
@@ -110,7 +110,7 @@ const TPCard = styled.li`
     .card-image {
         border-radius: 10px;
         aspect-ratio: 2/1;
-        background: url(${process.env.PUBLIC_URL}${(props) => props.bgimg}), #f2f3f6;
+        background: url(${process.env.PUBLIC_URL}${(props) => props.$bgimg}), #f2f3f6;
         background-size: 100%;
         background-position: center;
         transition: all ease-in-out 0.3s;

@@ -6,8 +6,8 @@ function Recommended() {
     const [scrollY] = useAtom(scrollYState);
 
     return (
-        <NewItemBox className="column" scrollY={scrollY}>
-            <RecommendedScript scrollY={scrollY}>
+        <NewItemBox className="column" $scrollY={scrollY}>
+            <RecommendedScript $scrollY={scrollY}>
                 <div className="text-ani1">
                     <h1>Run-Ready Essentials</h1>
                 </div>
@@ -42,7 +42,7 @@ const NewItemBox = styled.section`
         font-size: 20px;
         color: #ffffff;
         margin-top: 100px;
-        opacity: ${(props) => (props.scrollY > 300 ? '1' : '0')};
+        opacity: ${(props) => (props.$scrollY > 300 ? '1' : '0')};
         transition: all ease-in-out 0.5s;
     }
 
@@ -63,7 +63,7 @@ const RecommendedScript = styled.div`
         font-size: 65px;
         text-transform: uppercase;
         text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
-        transform: ${(props) => (props.scrollY > 300 ? 'translateY(0px);' : 'translateY(-100px);')};
+        transform: ${(props) => (props.$scrollY > 300 ? 'translateY(0px);' : 'translateY(-100px);')};
         transition: all ease-in-out 1s;
         transition-delay: 0s;
     }
@@ -72,7 +72,7 @@ const RecommendedScript = styled.div`
         font-weight: 300;
         font-size: 32px;
         text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
-        transform: ${(props) => (props.scrollY > 300 ? 'translateY(0px);' : 'translateY(-80px);')};
+        transform: ${(props) => (props.$scrollY > 300 ? 'translateY(0px);' : 'translateY(-80px);')};
         transition: all ease-in-out 1s;
         transition-delay: 0.2s;
     }

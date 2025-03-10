@@ -16,7 +16,7 @@ function CategoryList() {
 
     return (
         <CategoryListBox>
-            <TitleText className="flex-v-center column" scrollY={scrollY}>
+            <TitleText className="flex-v-center column" $scrollY={scrollY}>
                 <div className="title">
                     <h1>
                         Cobble <br /> Network <br />
@@ -40,8 +40,7 @@ function CategoryList() {
                             window.open(cate.link, '_blank', 'noopener,noreferrer');
                         }}
                         key={index}
-                        className="flex-center"
-                    >
+                        className="flex-center">
                         <div className="flex-center">
                             <span className="text-num">0{index + 1}</span>
                             <h2 className="text-kr">{cate.title}</h2>
@@ -84,7 +83,7 @@ const TitleText = styled.div`
             /* font-weight: 700; */
             text-transform: uppercase;
             font-size: 70px;
-            transform: ${(props) => (props.scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
+            transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
             transition: all ease-in-out 1s;
             transition-delay: 0s;
         }
@@ -98,7 +97,7 @@ const TitleText = styled.div`
             font-size: 25px;
             /* font-weight: 300; */
             transform: translateY(-100px);
-            transform: ${(props) => (props.scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
+            transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
             transition: all ease-in-out 1s;
             transition-delay: 0.1s;
         }
@@ -114,7 +113,7 @@ const TitleText = styled.div`
             font-weight: 300;
             line-height: 150%;
             transform: translateY(-100px);
-            transform: ${(props) => (props.scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
+            transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
             transition: all ease-in-out 1s;
             transition-delay: 0s;
         }
