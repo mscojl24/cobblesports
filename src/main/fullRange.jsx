@@ -14,7 +14,7 @@ function FullRange() {
                     <br />
                     모든 상품 라인업
                 </h1>
-                <p>모든 제품을 한 곳에서 확인하고, 필요한 아이템을 빠르게 찾아보세요!</p>
+                <p>필요한 아이템을 빠르게 비교하고 찾아보세요!</p>
             </FRTitleBox>
             <FRItemBox className="flex-v-center">
                 <Products products={productData} />
@@ -28,24 +28,23 @@ export default FullRange;
 const FullRangeSection = styled.section`
     width: 100%;
     padding: 200px 100px 100px 100px;
+    transition: all ease-in-out 1s;
+
+    @media (max-width: 1500px) {
+        padding: 100px 50px;
+    }
+
+    @media (max-width: 860px) {
+        padding: 50px 10px;
+    }
 `;
 
 const FRItemBox = styled.article`
     width: 100%;
-    margin: 100px 0px 200px 0px;
+    margin: 100px 0px;
 
-    .test {
-        width: 100%;
-        max-height: 100%;
-        margin-left: 50px;
-    }
-
-    .special-offer {
-        width: 100%;
-        height: 100%;
-        border-radius: 20px;
-        background: url(${process.env.PUBLIC_URL}/asset/categories/golf.png);
-        background-size: cover;
+    @media (max-width: 860px) {
+        margin: 50px 0px;
     }
 `;
 
@@ -69,5 +68,17 @@ const FRTitleBox = styled.article`
         margin-top: 20px;
         font-size: 20px;
         line-height: 150%;
+    }
+
+    @media (max-width: 860px) {
+        padding: 10px;
+
+        h1 {
+            font-size: 40px;
+        }
+
+        p {
+            font-size: 16px;
+        }
     }
 `;

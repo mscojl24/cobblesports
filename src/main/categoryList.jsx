@@ -80,7 +80,6 @@ const TitleText = styled.div`
         overflow: hidden;
         h1 {
             font-family: anton;
-            /* font-weight: 700; */
             text-transform: uppercase;
             font-size: 70px;
             transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};

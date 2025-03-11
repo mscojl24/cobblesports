@@ -93,7 +93,6 @@ function SwiperMain() {
 const MainBanner = styled.article`
     position: relative;
     height: calc(100vh - 70px);
-    margin-top: 70px;
     overflow: hidden;
     text-align: center;
 
@@ -104,6 +103,7 @@ const MainBanner = styled.article`
 
     .background {
         position: absolute;
+        transition: all ease-in-out 1s;
         top: 0px;
         left: 0px;
         width: 100%;
@@ -112,6 +112,7 @@ const MainBanner = styled.article`
             url(${process.env.PUBLIC_URL}${(props) => props.$bgimg});
         background-attachment: fixed;
         background-size: cover;
+        background-position: center;
         animation: bgmove 20s ease-in-out infinite;
     }
 
@@ -124,26 +125,39 @@ const MainBanner = styled.article`
         background: linear-gradient(rgba(23, 23, 29, 0.5), #000000);
     }
 
+    .text-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        position: absolute;
+        margin: 0px 100px;
+        bottom: 100px;
+        left: 0px;
+    }
+
     @keyframes bgmove {
         50% {
             transform: scale(1.1);
         }
     }
 
-    .text-box {
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        margin: 0px 100px;
-        position: absolute;
-        bottom: 100px;
-        left: 0px;
+    @media (max-width: 1500px) {
+        height: calc(70vh - 50px);
+
+        .text-box {
+            margin: 0px;
+            position: relative;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
     }
 `;
 
 const TitleText = styled.div`
     text-align: left;
     color: #ffffff;
+    transition: all ease-in-out 1s;
 
     /* 메인타이틀 CSS */
     .title {
@@ -156,6 +170,7 @@ const TitleText = styled.div`
             text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: text-show 1s forwards 0s;
+            transition: all ease-in-out 1s;
         }
     }
 
@@ -169,15 +184,16 @@ const TitleText = styled.div`
             text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: text-show 1s forwards 0.2s;
+            transition: all ease-in-out 1s;
         }
     }
 
     /* 설명문 CSS */
     .sub-script {
-        width: 50%;
         margin-top: 40px;
         overflow: hidden;
         p {
+            width: 50%;
             font-size: 13px;
             font-weight: 300;
             line-height: 150%;
@@ -185,6 +201,7 @@ const TitleText = styled.div`
             text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: text-show 1s forwards 0.4s;
+            transition: all ease-in-out 1s;
         }
     }
 
@@ -193,11 +210,33 @@ const TitleText = styled.div`
             transform: translateY(0);
         }
     }
+
+    @media (max-width: 1500px) {
+        text-align: center;
+
+        .sub-script {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 1500px) {
+        text-align: center;
+        .title h1 {
+            font-size: 40px;
+        }
+
+        .sub-title p {
+            font-size: 16px;
+        }
+        .sub-script {
+            display: none;
+        }
+    }
 `;
 
 const ActButton = styled.div`
     .store-btn {
-        margin-left: 25px;
         padding: 0px 40px;
         width: 250px;
         height: 65px;
@@ -208,7 +247,6 @@ const ActButton = styled.div`
 
         /* 버튼 텍스트 디자인 */
         color: #fff;
-        text-transform: uppercase;
         font-size: 18px;
         transition: all ease-in-out 0.5s;
     }
@@ -223,8 +261,15 @@ const ActButton = styled.div`
         font-weight: 600;
     }
 
-    .btn-text {
-        margin-right: 10px;
+    @media (max-width: 1500px) {
+        margin-top: 50px;
+        .store-btn {
+            font-size: 14px;
+            width: 160px;
+            height: 40px;
+            padding: 0px 20px;
+            border-radius: 5px;
+        }
     }
 `;
 

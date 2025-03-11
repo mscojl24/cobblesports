@@ -1,10 +1,22 @@
 import styled from 'styled-components';
 import { TbShoppingCartShare } from 'react-icons/tb';
+import { useAtom } from 'jotai';
+import { scrollXState } from '../atoms/useIndexState';
+import { useEffect, useState } from 'react';
 
 function Products({ products }) {
+    const [scrollX] = useAtom(scrollXState);
+    const [slice, setSlice] = useState(10);
+
+    useEffect(() => {
+        setSlice(
+            scrollX > 1500 ? setSlice(10) : scrollX <= 1500 ? setSlice(9) : scrollX <= 860 ? setSlice(10) : setSlice(10)
+        );
+    }, [scrollX]);
+
     return (
-        <ItemBox className="flex-h-center">
-            {products.slice(0, 10).map((item, index) => (
+        <ItemBox className="flex-center">
+            {products.slice(0, slice).map((item, index) => (
                 <Item key={index}>
                     <div className="prodoct-image"></div>
                     <ul className="prodoct-script flex-v-center column">
@@ -13,20 +25,19 @@ function Products({ products }) {
                             <p>₩ {item.option.price}</p>
                         </li>
                         <li className="product-options">
-                            <p>- {item.spec.band} 호환가능</p>
-                            <div>
-                                <strong className="bold">- 배터리사양</strong>
+                            <div className="text-column">
+                                <strong className="bold">- 배터리</strong>
                                 <span>
                                     {' '}
-                                    최대{item.battery.smartwatch} / {item.battery.gpsOnly}
+                                    최대 {item.battery.smartwatch} / {item.battery.gpsOnly}
                                 </span>
                             </div>
-                            <div>
+                            <div className="text-column">
                                 <strong className="bold">- 디스플레이</strong>
                                 <span> {item.option.display.type}</span>
                             </div>
-                            <div>
-                                <strong className="bold">- GPS방식</strong>
+                            <div className="text-column">
+                                <strong className="bold">- GPS방식 </strong>
                                 <span> {item.spec.gps}</span>
                             </div>
                         </li>
@@ -45,11 +56,25 @@ const ItemBox = styled.div`
     gap: 20px;
     flex-wrap: wrap;
     /* border: 1px solid red; */
+
+    @media (max-width: 860px) {
+        gap: 10px;
+    }
 `;
 
 const Item = styled.div`
     flex: 0 1 calc(100% / 5 - 20px);
     overflow: hidden;
+    transition: all ease-in-out 0.5s;
+
+    @media (max-width: 1500px) {
+        flex: 0 1 calc(100% / 3 - 20px);
+    }
+
+    @media (max-width: 860px) {
+        flex: 0 1 calc(100% / 2 - 10px); /* 2개 */
+    }
+
     /* <-------------------------- Swiper 이미지지 섹션 -------------------------------> */
 
     .prodoct-image {
@@ -58,6 +83,10 @@ const Item = styled.div`
         border-radius: 10px;
         cursor: pointer;
         /* border-radius: 20px; */
+
+        @media (max-width: 860px) {
+            aspect-ratio: 4/5;
+        }
     }
     /* <-------------------------- Swiper 스크립트 섹션 -------------------------------> */
     .prodoct-script {
@@ -79,6 +108,31 @@ const Item = styled.div`
             /* font-size: 14px; */
             font-weight: 400;
             color: rgba(0, 0, 0, 0.7);
+        }
+
+        @media (max-width: 860px) {
+            padding: 10px;
+            margin: 10px 0px;
+
+            h4 {
+                font-size: 16px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .text-column {
+        @media (max-width: 860px) {
+            display: flex;
+            justify-content: left;
+            flex-direction: column;
+
+            .bold {
+                margin-bottom: 5px;
+            }
         }
     }
 
@@ -115,6 +169,9 @@ const Item = styled.div`
         font-weight: 400;
         transition: all ease-in-out 0.3s;
         cursor: pointer;
+        @media (max-width: 860px) {
+            font-size: 14px;
+        }
     }
 
     .product-btn:hover {

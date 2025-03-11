@@ -38,6 +38,10 @@ export default TopPicks;
 const TopPicksSection = styled.section`
     width: 100%;
     padding: 0px 100px 100px 100px;
+
+    @media (max-width: 1500px) {
+        padding: 20px;
+    }
 `;
 
 const TopPicksTitle = styled.article`
@@ -62,6 +66,12 @@ const TopPicksTitle = styled.article`
         margin-top: 20px;
         font-size: 20px;
         line-height: 150%;
+    }
+
+    @media (max-width: 1500px) {
+        h1 {
+            font-size: 30px;
+        }
     }
 `;
 

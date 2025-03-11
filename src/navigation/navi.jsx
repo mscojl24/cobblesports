@@ -4,23 +4,20 @@ import { useAtom } from 'jotai';
 import { scrollYState } from '../atoms/useIndexState';
 import CobbleLogo from '../cobbleLogo';
 import { FaLocationDot } from 'react-icons/fa6';
+import MobileNavi from './mobileNavi';
 
 function Navi() {
     const [scrollY] = useAtom(scrollYState);
-    const [isScrollingUp, setIsScrollingUp] = useState(false);
-    const [lastScrollY, setLastScrollY] = useState(0);
+    const [isScrollingUp, setIsScrollingUp] = useState(true);
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrollingUp(window.scrollY < lastScrollY);
-            setLastScrollY(window.scrollY);
+            setIsScrollingUp((prev) => window.scrollY < scrollY || window.scrollY === 0);
         };
+
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [lastScrollY]);
-
-    // 스크롤 값이 200 이하일 때는 원래 디자인 유지
-    const scrollingUp = scrollY > 0 && isScrollingUp;
+    }, [scrollY]);
 
     const menulist = [
         { name: 'About', subname: '메인으로' },
@@ -31,121 +28,141 @@ function Navi() {
     ];
 
     return (
-        <NavigateSection $scrollingUp={scrollingUp} $scrollY={scrollY}>
-            <LogoBox className="flex-h-center">
-                <CobbleLogo />
-            </LogoBox>
-            <MenuList className="flex-h-center">
-                {menulist.map((menu, index) => (
-                    <li key={index} className="flex-h-center column">
-                        <p className="default flex-center">{menu.name}</p>
-                        <p className="hovered flex-center">{menu.subname}</p>
-                    </li>
-                ))}
-            </MenuList>
-            <LoginBtn className="flex-center">
-                <button className="flex-center btn-offline">공식 스토어</button>
-                <button className="flex-center btn-offline btn-online">
-                    <FaLocationDot size={18} />
-                </button>
-            </LoginBtn>
-        </NavigateSection>
+        <>
+            <MobileNavi />
+            <NavigateSection $isVisible={isScrollingUp}>
+                <div className="flex-v-center">
+                    <LogoBox className="flex-h-center">
+                        <CobbleLogo />
+                    </LogoBox>
+                    <MenuList>
+                        {menulist.map((menu, index) => (
+                            <li key={index}>
+                                <p className="default flex-center">{menu.name}</p>
+                                <p className="hovered flex-center">{menu.subname}</p>
+                            </li>
+                        ))}
+                    </MenuList>
+                </div>
+                <LoginBtn>
+                    <button className="btn-offline">공식 스토어</button>
+                    <button className="btn-online flex-center">
+                        <FaLocationDot size={18} />
+                    </button>
+                </LoginBtn>
+            </NavigateSection>
+        </>
     );
 }
+
+export default Navi;
 
 const NavigateSection = styled.nav`
     display: flex;
     justify-content: space-between;
-    overflow: hidden;
+    align-items: center;
     width: 100%;
     height: 70px;
-    padding: 0px 100px;
-
-    /* 애니메이션 효과 추가 */
-    opacity: ${(props) => (props.$scrollingUp || props.$scrollY === 0 ? '1' : '0')};
-    transform: ${(props) => (props.$scrollingUp || props.$scrollY === 0 ? 'translateY(0)' : 'translateY(-20px)')};
-    position: ${(props) => (props.$scrollingUp ? 'fixed' : 'absolute')};
-    transition: all 0.3s ease-in-out;
+    padding: 0 100px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #eee;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 99;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transform: ${({ $isVisible }) => ($isVisible ? 'translateY(0)' : 'translateY(-100%)')};
+    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
 
-    color: #222;
-    background-color: rgb(255, 255, 255, 1);
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #eeeeee;
+    @media (max-width: 1500px) {
+        display: none;
+    }
 `;
 
 const LogoBox = styled.div`
-    width: 300px;
+    width: 150px;
 `;
 
 const MenuList = styled.ul`
-    width: 100%;
+    display: flex;
+
     li {
-        width: 100px;
+        position: relative;
         font-weight: 600;
         cursor: pointer;
-        transition: all ease-in-out 0.3s;
-        overflow: hidden;
         height: 35px;
+        width: 100px;
         text-transform: uppercase;
         font-size: 14px;
+        overflow: hidden;
+        transition: color 0.2s ease-in-out;
     }
 
     .default,
     .hovered {
         width: 100%;
         height: 100%;
-        padding: 10px;
         text-align: center;
-        transform: translateY(0);
         transition: transform 0.2s ease-in-out;
     }
+
     .hovered {
+        position: absolute;
+        top: 100%;
+        left: 0;
         font-size: 16px;
+        color: rgba(0, 0, 0, 0.5);
     }
 
-    li:hover .default,
+    li:hover .default {
+        transform: translateY(-100%);
+    }
     li:hover .hovered {
         transform: translateY(-100%);
-        color: rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        gap: 10px;
+        font-size: 12px;
     }
 `;
 
 const LoginBtn = styled.div`
-    width: 100%;
-    justify-content: end;
+    display: flex;
+    gap: 10px;
 
-    .btn-offline {
+    .btn-offline,
+    .btn-online {
         font-weight: 500;
-        border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 7px;
-        background-color: #1a1a1a;
-        transition: all 0.2s ease-in-out;
-        font-size: 13px;
-        color: #fff;
+        font-size: 14px;
         padding: 10px;
-        max-width: 110px;
-        margin: 0px 5px;
-        width: 20%;
         cursor: pointer;
+        transition: all 0.2s ease-in-out;
     }
 
+    .btn-offline {
+        padding: 10px 30px;
+        background-color: #1a1a1a;
+        color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
     .btn-offline:hover {
-        background-color: #3467ff;
+        background-color: #ececec;
+        border-color: #ececec;
+        color: #4d4d4d;
     }
 
     .btn-online {
         width: 40px;
-        background-color: #ffffff;
+        background-color: white;
         color: #b4b4b4;
-        transition: all 0.3s ease-in-out;
-        cursor: pointer;
+        border: 1px solid #ececec;
     }
-
     .btn-online:hover {
-        background-color: #3467ff;
-        color: #fff;
+        background-color: #ececec;
+        border-color: #ececec;
+        color: #4d4d4d;
     }
 `;
-
-export default Navi;

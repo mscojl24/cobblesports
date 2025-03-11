@@ -72,18 +72,23 @@ const FindCategorySection = styled.section`
     display: flex;
     width: 100%;
     padding: 200px 100px;
+    transition: all ease-in-out 1s;
+
+    @media (max-width: 1500px) {
+        padding: 100px 20px;
+    }
 `;
 
 const FindCategoryTitle = styled.article`
     text-align: left;
     width: 100%;
-    /* text-transform: uppercase; */
 
     h1 {
         font-weight: bold;
         font-size: 50px;
         line-height: 1.2;
         color: #242424;
+        transition: all ease-in-out 1s;
     }
 
     p {
@@ -91,6 +96,16 @@ const FindCategoryTitle = styled.article`
         margin-top: 20px;
         font-size: 20px;
         line-height: 150%;
+        transition: all ease-in-out 1s;
+    }
+
+    @media (max-width: 860px) {
+        h1 {
+            font-size: 30px;
+        }
+        p {
+            display: none;
+        }
     }
 `;
 
@@ -116,6 +131,17 @@ const FindCategoryCard = styled.ul`
     width: 100%;
     height: 50vh;
     gap: 10px;
+
+    @media (max-width: 1500px) {
+        margin-top: 50px;
+    }
+
+    @media (max-width: 860px) {
+        margin-top: 20px;
+        height: 100vh;
+        flex-direction: column;
+        gap: 5px;
+    }
 `;
 
 const FCCard = styled.li`
@@ -136,6 +162,7 @@ const FCCard = styled.li`
     .card-box {
         transform: translateY(140px);
         transition: all ease-in-out 0.5s;
+        padding: 30px;
     }
 
     &:hover {
@@ -152,7 +179,7 @@ const FCCard = styled.li`
     }
 
     .card-title {
-        padding: 10px 30px;
+        padding-top: 10px;
         font-size: 30px;
         font-weight: 600;
         color: #fff;
@@ -161,7 +188,7 @@ const FCCard = styled.li`
     .card-subtitle {
         line-height: 1.4;
         color: #fff;
-        padding: 10px 30px;
+        padding-top: 10px;
         opacity: 0;
         transition: all ease-in-out 1s;
         font-weight: 300;
@@ -174,7 +201,7 @@ const FCCard = styled.li`
     .card-button {
         display: flex;
         justify-content: space-between;
-        margin: 30px;
+        margin-top: 20px;
         border-radius: 100px;
         color: #fff;
         font-weight: 700;
@@ -188,5 +215,26 @@ const FCCard = styled.li`
     .card-button:hover {
         background: rgba(255, 255, 255, 1);
         color: #3467ff;
+    }
+
+    @media (max-width: 860px) {
+        height: 100vh;
+        border-radius: 5px;
+        .card-box {
+            transform: translateY(100% -30px);
+        }
+
+        .card-title {
+            font-size: 24px;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            max-width: 100%;
+        }
+        .card-button {
+            font-size: 14px;
+            width: 150px;
+        }
     }
 `;

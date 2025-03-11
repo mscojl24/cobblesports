@@ -2,7 +2,7 @@ export const categoriesData = [
     {
         title: 'Running',
         subtitle:
-            '속도를 체크하고, 심박수를 모니터링하며, 러닝을 최적화하세요. 마라톤 훈련부터 가벼운 러닝까지, 가민과 함께 더 효율적으로 달릴 수 있습니다.',
+            '속도를 체크하고, 심박수를 모니터링. 마라톤 훈련부터 가벼운 러닝까지, 가민과 함께 더 효율적으로 달리세요.',
         image: `${process.env.PUBLIC_URL}/asset/categories/running.png`,
     },
     {

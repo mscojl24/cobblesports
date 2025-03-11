@@ -26,16 +26,14 @@ const NewItemBox = styled.section`
     align-items: end;
 
     overflow: hidden;
-    width: 100%;
-    height: 100vh;
+
+    aspect-ratio: 16/9;
     padding: 100px;
     background: url(${process.env.PUBLIC_URL}/asset/recommend-background-image-01.png);
     background-size: cover;
 
     button {
         cursor: pointer;
-        /* width: 250px;
-        height: 60px; */
         padding: 20px 50px;
         border-radius: 10px;
         font-weight: 600;
@@ -49,7 +47,29 @@ const NewItemBox = styled.section`
     button:hover {
         font-weight: 500;
         background: rgba(255, 255, 255, 1);
+        border: 1px solid rgba(255, 255, 255, 1);
         color: #1f1f1f;
+    }
+
+    @media (max-width: 860px) {
+        display: flex;
+        justify-items: center;
+        align-items: center;
+        padding: 30px;
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 5/4;
+
+        button {
+            width: 200px;
+            height: 55px;
+            padding: 0px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-family: '42dot Sans';
+            opacity: ${(props) => (props.$scrollY > 100 ? '1' : '0')};
+        }
     }
 `;
 
@@ -84,6 +104,19 @@ const RecommendedScript = styled.div`
     .text-ani2 {
         overflow: hidden;
         margin-top: 20px;
+    }
+
+    @media (max-width: 860px) {
+        text-align: center;
+
+        h1 {
+            font-size: 40px;
+            transform: ${(props) => (props.$scrollY > 100 ? 'translateY(0px);' : 'translateY(-100px);')};
+        }
+        p {
+            font-size: 20px;
+            transform: ${(props) => (props.$scrollY > 100 ? 'translateY(0px);' : 'translateY(-80px);')};
+        }
     }
 `;
 
