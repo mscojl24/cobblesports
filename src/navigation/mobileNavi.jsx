@@ -131,6 +131,7 @@ const IconBox = styled.aside`
 const MoblieNavList = styled.ul`
     // ====== 오픈 후 메뉴 ======= //
     width: 100%;
+    min-height: calc(100vh - 50px);
     overflow: hidden;
     transition: all ease-in-out 0.3s;
     animation: shownav 0.3s ease-in-out forwards;

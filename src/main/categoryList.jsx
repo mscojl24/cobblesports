@@ -65,6 +65,10 @@ const CategoryListBox = styled.section`
     width: 100%;
     background: url(${process.env.PUBLIC_URL}/asset/category-background-image-01.png);
     background-size: cover;
+
+    @media (max-width: 860px) {
+        flex-direction: column;
+    }
 `;
 
 const TitleText = styled.div`
@@ -81,7 +85,7 @@ const TitleText = styled.div`
         h1 {
             font-family: anton;
             text-transform: uppercase;
-            font-size: 70px;
+            font-size: clamp(20px, 8vw, 70px);
             transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
             transition: all ease-in-out 1s;
             transition-delay: 0s;
@@ -93,7 +97,7 @@ const TitleText = styled.div`
         margin-top: 20px;
         overflow: hidden;
         p {
-            font-size: 25px;
+            font-size: clamp(16px, 4vw, 25px);
             /* font-weight: 300; */
             transform: translateY(-100px);
             transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
@@ -115,6 +119,16 @@ const TitleText = styled.div`
             transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
             transition: all ease-in-out 1s;
             transition-delay: 0s;
+        }
+    }
+
+    @media (max-width: 860px) {
+        width: 100%;
+        padding: 50px 20px;
+        text-align: center;
+
+        .sub-script {
+            display: none;
         }
     }
 `;
@@ -151,33 +165,66 @@ const CateList = styled.ul`
     .text-num {
         font-family: '42dot Sans';
         font-weight: 700;
-        font-size: 20px;
+        font-size: clamp(13px, 3vw, 20px);
         margin-right: 40px;
         color: rgba(0, 0, 0, 0.5);
     }
 
     .text-kr {
-        font-size: 25px;
+        font-size: clamp(16px, 3vw, 25px);
         font-weight: 600;
         margin-right: 10px;
     }
 
     .text-en {
         font-family: '42dot Sans';
-        font-size: 25px;
+        font-size: clamp(14px, 3vw, 25px);
         font-weight: 300;
     }
 
-    .go-btn > button {
+    .go-btn button {
         display: flex;
         width: 110px;
         justify-content: space-between;
         color: #3e3e3e;
-        font-size: 25px;
+        font-size: clamp(16px, 3vw, 25px);
         font-weight: 600;
         border: none;
         .go-icon {
             transition: all ease-in-out 0.3s;
+        }
+    }
+
+    @media (max-width: 1500px) {
+        .go-btn button {
+            width: 110px;
+        }
+    }
+
+    @media (max-width: 860px) {
+        padding: 0px;
+
+        li {
+            padding: 20px;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        li:hover {
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.3), rgba(0, 0, 0, 0));
+            padding: 20px;
+            .go-icon {
+                transform: translateX(0px);
+            }
+        }
+
+        .text-num {
+            margin-right: 20px;
+        }
+        .go-btn button {
+            width: 85px;
         }
     }
 `;

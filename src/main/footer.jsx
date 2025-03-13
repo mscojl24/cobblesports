@@ -28,6 +28,11 @@ const FooterBox = styled.footer`
     justify-content: space-between;
     background-color: #000;
     padding: 100px;
+
+    @media (max-width: 860px) {
+        padding: 50px 30px;
+        display: none;
+    }
 `;
 
 const CompanyInfo = styled.div`
@@ -35,29 +40,37 @@ const CompanyInfo = styled.div`
     font-weight: 300;
 
     .company-name {
-        font-size: 22px;
+        font-size: clamp(16px, 6vw, 22px);
         margin-bottom: 20px;
     }
 
     .information-text small {
-        font-size: 14px;
+        font-size: clamp(13px, 5vw, 14px);
         font-family: '42dot Sans';
         color: rgba(255, 255, 255, 0.5);
-        margin: 5px 0px;
+        margin: 3px 0px;
+        line-height: 1.2;
     }
 
     .company-name-en {
-        font-size: 50px;
+        font-size: clamp(20px, 6vw, 40px);
         font-family: Anton;
-        margin-top: 80px;
+        margin-top: 50px;
+        @media (max-width: 860px) {
+            margin-top: 30px;
+        }
     }
 `;
 
 const PageUp = styled.button`
-    font-size: 50px;
+    font-size: clamp(20px, 6vw, 50px);
     width: 50px;
     height: 50px;
     color: #fff;
     border: none;
     cursor: pointer;
+
+    @media (max-width: 860px) {
+        display: none;
+    }
 `;

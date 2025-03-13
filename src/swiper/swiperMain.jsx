@@ -142,15 +142,20 @@ const MainBanner = styled.article`
     }
 
     @media (max-width: 1500px) {
-        height: calc(70vh - 50px);
+        height: calc(100vh - 50px);
 
         .text-box {
+            bottom: 0px;
             margin: 0px;
             position: relative;
             align-items: center;
             justify-content: center;
             flex-direction: column;
         }
+    }
+
+    @media (max-width: 860px) {
+        height: calc(70vh - 50px);
     }
 `;
 
@@ -165,12 +170,12 @@ const TitleText = styled.div`
         overflow: hidden;
         h1 {
             font-family: Anton;
-            font-size: 80px;
+            font-size: clamp(40px, 8vw, 80px);
             line-height: 100%;
             text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: text-show 1s forwards 0s;
-            transition: all ease-in-out 1s;
+            transition: all ease-in-out 0.3s;
         }
     }
 
@@ -179,12 +184,12 @@ const TitleText = styled.div`
         margin-top: 20px;
         overflow: hidden;
         p {
-            font-size: 32px;
+            font-size: clamp(16px, 3vw, 32px);
             font-weight: 300;
             text-shadow: 0px 0px 2px #000;
             transform: translateY(-100px);
             animation: text-show 1s forwards 0.2s;
-            transition: all ease-in-out 1s;
+            transition: all ease-in-out 0.3s;
         }
     }
 
@@ -220,15 +225,9 @@ const TitleText = styled.div`
         }
     }
 
-    @media (max-width: 1500px) {
+    @media (max-width: 860px) {
         text-align: center;
-        .title h1 {
-            font-size: 40px;
-        }
 
-        .sub-title p {
-            font-size: 16px;
-        }
         .sub-script {
             display: none;
         }
@@ -262,7 +261,7 @@ const ActButton = styled.div`
     }
 
     @media (max-width: 1500px) {
-        margin-top: 50px;
+        margin-top: 30px;
         .store-btn {
             font-size: 14px;
             width: 160px;

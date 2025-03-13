@@ -22,7 +22,6 @@ function TopPicks() {
                                 {item.title}
                                 <span className="subtitle">{item.subtitle}</span>
                             </h2>
-
                             {item.discount && <span className="discount">{item.discount}%</span>}
                             <span className="price">{item.price}원</span>
                         </div>
@@ -40,7 +39,7 @@ const TopPicksSection = styled.section`
     padding: 0px 100px 100px 100px;
 
     @media (max-width: 1500px) {
-        padding: 20px;
+        padding: 0px;
     }
 `;
 
@@ -51,7 +50,7 @@ const TopPicksTitle = styled.article`
     h1 {
         font-family: '42dot Sans';
         font-weight: bold;
-        font-size: 50px;
+        font-size: clamp(20px, 6vw, 50px);
         line-height: 1.2;
         color: #242424;
 
@@ -62,16 +61,14 @@ const TopPicksTitle = styled.article`
     }
 
     p {
-        max-width: 800px;
         margin-top: 20px;
-        font-size: 20px;
+        width: 100%;
+        font-size: clamp(14px, 4vw, 20px);
         line-height: 150%;
     }
 
     @media (max-width: 1500px) {
-        h1 {
-            font-size: 30px;
-        }
+        text-align: center;
     }
 `;
 
@@ -83,6 +80,13 @@ const TopPicksCard = styled.ul`
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+
+    @media (max-width: 860px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 `;
 
 const TPCard = styled.li`
@@ -92,14 +96,14 @@ const TPCard = styled.li`
     /* 첫 번째 줄 (2개) */
     &:nth-child(1),
     &:nth-child(2) {
-        flex: 0 1 calc(50% - 10px);
+        flex: 0 1 calc(50% - 3px);
     }
 
     /* 두 번째 줄 (3개) */
     &:nth-child(3),
     &:nth-child(4),
     &:nth-child(5) {
-        flex: 0 1 calc(33% - 10px);
+        flex: 0 1 calc(33.3% - 3px);
     }
 
     .card-num {
@@ -107,18 +111,27 @@ const TPCard = styled.li`
         width: 40px;
         height: 40px;
         background-color: #fff;
-        border-radius: 5px;
-        top: 20px;
-        left: 20px;
+        top: 10px;
+        left: 10px;
 
         font-family: '42dot Sans';
-        font-size: 18px;
+        font-size: clamp(14px, 2vw, 18px);
         font-weight: 800;
         color: #1b1b1b;
     }
 
+    @media (max-width: 860px) {
+        width: 100%;
+        .card-num {
+            width: 40px;
+            height: 40px;
+            top: 5px;
+            left: 5px;
+        }
+    }
+
     .card-image {
-        border-radius: 10px;
+        border-radius: 0px;
         aspect-ratio: 2/1;
         background: url(${process.env.PUBLIC_URL}${(props) => props.$bgimg}), #f2f3f6;
         background-size: 100%;
@@ -134,13 +147,20 @@ const TPCard = styled.li`
         margin: 20px 0px 30px 0px;
 
         > * {
-            margin: 8px 0px;
+            font-size: clamp(14px, 2vw, 16px);
+            margin: 5px 0px;
             font-family: '42dot Sans';
+        }
+
+        @media (max-width: 860px) {
+            margin: 10px 0px 20px 10px;
+            padding: 10px 0px;
         }
     }
 
     .card-text .title {
         font-weight: 600;
+        line-height: 150%;
     }
 
     .card-text .subtitle {
@@ -154,9 +174,6 @@ const TPCard = styled.li`
     .card-text .discount {
         color: #3467ff;
         font-weight: 600;
-    }
-
-    .card-text .price {
-        margin-left: 5px;
+        margin-right: 5px;
     }
 `;

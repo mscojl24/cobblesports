@@ -14,8 +14,8 @@ function Recommended() {
                 <div className="text-ani2">
                     <p>완벽한 러닝을 위한 당신의 선택</p>
                 </div>
+                <button> Forerunner 965 </button>
             </RecommendedScript>
-            <button> Forerunner 965 </button>
         </NewItemBox>
     );
 }
@@ -55,15 +55,18 @@ const NewItemBox = styled.section`
         display: flex;
         justify-items: center;
         align-items: center;
+
+        display: none;
+
         padding: 30px;
         width: 100%;
         height: 100%;
         aspect-ratio: 5/4;
 
         button {
-            width: 200px;
-            height: 55px;
-            padding: 0px 20px;
+            width: 170px;
+
+            padding: 10px;
             font-size: 16px;
             border-radius: 5px;
             margin-top: 20px;
@@ -107,14 +110,19 @@ const RecommendedScript = styled.div`
     }
 
     @media (max-width: 860px) {
+        height: 100%;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
         h1 {
             font-size: 40px;
             transform: ${(props) => (props.$scrollY > 100 ? 'translateY(0px);' : 'translateY(-100px);')};
         }
         p {
-            font-size: 20px;
+            font-size: 16px;
             transform: ${(props) => (props.$scrollY > 100 ? 'translateY(0px);' : 'translateY(-80px);')};
         }
     }

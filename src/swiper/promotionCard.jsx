@@ -36,7 +36,7 @@ function PromotionCard() {
     return (
         <>
             <Swiper
-                spaceBetween={30}
+                spaceBetween={0}
                 autoplay={{
                     delay: 4000,
                     disableOnInteraction: false,
@@ -75,15 +75,21 @@ const Promotion = styled.article`
     & > * {
         margin: 7px 0px;
         color: ${(props) => props.$fontcolor};
+        text-align: center;
     }
 
     .promotion-sub {
-        font-size: 25px;
+        font-size: clamp(18px, 4vw, 25px);
     }
 
     .promotion-title {
-        font-size: 36px;
+        font-size: clamp(24px, 6vw, 36px);
         font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+        height: 150px;
+        padding: 30px;
     }
 `;
 

@@ -30,6 +30,10 @@ export default NewArrival;
 const NewArrivalSection = styled.section`
     width: 100%;
     padding: 0px 100px 100px 100px;
+
+    @media (max-width: 1500px) {
+        padding: 0px;
+    }
 `;
 
 const NATitleBox = styled.article`
@@ -38,7 +42,7 @@ const NATitleBox = styled.article`
     h1 {
         font-family: '42dot Sans';
         font-weight: bold;
-        font-size: 50px;
+        font-size: clamp(20px, 6vw, 50px);
         line-height: 1.2;
         color: #242424;
 
@@ -48,10 +52,17 @@ const NATitleBox = styled.article`
     }
 
     p {
-        max-width: 800px;
+        width: 100%;
         margin-top: 20px;
-        font-size: 20px;
+        font-size: clamp(14px, 4vw, 20px);
         line-height: 150%;
+    }
+
+    @media (max-width: 1500px) {
+        text-align: center;
+        h1 {
+            flex-direction: column;
+        }
     }
 `;
 

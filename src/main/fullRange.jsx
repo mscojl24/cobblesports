@@ -8,8 +8,8 @@ function FullRange() {
     return (
         <FullRangeSection>
             <FRTitleBox>
+                <MdAllInclusive color="#ccc" className="FR-icon" />
                 <h1 className="flex-v-center column">
-                    <MdAllInclusive color="#ccc" />
                     한눈에 보는
                     <br />
                     모든 상품 라인업
@@ -35,7 +35,7 @@ const FullRangeSection = styled.section`
     }
 
     @media (max-width: 860px) {
-        padding: 50px 10px;
+        padding: 50px 0px;
     }
 `;
 
@@ -51,10 +51,14 @@ const FRItemBox = styled.article`
 const FRTitleBox = styled.article`
     width: 100%;
 
+    .FR-icon {
+        font-size: clamp(20px, 6vw, 50px);
+    }
+
     h1 {
         font-family: '42dot Sans';
         font-weight: bold;
-        font-size: 50px;
+        font-size: clamp(20px, 6vw, 50px);
         line-height: 1.2;
         color: #242424;
 
@@ -66,19 +70,15 @@ const FRTitleBox = styled.article`
     p {
         max-width: 800px;
         margin-top: 20px;
-        font-size: 20px;
+        font-size: clamp(13px, 4vw, 20px);
         line-height: 150%;
     }
 
     @media (max-width: 860px) {
-        padding: 10px;
-
-        h1 {
-            font-size: 40px;
-        }
-
-        p {
-            font-size: 16px;
-        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
     }
 `;

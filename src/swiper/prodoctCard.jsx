@@ -7,9 +7,18 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 import { Autoplay } from 'swiper/modules';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
+import { scrollXState } from '../atoms/useIndexState';
 
 function ProdouctCard({ products }) {
+    const [scrollX] = useAtom(scrollXState);
+    const [slidesPerView, setSlidesPerView] = useState(5);
+
+    useEffect(() => {
+        setSlidesPerView(scrollX > 1500 ? 5 : scrollX > 860 ? 3 : 2);
+    }, [scrollX]);
+
     return (
         <NPItem>
             <Swiper
@@ -17,12 +26,11 @@ function ProdouctCard({ products }) {
                     delay: 2000,
                     disableOnInteraction: true,
                 }}
-                slidesPerView={5}
-                spaceBetween={20}
+                slidesPerView={slidesPerView}
+                spaceBetween={10}
                 loop={true}
                 modules={[Autoplay]}
-                className="mySwiper"
-            >
+                className="mySwiper">
                 {products.map((item, index) => (
                     <SwiperSlide key={index}>
                         <div className="prodoct-image"></div>
@@ -52,12 +60,11 @@ function ProdouctCard({ products }) {
 const NPItem = styled.aside`
     width: 100%;
     overflow: hidden;
-    padding: 100px 0px;
+    padding: 100px 10px;
     /* <-------------------------- Swiper 이미지지 섹션 -------------------------------> */
 
     .prodoct-image {
         aspect-ratio: 4/5;
-
         background-color: #f2f3f6;
         cursor: pointer;
         /* border-radius: 20px; */
@@ -69,13 +76,14 @@ const NPItem = styled.aside`
 
         h4 {
             font-family: '42dot Sans';
-            font-size: 18px;
+            font-size: clamp(14px, 2vw, 18px);
             font-weight: 500;
-            margin-bottom: 10px;
+            margin-bottom: 7px;
         }
 
         p {
             font-family: '42dot Sans';
+            font-size: clamp(14px, 2vw, 16px);
             font-weight: 300;
             color: rgba(0, 0, 0, 0.7);
         }
@@ -83,9 +91,8 @@ const NPItem = styled.aside`
         button {
             cursor: pointer;
             height: 100%;
-            width: 50px;
-            padding: 0px;
-            font-size: px;
+            padding: 10px;
+            aspect-ratio: 1/1;
             background-color: #fff;
             border: 1px solid rgba(0, 0, 0, 0.1);
             border-radius: 5px;
@@ -109,6 +116,10 @@ const ColorIcon = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: ${(props) => props.color};
     margin: 30px 5px;
+
+    @media (max-width: 860px) {
+        margin: 20px 5px;
+    }
 `;
 
 export default ProdouctCard;

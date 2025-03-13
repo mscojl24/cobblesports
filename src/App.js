@@ -12,33 +12,28 @@ import { useEffect } from 'react';
 
 function App() {
     const [, setScrollY] = useAtom(scrollYState);
-    const [scrollX, setScrollX] = useAtom(scrollXState);
-
-    // const [pro, setProducts] = useAtom(productsState);
-    // console.log(pro);
-
-    // useEffect(() => {
-    //     const fetchExcelFile = async () => {
-    //         const response = await fetch(process.env.REACT_APP_PRODUCTS_DATA_URL); // 엑셀 파일 경로
-    //         const arrayBuffer = await response.arrayBuffer();
-    //         const workbook = XLSX.read(arrayBuffer, { type: 'array' });
-    //         const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    //         const jsonData = XLSX.utils.sheet_to_json(sheet); // JSON으로 변환
-    //         setProducts(jsonData);
-    //     };
-
-    //     fetchExcelFile();
-    // }, []);
+    const [ScrollX, setScrollX] = useAtom(scrollXState);
 
     const handleScroll = () => {
         setScrollY(window.scrollY);
+    };
+
+    const handleResize = () => {
         setScrollX(window.innerWidth);
     };
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [scrollX]);
+        window.addEventListener('resize', handleResize);
+
+        // 초기값 설정
+        setScrollX(window.innerWidth);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <Router>

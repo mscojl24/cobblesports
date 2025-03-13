@@ -14,13 +14,13 @@ export const categoriesData = [
     {
         title: 'Adventure',
         subtitle:
-            '등산, 트레킹, 캠핑까지 강인한 내구성과 신뢰할 수 있는 성능. 가민과 함께 퍼포먼스를 측정하고 건강을 관리하며 아웃도어를 즐기세요.',
+            '등산, 트레킹, 캠핑까지 강인한 내구성과 신뢰할 수 있는 성능. 가민과 함께 스마트한 아웃도어를 즐기세요.',
         image: `${process.env.PUBLIC_URL}/asset/categories/adventure.png`,
     },
     {
         title: 'water',
         subtitle:
-            '수영할 때마다 모든 스트로크와 랩 타임을 기록하세요. 가민 웨어러블로 풀장과 오픈워터에서 더욱 스마트하게 훈련할 수 있습니다.',
+            '수영할 때마다 모든 스트로크와 랩 타임을 기록하세요. 풀장과 오픈워터에서 더욱 스마트하게 훈련할 수 있습니다.',
         image: `${process.env.PUBLIC_URL}/asset/categories/water.png`,
     },
     {
@@ -32,7 +32,7 @@ export const categoriesData = [
     {
         title: 'Fitness',
         subtitle:
-            '근력 운동, HIIT, 회복까지 모든 훈련을 최적화하세요. 운동부터 일상까지 더 활발하게 움직이고, 성장하며, 건강한 라이프스타일을 유지하세요.',
+            '근력 운동, HIIT, 회복까지 모든 훈련을 최적화하세요. 일상에서 건강한 라이프스타일을 유지할 수 있습니다.',
         image: `${process.env.PUBLIC_URL}/asset/categories/fitness.png`,
     },
 ];

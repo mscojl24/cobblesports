@@ -75,7 +75,7 @@ const FindCategorySection = styled.section`
     transition: all ease-in-out 1s;
 
     @media (max-width: 1500px) {
-        padding: 100px 20px;
+        padding: 100px 0px;
     }
 `;
 
@@ -85,23 +85,28 @@ const FindCategoryTitle = styled.article`
 
     h1 {
         font-weight: bold;
-        font-size: 50px;
+        font-size: clamp(20px, 6vw, 50px);
         line-height: 1.2;
         color: #242424;
-        transition: all ease-in-out 1s;
+        transition: all ease-in-out 0.3s;
     }
 
     p {
-        max-width: 800px;
+        max-width: 100%;
         margin-top: 20px;
-        font-size: 20px;
+        font-size: clamp(13px, 5vw, 20px);
         line-height: 150%;
-        transition: all ease-in-out 1s;
+        transition: all ease-in-out 0.3s;
+    }
+
+    @media (max-width: 1500px) {
+        text-align: center;
     }
 
     @media (max-width: 860px) {
+        text-align: center;
         h1 {
-            font-size: 30px;
+            font-size: clamp(20px, 6vw, 50px);
         }
         p {
             display: none;
@@ -134,13 +139,14 @@ const FindCategoryCard = styled.ul`
 
     @media (max-width: 1500px) {
         margin-top: 50px;
+        gap: 3px;
     }
 
     @media (max-width: 860px) {
-        margin-top: 20px;
+        margin-top: 50px;
         height: 100vh;
         flex-direction: column;
-        gap: 5px;
+        gap: 3px;
     }
 `;
 
@@ -155,7 +161,7 @@ const FCCard = styled.li`
     background: url(${(props) => props.$bgimg});
     background-size: cover;
     background-position: center;
-    border-radius: 10px;
+    border-radius: 0px;
     transition: flex 0.4s ease-in-out;
     cursor: pointer;
 
@@ -180,8 +186,9 @@ const FCCard = styled.li`
 
     .card-title {
         padding-top: 10px;
-        font-size: 30px;
+        font-size: clamp(13px, 5vw, 30px);
         font-weight: 600;
+        text-shadow: 0px 0px 3px rgba(0, 0, 0, 0.7);
         color: #fff;
     }
 
@@ -190,11 +197,13 @@ const FCCard = styled.li`
         color: #fff;
         padding-top: 10px;
         opacity: 0;
+        font-size: 14px;
         transition: all ease-in-out 1s;
         font-weight: 300;
         max-width: 80%;
         min-height: 70px;
         max-height: 75px;
+        text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
         overflow: hidden;
     }
 
@@ -217,24 +226,23 @@ const FCCard = styled.li`
         color: #3467ff;
     }
 
-    @media (max-width: 860px) {
-        height: 100vh;
-        border-radius: 5px;
-        .card-box {
-            transform: translateY(100% -30px);
-        }
-
-        .card-title {
-            font-size: 24px;
-        }
-
-        .card-subtitle {
-            font-size: 14px;
-            max-width: 100%;
-        }
+    @media (max-width: 1500px) {
         .card-button {
             font-size: 14px;
             width: 150px;
+        }
+    }
+
+    @media (max-width: 860px) {
+        height: 100vh;
+        border-radius: 0px;
+
+        &:hover {
+            flex: 5;
+        }
+
+        .card-box {
+            transform: translateY(100% -30px);
         }
     }
 `;
