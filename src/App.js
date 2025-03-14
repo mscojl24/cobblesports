@@ -1,18 +1,18 @@
 import './css/App.css';
 import styled from 'styled-components';
 import Navi from './navigation/navi';
-import MainSection from './main/mainSection';
+import MainSection from './components/mainSection';
 import LoderPage from './loderPage';
-// import * as XLSX from 'xlsx';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { useAtom } from 'jotai';
-import { scrollXState, scrollYState } from './atoms/useIndexState';
+import { loderPageState, scrollXState, scrollYState } from './atoms/useIndexState';
 import { useEffect } from 'react';
 
 function App() {
     const [, setScrollY] = useAtom(scrollYState);
-    const [ScrollX, setScrollX] = useAtom(scrollXState);
+    const [, setScrollX] = useAtom(scrollXState);
+    const [loderPage] = useAtom(loderPageState);
 
     const handleScroll = () => {
         setScrollY(window.scrollY);
@@ -41,9 +41,11 @@ function App() {
             <BoxMargin>
                 <Routes>
                     <Route path="/" element={<MainSection />} />
+                    {/* <Route path="/products" element={<MainSection />} />
+                    <Route path="/compare" element={<MainSection />} /> */}
                 </Routes>
             </BoxMargin>
-            <LoderPage />
+            {loderPage && <LoderPage />}
         </Router>
     );
 }

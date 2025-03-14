@@ -86,9 +86,6 @@ const TitleText = styled.div`
             font-family: anton;
             text-transform: uppercase;
             font-size: clamp(20px, 8vw, 70px);
-            transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
-            transition: all ease-in-out 1s;
-            transition-delay: 0s;
         }
     }
 
@@ -98,11 +95,6 @@ const TitleText = styled.div`
         overflow: hidden;
         p {
             font-size: clamp(16px, 4vw, 25px);
-            /* font-weight: 300; */
-            transform: translateY(-100px);
-            transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
-            transition: all ease-in-out 1s;
-            transition-delay: 0.1s;
         }
     }
 
@@ -115,10 +107,12 @@ const TitleText = styled.div`
             font-size: 13px;
             font-weight: 300;
             line-height: 150%;
-            transform: translateY(-100px);
-            transform: ${(props) => (props.$scrollY > 200 ? 'translateY(0%)' : 'translateY(-110%)')};
-            transition: all ease-in-out 1s;
-            transition-delay: 0s;
+        }
+    }
+
+    @keyframes showtaxt {
+        100% {
+            transform: translateY(0px);
         }
     }
 

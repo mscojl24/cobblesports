@@ -9,11 +9,7 @@ function FullRange() {
         <FullRangeSection>
             <FRTitleBox>
                 <MdAllInclusive color="#ccc" className="FR-icon" />
-                <h1 className="flex-v-center column">
-                    한눈에 보는
-                    <br />
-                    모든 상품 라인업
-                </h1>
+                <h1 className="flex-v-center column">한눈에 보는 모든 상품 라인업</h1>
                 <p>필요한 아이템을 빠르게 비교하고 찾아보세요!</p>
             </FRTitleBox>
             <FRItemBox className="flex-v-center">
@@ -27,7 +23,7 @@ export default FullRange;
 
 const FullRangeSection = styled.section`
     width: 100%;
-    padding: 200px 100px 100px 100px;
+    padding: 100px;
     transition: all ease-in-out 1s;
 
     @media (max-width: 1500px) {

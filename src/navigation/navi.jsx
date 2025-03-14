@@ -1,18 +1,21 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useAtom } from 'jotai';
-import { scrollYState } from '../atoms/useIndexState';
+import { loderPageState, scrollYState } from '../atoms/useIndexState';
 import CobbleLogo from '../cobbleLogo';
 import { FaLocationDot } from 'react-icons/fa6';
 import MobileNavi from './mobileNavi';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Navi() {
     const [scrollY] = useAtom(scrollYState);
     const [isScrollingUp, setIsScrollingUp] = useState(true);
+    const [, setLoderPage] = useAtom(loderPageState);
+    const navigate = useNavigate(); // ✅ React Router 네비게이션 사용
 
     useEffect(() => {
         const handleScroll = () => {
-            setIsScrollingUp((prev) => window.scrollY < scrollY || window.scrollY === 0);
+            setIsScrollingUp(window.scrollY < scrollY || window.scrollY === 0);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -20,12 +23,28 @@ function Navi() {
     }, [scrollY]);
 
     const menulist = [
-        { name: 'About', subname: '메인으로' },
-        { name: 'Product', subname: '제품안내' },
-        { name: 'Compare', subname: '스펙비교' },
-        { name: 'News', subname: '코블뉴스' },
-        { name: 'Contact', subname: '문의하기' },
+        { name: 'About', subname: '메인으로', value: '/', type: 'internal' },
+        { name: 'Product', subname: '제품안내', value: '/products', type: 'internal' },
+        { name: 'Compare', subname: '스펙비교', value: '/compare', type: 'internal' },
+        { name: 'Contact', subname: '문의하기', value: 'https://pf.kakao.com/_fcPxaG', type: 'external' },
     ];
+
+    const handleMenuClick = (e) => {
+        const type = e.currentTarget.dataset.type;
+        const value = e.currentTarget.dataset.value;
+
+        const actions = {
+            internal: () => {
+                setTimeout(() => navigate(value), 1000);
+
+                setLoderPage(true);
+            },
+            external: () => window.open(value, '_blank', 'noopener,noreferrer'),
+        };
+
+        actions[type]?.(); // ✅ 타입이 존재하면 해당 함수 실행
+        setIsScrollingUp(true); // ✅ 네비게이션 숨김 방지
+    };
 
     return (
         <>
@@ -37,7 +56,12 @@ function Navi() {
                     </LogoBox>
                     <MenuList>
                         {menulist.map((menu, index) => (
-                            <li key={index}>
+                            <li
+                                key={index}
+                                data-type={menu.type}
+                                data-value={menu.value}
+                                onClick={handleMenuClick} // ✅ 클릭 이벤트 하나로 처리
+                            >
                                 <p className="default flex-center">{menu.name}</p>
                                 <p className="hovered flex-center">{menu.subname}</p>
                             </li>
@@ -45,8 +69,18 @@ function Navi() {
                     </MenuList>
                 </div>
                 <LoginBtn>
-                    <button className="btn-offline">공식 스토어</button>
-                    <button className="btn-online flex-center">
+                    <button
+                        className="btn-offline"
+                        onClick={() => {
+                            window.open(`https://smartstore.naver.com/cobblesports`, '_blank', 'noopener,noreferrer');
+                        }}>
+                        공식 스토어
+                    </button>
+                    <button
+                        className="btn-online flex-center"
+                        onClick={() => {
+                            window.open(`https://naver.me/GQ15Qrdf`, '_blank', 'noopener,noreferrer');
+                        }}>
                         <FaLocationDot size={18} />
                     </button>
                 </LoginBtn>
@@ -125,6 +159,18 @@ const MenuList = styled.ul`
     @media (max-width: 768px) {
         gap: 10px;
         font-size: 12px;
+    }
+
+    .link-btn {
+        position: relative;
+        font-weight: 600;
+        cursor: pointer;
+        height: 35px;
+        width: 100px;
+        text-transform: uppercase;
+        font-size: 14px;
+        overflow: hidden;
+        transition: color 0.2s ease-in-out;
     }
 `;
 

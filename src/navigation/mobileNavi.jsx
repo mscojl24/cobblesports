@@ -1,31 +1,41 @@
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAtom } from 'jotai';
 import { scrollYState } from '../atoms/useIndexState';
-import { AiTwotoneShop, AiOutlineShoppingCart } from 'react-icons/ai';
 import { PiShoppingCart, PiHouse, PiX } from 'react-icons/pi';
 import { MdArrowForwardIos } from 'react-icons/md';
-
-import { BsShop } from 'react-icons/bs';
-
 import { HiOutlineMenuAlt2 } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 function MobileNavi() {
     const [scrollY] = useAtom(scrollYState);
     const [menuToggle, setMenuToggle] = useState(false);
+    const navigate = useNavigate(); // ✅ React Router 네비게이션 사용
 
     const letters = ['C', 'O', 'B', 'B', 'L', 'E'];
 
     const menulist = [
-        { name: 'About', subname: '메인으로' },
-        { name: 'Product', subname: '제품안내' },
-        { name: 'Compare', subname: '스펙비교' },
-        { name: 'News', subname: '코블뉴스' },
-        { name: 'Contact', subname: '문의하기' },
+        { name: 'About', subname: '메인으로', value: '/', type: 'internal' },
+        { name: 'Product', subname: '제품안내', value: '/products', type: 'internal' },
+        { name: 'Compare', subname: '스펙비교', value: '/compare', type: 'internal' },
+        { name: 'Contact', subname: '문의하기', value: 'https://pf.kakao.com/_fcPxaG', type: 'external' },
     ];
 
     const handleMenuToggle = () => {
         setMenuToggle(!menuToggle);
+    };
+
+    const handleMenuClick = (e) => {
+        const type = e.currentTarget.dataset.type;
+        const value = e.currentTarget.dataset.value;
+
+        const actions = {
+            internal: () => navigate(value), // ✅ 내부 이동
+            external: () => window.open(value, '_blank', 'noopener,noreferrer'), // ✅ 외부 링크 이동
+        };
+
+        actions[type]?.();
+        setMenuToggle(false); // 메뉴 닫기
     };
 
     return (
@@ -39,26 +49,22 @@ function MobileNavi() {
                     ))}
                 </LogoBox>
                 <IconBox className="flex-center">
-                    <PiShoppingCart />
-                    <PiHouse />
-                    {menuToggle ? (
-                        <PiX
-                            onClick={() => {
-                                handleMenuToggle();
-                            }}
-                        />
-                    ) : (
-                        <HiOutlineMenuAlt2
-                            onClick={() => {
-                                handleMenuToggle();
-                            }}
-                        />
-                    )}
+                    <PiShoppingCart
+                        onClick={() => {
+                            window.open(`https://smartstore.naver.com/cobblesports`, '_blank', 'noopener,noreferrer');
+                        }}
+                    />
+                    <PiHouse
+                        onClick={() => {
+                            window.open(`https://naver.me/GQ15Qrdf`, '_blank', 'noopener,noreferrer');
+                        }}
+                    />
+                    {menuToggle ? <PiX onClick={handleMenuToggle} /> : <HiOutlineMenuAlt2 onClick={handleMenuToggle} />}
                 </IconBox>
             </MobileNavMenu>
             <MoblieNavList $menuToggle={menuToggle}>
                 {menulist.map((list, index) => (
-                    <li key={index + 1}>
+                    <li key={index + 1} data-type={list.type} data-value={list.value} onClick={handleMenuClick}>
                         <div>
                             <span className="title">{list.subname}</span>
                             <span className="sub-title">{list.name}</span>
