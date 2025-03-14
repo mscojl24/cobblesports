@@ -36,14 +36,21 @@ function App() {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
     useEffect(() => {
         const fetchExcelFile = async () => {
             try {
-                const response = await fetch(process.env.REACT_APP_PRODUCTS_DATA_URL);
+                const response = await fetch(`https://mscojl24.github.io/cobblesports/data/products.xlsx`);
+
+                console.log('응답 상태 코드:', response.status);
                 console.log('응답 헤더:', response.headers.get('Content-Type'));
 
                 if (!response.ok) {
                     throw new Error(`서버 응답 오류: ${response.status} ${response.statusText}`);
+                }
+
+                if (!response.headers.get('Content-Type')?.includes('spreadsheet')) {
+                    throw new Error('올바른 엑셀 파일이 아닙니다.');
                 }
 
                 const arrayBuffer = await response.arrayBuffer();
