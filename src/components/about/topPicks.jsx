@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { bestSellersData } from '../data/bestSellersData';
+import { bestSellersData } from '../../data/bestSellersData';
 
 function TopPicks() {
     return (

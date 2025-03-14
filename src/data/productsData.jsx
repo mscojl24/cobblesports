@@ -27,6 +27,7 @@ export const productData = [
             solar: false,
             Bezelmaterial: '티타늄',
             flashlight: true,
+            altimeter: true,
             music: true,
             Map: true,
             sleep: true,

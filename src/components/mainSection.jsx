@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 import SwiperMain from '../swiper/swiperMain.jsx';
-import Recommended from './recommended.jsx';
-import CategoryList from './categoryList.jsx';
+import Recommended from './about/recommended.jsx';
+import SNSList from './about/snsList.jsx';
 import Footer from './footer.jsx';
-import FindCategory from './findCategory.jsx';
-import TopPicks from './topPicks.jsx';
-import NewArrival from './newArrival.jsx';
+import FindCategory from './about/findCategory.jsx';
+import TopPicks from './about/topPicks.jsx';
+import NewArrival from './about/newArrival.jsx';
 import PromotionCard from '../swiper/promotionCard.jsx';
-import FullRange from './fullRange.jsx';
+import FullRange from './about/fullRange.jsx';
 
 function MainSection() {
     return (
         <MainBox>
             <SwiperMain />
             <Recommended />
-            <CategoryList />
+            <SNSList />
             <FindCategory />
             <TopPicks />
             <NewArrival />

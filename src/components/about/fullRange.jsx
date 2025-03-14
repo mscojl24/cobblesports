@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { productData } from '../data/productsData';
-import Products from '../hooks/products';
+import { productData } from '../../data/productsData';
+import Products from '../../hooks/products';
 
 import { MdAllInclusive } from 'react-icons/md';
 

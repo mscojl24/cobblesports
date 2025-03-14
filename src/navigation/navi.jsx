@@ -5,7 +5,7 @@ import { loderPageState, scrollYState } from '../atoms/useIndexState';
 import CobbleLogo from '../cobbleLogo';
 import { FaLocationDot } from 'react-icons/fa6';
 import MobileNavi from './mobileNavi';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Navi() {
     const [scrollY] = useAtom(scrollYState);
@@ -123,14 +123,18 @@ const MenuList = styled.ul`
 
     li {
         position: relative;
-        font-weight: 600;
+        font-weight: 700;
         cursor: pointer;
         height: 35px;
         width: 100px;
-        text-transform: uppercase;
-        font-size: 14px;
+
+        font-size: 15px;
         overflow: hidden;
         transition: color 0.2s ease-in-out;
+    }
+
+    li:nth-child(1) {
+        color: #d8431d;
     }
 
     .default,
@@ -146,7 +150,7 @@ const MenuList = styled.ul`
         top: 100%;
         left: 0;
         font-size: 16px;
-        color: rgba(0, 0, 0, 0.5);
+        font-weight: 400;
     }
 
     li:hover .default {

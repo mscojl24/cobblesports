@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { scrollYState } from '../atoms/useIndexState';
+import { scrollYState } from '../../atoms/useIndexState';
 import { useAtom } from 'jotai';
 
 function Recommended() {

@@ -1,7 +1,7 @@
 import styled, { keyframes, css } from 'styled-components';
 import { useEffect, useMemo, useState } from 'react';
 import { useAtom } from 'jotai';
-import { loderPageState } from './atoms/useIndexState';
+import { loderPageState } from '../atoms/useIndexState';
 
 function LoderPage() {
     const [loderPage, setLoderPage] = useAtom(loderPageState);
@@ -29,7 +29,7 @@ function LoderPage() {
         <LoderContainer className={fadeOut ? 'fade-out' : ''}>
             <LoderContent>
                 {letters.map((char, index) => (
-                    <Letter key={index} index={index} className={fadeOut ? 'fade-out' : ''}>
+                    <Letter key={index} className={fadeOut ? 'fade-out' : ''}>
                         {char}
                     </Letter>
                 ))}

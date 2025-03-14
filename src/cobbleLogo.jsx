@@ -1,8 +1,4 @@
-import { useAtom } from 'jotai';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
-import throttle from 'lodash/throttle';
-import { scrollYState } from './atoms/useIndexState';
 
 function CobbleLogo() {
     const letters = ['C', 'O', 'B', 'B', 'L', 'E'];

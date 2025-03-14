@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { scrollYState } from '../atoms/useIndexState';
+import { scrollYState } from '../../atoms/useIndexState';
 import { TfiArrowRight } from 'react-icons/tfi';
 
 import { useAtom } from 'jotai';
 
-function CategoryList() {
+function SNSList() {
     const [scrollY] = useAtom(scrollYState);
 
     const categories = [
@@ -58,7 +58,7 @@ function CategoryList() {
     );
 }
 
-export default CategoryList;
+export default SNSList;
 
 const CategoryListBox = styled.section`
     display: flex;

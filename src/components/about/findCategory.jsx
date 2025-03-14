@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 
-import { categoriesData } from '../data/categoriseData';
+import { categoriesData } from '../../data/categoriseData';
 import { useEffect, useState } from 'react';
 
 const sportsArray = ['러닝을', '수영을', '모험을', '골프를', '사이클링을', '웰니스를'];

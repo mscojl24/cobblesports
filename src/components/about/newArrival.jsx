@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import ProdouctCard from '../swiper/prodoctCard';
-import { productData } from '../data/productsData';
+import ProdouctCard from '../../swiper/prodoctCard';
+import { productData } from '../../data/productsData';
 
 function NewArrival() {
     return (
