@@ -14,65 +14,73 @@ const useFetchExcelData = (url) => {
                 const workbook = XLSX.read(arrayBuffer, { type: 'array' });
                 const sheet = workbook.Sheets[workbook.SheetNames[0]];
                 const jsonData = XLSX.utils.sheet_to_json(sheet);
-                console.log('기존데이터:', jsonData);
-                console.log('jsonData 구조 확인:', JSON.stringify(jsonData, null, 2));
 
-                // 데이터 변환 로직
+                console.log('jsonData 구조 확인:', JSON.stringify(jsonData[1], null, 2));
+
+                // ✅ 데이터 변환 함수
+                const cleanValue = (value) => {
+                    if (value === undefined || value === null || value === 'NaN') return null;
+                    if (typeof value === 'string' && value.trim().toLowerCase() === 'true') return true;
+                    if (typeof value === 'string' && value.trim().toLowerCase() === 'false') return false;
+                    return value;
+                };
+
                 const formattedData = jsonData.map((item) => ({
-                    id: item.id,
-                    category: item.category,
-                    title: item.title,
-                    purpose: item.purpose ? item.purpose.split(',') : [],
-                    script: item.script,
+                    id: cleanValue(item.id),
+                    productNum: cleanValue(item.productNum),
+                    title: cleanValue(item.title),
+                    purpose: item.purpose ? item.purpose.split(',').map((p) => p.trim()) : [],
+                    script: cleanValue(item.script),
                     option: {
-                        size: item.size.split(','),
-                        weight: item.weight,
-                        price: item.price,
-                        discount: item.discount,
-                        release: item.release,
-                        colorName: item.colorName.split(','),
-                        colorCode: item.colorCode.split(','),
+                        size: item.size ? item.size.split(',').map((s) => s.trim()) : [],
+                        weight: cleanValue(item.weight),
+                        price: cleanValue(item.price),
+                        discount: cleanValue(item.discount),
+                        release: cleanValue(item.release),
+                        colorName: item.colorName ? item.colorName.split(',').map((c) => c.trim()) : [],
+                        colorCode: item.colorCode ? item.colorCode.split(',').map((c) => c.trim()) : [],
                         img: {
-                            mainImg: item.main_img,
-                            subImg: item.subImg ? item.subImg.split(',') : [],
+                            mainImg: cleanValue(item.main_img),
+                            subImg: item.subImg ? item.subImg.split(',').map((img) => img.trim()) : [],
                         },
                         display: {
-                            type: item.displayType,
-                            touch: item.touch,
+                            type: cleanValue(item.displayType),
+                            touch: cleanValue(item.touch),
                         },
                     },
                     spec: {
-                        gps: item.gps,
-                        memory: item.memory,
-                        waterRating: item.waterRating,
-                        band: item.band,
-                        solar: item.solar,
-                        Bezelmaterial: item.bezelmaterial,
-                        flashlight: item.flashlight,
-                        altimeter: item.altimeter,
-                        music: item.music,
-                        Map: item.map,
-                        sleep: item.sleep,
-                        call: item.call,
+                        gps: cleanValue(item.gps),
+                        memory: cleanValue(item.memory),
+                        waterRating: cleanValue(item.waterRating),
+                        band: cleanValue(item.band),
+                        solar: cleanValue(item.solar),
+                        Bezelmaterial: cleanValue(item.bezelmaterial),
+                        flashlight: cleanValue(item.flashlight),
+                        altimeter: cleanValue(item.altimeter),
+                        music: cleanValue(item.music),
+                        Map: cleanValue(item.map),
+                        sleep: cleanValue(item.sleep),
+                        call: cleanValue(item.call),
                     },
                     activityProfiles: {
-                        running: item.running,
-                        swim: item.swim,
-                        indoorSwim: item.indoorSwim,
-                        cycling: item.cycling,
-                        multisport: item.multisport,
-                        hiking: item.hiking,
-                        diving: item.diving,
-                        golf: item.golf,
-                        fitness: item.fitness,
+                        running: cleanValue(item.running),
+                        swim: cleanValue(item.swim),
+                        indoorSwim: cleanValue(item.indoorSwim),
+                        cycling: cleanValue(item.cycling),
+                        multisport: cleanValue(item.multisport),
+                        hiking: cleanValue(item.hiking),
+                        diving: cleanValue(item.diving),
+                        golf: cleanValue(item.golf),
+                        fitness: cleanValue(item.fitness),
                     },
                     battery: {
-                        smartwatch: item.smartwatch,
-                        gpsOnly: item.gpsOnly,
+                        smartwatch: cleanValue(item.smartwatch),
+                        gpsOnly: cleanValue(item.gpsOnly),
                     },
                 }));
 
-                console.log('이건 안나와?', formattedData);
+                console.log('변환된 데이터:', formattedData);
+                console.log('데이터 개수:', formattedData.length);
 
                 setProductData(formattedData);
             } catch (error) {
