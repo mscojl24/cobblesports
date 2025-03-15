@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 import ProdouctCard from '../../swiper/prodoctCard';
 import { productData } from '../../data/productsData';
+import { productsState } from '../../atoms/useIndexState';
+import { useAtom } from 'jotai';
 
 function NewArrival() {
+    const [products] = useAtom(productsState);
     return (
         <NewArrivalSection>
             <NATitleBox>
@@ -19,7 +22,7 @@ function NewArrival() {
                 <p>올해 가장 기대되는 신제품, 여기 다 모였다!</p>
             </NATitleBox>
             <NAItemBox>
-                <ProdouctCard products={productData} />
+                <ProdouctCard products={products} />
             </NAItemBox>
         </NewArrivalSection>
     );

@@ -3,8 +3,11 @@ import { productData } from '../../data/productsData';
 import Products from '../../hooks/products';
 
 import { MdAllInclusive } from 'react-icons/md';
+import { useAtom } from 'jotai';
+import { productsState } from '../../atoms/useIndexState';
 
 function FullRange() {
+    const [products] = useAtom(productsState);
     return (
         <FullRangeSection>
             <FRTitleBox>
@@ -13,7 +16,7 @@ function FullRange() {
                 <p>필요한 아이템을 빠르게 비교하고 찾아보세요!</p>
             </FRTitleBox>
             <FRItemBox className="flex-v-center">
-                <Products products={productData} />
+                <Products products={products} />
             </FRItemBox>
         </FullRangeSection>
     );
