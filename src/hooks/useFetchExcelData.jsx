@@ -14,6 +14,8 @@ const useFetchExcelData = (url) => {
                 const workbook = XLSX.read(arrayBuffer, { type: 'array' });
                 const sheet = workbook.Sheets[workbook.SheetNames[0]];
                 const jsonData = XLSX.utils.sheet_to_json(sheet);
+                console.log('기존데이터:', jsonData);
+                console.log('jsonData 구조 확인:', JSON.stringify(jsonData, null, 2));
 
                 // 데이터 변환 로직
                 const formattedData = jsonData.map((item) => ({
@@ -24,7 +26,10 @@ const useFetchExcelData = (url) => {
                     script: item.script,
                     option: {
                         size: item.size.split(','),
+                        weight: item.weight,
                         price: item.price,
+                        discount: item.discount,
+                        release: item.release,
                         colorName: item.colorName.split(','),
                         colorCode: item.colorCode.split(','),
                         img: {
@@ -39,7 +44,7 @@ const useFetchExcelData = (url) => {
                     spec: {
                         gps: item.gps,
                         memory: item.memory,
-                        waterRating: item.waterRating || '-',
+                        waterRating: item.waterRating,
                         band: item.band,
                         solar: item.solar,
                         Bezelmaterial: item.bezelmaterial,
@@ -50,13 +55,24 @@ const useFetchExcelData = (url) => {
                         sleep: item.sleep,
                         call: item.call,
                     },
-                    activityProfiles: item.activityProfiles.split(',').map((profile) => profile.trim()),
+                    activityProfiles: {
+                        running: item.running,
+                        swim: item.swim,
+                        indoorSwim: item.indoorSwim,
+                        cycling: item.cycling,
+                        multisport: item.multisport,
+                        hiking: item.hiking,
+                        diving: item.diving,
+                        golf: item.golf,
+                        fitness: item.fitness,
+                    },
                     battery: {
                         smartwatch: item.smartwatch,
-                        batterySaver: item.batterySaver,
                         gpsOnly: item.gpsOnly,
                     },
                 }));
+
+                console.log('이건 안나와?', formattedData);
 
                 setProductData(formattedData);
             } catch (error) {
