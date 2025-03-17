@@ -15,8 +15,6 @@ const useFetchExcelData = (url) => {
                 const sheet = workbook.Sheets[workbook.SheetNames[0]];
                 const jsonData = XLSX.utils.sheet_to_json(sheet);
 
-                console.log('jsonData 구조 확인:', JSON.stringify(jsonData[1], null, 2));
-
                 // ✅ 데이터 변환 함수
                 const cleanValue = (value) => {
                     if (value === undefined || value === null || value === 'NaN') return null;
@@ -78,9 +76,6 @@ const useFetchExcelData = (url) => {
                         gpsOnly: cleanValue(item.gpsOnly),
                     },
                 }));
-
-                console.log('변환된 데이터:', formattedData);
-                console.log('데이터 개수:', formattedData.length);
 
                 setProductData(formattedData);
             } catch (error) {

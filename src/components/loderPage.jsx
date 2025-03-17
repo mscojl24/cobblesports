@@ -62,7 +62,7 @@ const LoderContainer = styled.div`
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    background-color: rgba(255, 255, 255, 0.8); /* ✅ 하얀 배경 */
+    background-color: rgba(255, 255, 255, 1); /* ✅ 하얀 배경 */
     backdrop-filter: blur(30px);
     animation: ${slideUp} 1s ease-out forwards;
 
@@ -81,12 +81,12 @@ const LoderContent = styled.div`
 const Letter = styled.span`
     opacity: 0;
     font-size: clamp(20px, 6vw, 40px);
-    font-weight: 500;
-    font-family: 'Kanit';
+    font-weight: 700;
+    font-family: 'Big Shoulders';
 
     display: inline-block;
     animation: ${slideUp} 0.8s ease-out forwards;
-    animation-delay: ${({ index }) => index * 0.1}s;
+    animation-delay: ${({ index }) => index * 0.2}s;
 
     &.fade-out {
         animation: ${slideUpFadeOut} 0.8s ease-in forwards;

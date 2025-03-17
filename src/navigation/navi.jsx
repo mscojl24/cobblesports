@@ -97,10 +97,9 @@ const NavigateSection = styled.nav`
     align-items: center;
     width: 100%;
     height: 70px;
-    padding: 0 100px;
+    padding: 0 50px;
     background-color: white;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
     left: 0;
@@ -123,18 +122,14 @@ const MenuList = styled.ul`
 
     li {
         position: relative;
-        font-weight: 700;
+        font-weight: 600;
         cursor: pointer;
         height: 35px;
         width: 100px;
-
         font-size: 15px;
         overflow: hidden;
         transition: color 0.2s ease-in-out;
-    }
-
-    li:nth-child(1) {
-        color: #d8431d;
+        text-transform: uppercase;
     }
 
     .default,

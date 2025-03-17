@@ -33,7 +33,7 @@ function ProdouctCard({ products }) {
                 className="mySwiper">
                 {products.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <div className="prodoct-image"></div>
+                        <ProductsImg $bgimg={`/asset/` + item.option?.img?.mainImg}></ProductsImg>
                         <ul className="prodoct-color flex-center">
                             {item.option.colorCode.map((color, idx) => (
                                 <ColorIcon color={color} key={idx}></ColorIcon>
@@ -61,14 +61,7 @@ const NPItem = styled.aside`
     width: 100%;
     overflow: hidden;
     padding: 100px 10px;
-    /* <-------------------------- Swiper 이미지지 섹션 -------------------------------> */
 
-    .prodoct-image {
-        aspect-ratio: 4/5;
-        background-color: #f2f3f6;
-        cursor: pointer;
-        /* border-radius: 20px; */
-    }
     /* <-------------------------- Swiper 스크립트 섹션 -------------------------------> */
     .prodoct-script {
         display: flex;
@@ -107,7 +100,19 @@ const NPItem = styled.aside`
         }
     }
 `;
-/* <-------------------------- Swiper 컬러 아이콘콘 섹션 -------------------------------> */
+
+const ProductsImg = styled.div`
+    /* <-------------------------- Swiper 이미지지 섹션 -------------------------------> */
+    width: 100%;
+    aspect-ratio: 4/5;
+    cursor: pointer;
+
+    background: url(${(props) => props.$bgimg}), rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-position: center;
+`;
+
+/* <-------------------------- Swiper 컬러 아이콘 섹션 -------------------------------> */
 
 const ColorIcon = styled.div`
     width: 10px;

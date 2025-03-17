@@ -6,8 +6,6 @@ import { useAtom } from 'jotai';
 
 function NewArrival() {
     const [products] = useAtom(productsState);
-
-    console.log(products);
     return (
         <NewArrivalSection>
             <NATitleBox>
