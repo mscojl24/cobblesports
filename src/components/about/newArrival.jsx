@@ -1,11 +1,29 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import ProdouctCard from '../../swiper/prodoctCard';
-import { productData } from '../../data/productsData';
-import { productsState } from '../../atoms/useIndexState';
 import { useAtom } from 'jotai';
+import { productsState } from '../../atoms/useIndexState';
 
 function NewArrival() {
     const [products] = useAtom(productsState);
+
+    useEffect(() => {
+        console.log('✅ 현재 products 상태:', products);
+    }, [products]);
+
+    // ✅ 보여줄 제품 번호 목록
+    const selectedProductNums = [
+        '10842668413',
+        '10842664841',
+        '11549203117',
+        '11310815985',
+        '11427677905',
+        '11466050722',
+    ];
+
+    // ✅ 필터링 로직 (productNum이 숫자형일 수도 있음)
+    const filteredProducts = products.filter((product) => selectedProductNums.includes(String(product.productNum)));
+
     return (
         <NewArrivalSection>
             <NATitleBox>
@@ -22,7 +40,11 @@ function NewArrival() {
                 <p>올해 가장 기대되는 신제품, 여기 다 모였다!</p>
             </NATitleBox>
             <NAItemBox>
-                <ProdouctCard products={products.slice(0, 8)} />
+                {filteredProducts.length > 0 ? (
+                    <ProdouctCard products={filteredProducts} />
+                ) : (
+                    <p>데이터를 불러오는 중...</p>
+                )}
             </NAItemBox>
         </NewArrivalSection>
     );

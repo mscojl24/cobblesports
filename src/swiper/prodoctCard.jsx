@@ -33,7 +33,7 @@ function ProdouctCard({ products }) {
                 className="mySwiper">
                 {products.map((item, index) => (
                     <SwiperSlide key={index}>
-                        <ProductsImg>
+                        <ProductsImg className="flex-center">
                             <img
                                 src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.option?.img?.mainImg}
                                 alt={item.script}></img>
