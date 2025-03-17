@@ -7,10 +7,6 @@ import { productsState } from '../../atoms/useIndexState';
 function NewArrival() {
     const [products] = useAtom(productsState);
 
-    useEffect(() => {
-        console.log('✅ 현재 products 상태:', products);
-    }, [products]);
-
     // ✅ 보여줄 제품 번호 목록
     const selectedProductNums = [
         '10842668413',
@@ -21,7 +17,6 @@ function NewArrival() {
         '11466050722',
     ];
 
-    // ✅ 필터링 로직 (productNum이 숫자형일 수도 있음)
     const filteredProducts = products.filter((product) => selectedProductNums.includes(String(product.productNum)));
 
     return (

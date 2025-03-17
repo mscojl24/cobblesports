@@ -120,7 +120,7 @@ const ProductsImg = styled.div`
 
 /* <-------------------------- Swiper 컬러 아이콘 섹션 -------------------------------> */
 
-const ColorIcon = styled.div`
+const ColorIcon = styled.li`
     width: 10px;
     height: 10px;
     border-radius: 2px;

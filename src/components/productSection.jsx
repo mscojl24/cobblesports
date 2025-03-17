@@ -16,5 +16,9 @@ export default ProductSection;
 const ProductBox = styled.section`
     width: 100%;
     height: calc(100vh - 70px);
-    overflow: scroll;
+    overflow: hidden;
+
+    @media (max-width: 1500px) {
+        flex-direction: column;
+    }
 `;

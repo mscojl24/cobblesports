@@ -3,6 +3,7 @@ import { TbShoppingCartShare } from 'react-icons/tb';
 import { useAtom } from 'jotai';
 import { scrollXState } from '../atoms/useIndexState';
 import { useEffect, useState } from 'react';
+import { formatPrice } from './useFormatPrice';
 
 function Products({ products }) {
     const [scrollX] = useAtom(scrollXState);
@@ -25,7 +26,7 @@ function Products({ products }) {
                     <ul className="prodoct-script flex-v-center column">
                         <li className="product-name">
                             <h4>{item.title}</h4>
-                            <p>₩ {item.option.price}</p>
+                            <p>₩ {formatPrice(item.option.price)}</p>
                         </li>
                         <li className="product-options">
                             <div className="text-column">
