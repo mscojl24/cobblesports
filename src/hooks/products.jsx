@@ -16,7 +16,12 @@ function Products({ products }) {
         <ItemBox className="flex-center">
             {products.slice(0, slice).map((item, index) => (
                 <Item key={index}>
-                    <div className="prodoct-image"></div>
+                    <div className="prodoct-image">
+                        <img
+                            src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.option?.img?.mainImg}
+                            alt={item.script}
+                        />
+                    </div>
                     <ul className="prodoct-script flex-v-center column">
                         <li className="product-name">
                             <h4>{item.title}</h4>
@@ -81,6 +86,10 @@ const Item = styled.div`
 
         cursor: pointer;
         /* border-radius: 20px; */
+
+        img {
+            width: 100%;
+        }
 
         @media (max-width: 860px) {
             aspect-ratio: 4/5;
