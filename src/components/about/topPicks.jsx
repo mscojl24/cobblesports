@@ -6,10 +6,10 @@ function TopPicks() {
         <TopPicksSection className="flex-center column">
             <TopPicksTitle className="flex-v-center column">
                 <h1>
-                    셀러들이 선택한 <br />
-                    베스트상품 <span>TOP5</span>
+                    지금 제일 잘 나가는 <br />
+                    인기템 <span>TOP5</span>
                 </h1>
-                <p>수 많은 셀러들이 선택한 가민의 인기상품을 확인하세요</p>
+                <p>많은 사람들이 선택한 가민의 인기 제품을 확인하세요</p>
             </TopPicksTitle>
             <TopPicksCard>
                 {bestSellersData.map((item, index) => (
