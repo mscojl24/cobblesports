@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { TbShoppingCartShare } from 'react-icons/tb';
+import { LuCirclePlus } from 'react-icons/lu';
+
 import { useAtom } from 'jotai';
 import { scrollXState } from '../atoms/useIndexState';
 import { useEffect, useState } from 'react';
@@ -45,7 +46,9 @@ function Products({ products }) {
                                 <span> {item.spec.gps}</span>
                             </div>
                         </li>
-                        <button className="product-btn">제품 상세보기</button>
+                        <button className="product-btn flex-center">
+                            <LuCirclePlus /> 제품 비교하기
+                        </button>
                     </ul>
                 </Item>
             ))}
@@ -160,10 +163,12 @@ const Item = styled.div`
     }
 
     .product-btn {
+        gap: 5px;
+        border-radius: 100px;
         background-color: #141414;
         color: #f2f3f6;
         border: 1px solid #141414;
-        font-weight: 400;
+        font-weight: 600;
         transition: all ease-in-out 0.3s;
         cursor: pointer;
         @media (max-width: 860px) {

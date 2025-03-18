@@ -15,53 +15,61 @@ function ProductList() {
     };
 
     return (
-        <ProductListBox>
-            {products.length > 0 ? (
-                products.map((item, index) => {
-                    const releaseDate = excelDateToJSDate(item.option?.release);
-                    const currentDate = new Date();
-                    const fourMonthsAgo = new Date();
-                    fourMonthsAgo.setMonth(currentDate.getMonth() - 4);
+        <ProductListBox className="flex-v-center column">
+            <ProductsLength className="flex-h-center">
+                <h1>검색 결과</h1>
+                <h2>
+                    <span>{products.length}</span>개
+                </h2>
+            </ProductsLength>
+            <ProductsCardBox className="flex-v-center">
+                {products.length > 0 ? (
+                    products.map((item, index) => {
+                        const releaseDate = excelDateToJSDate(item.option?.release);
+                        const currentDate = new Date();
+                        const fourMonthsAgo = new Date();
+                        fourMonthsAgo.setMonth(currentDate.getMonth() - 4);
 
-                    const isNew = releaseDate && releaseDate > fourMonthsAgo;
+                        const isNew = releaseDate && releaseDate > fourMonthsAgo;
 
-                    return (
-                        <ProductCard key={index}>
-                            {isNew && <NewBadge>NEW</NewBadge>}
+                        return (
+                            <ProductCard key={index}>
+                                {isNew && <NewBadge>NEW</NewBadge>}
 
-                            <div className="product-image">
-                                <img
-                                    src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${item.option?.img?.mainImg}`}
-                                    alt={item.title}
-                                />
-                            </div>
-
-                            <ul className="product-color flex-center">
-                                {item.option.colorName.map((color, idx) => (
-                                    <ColorIcon key={idx}>{color}</ColorIcon>
-                                ))}
-                            </ul>
-
-                            <TitleBox>
-                                <p className="pro-script">{item.purpose[0]}</p>
-                                <h1 className="pro-title">{item.title}</h1>
-                            </TitleBox>
-                            <PriceBox className="flex-center column">
-                                <div className="pro-price flex-justfit">
-                                    <div className="price-text">구매가</div>
-                                    <div className="price-num flex-center">
-                                        {item.option.discount && <em>{formatPrice(item.option.discount)}</em>}
-                                        <strong>{formatPrice(item.option.price)}</strong>
-                                        <p>원</p>
-                                    </div>
+                                <div className="product-image">
+                                    <img
+                                        src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${item.option?.img?.mainImg}`}
+                                        alt={item.title}
+                                    />
                                 </div>
-                            </PriceBox>
-                        </ProductCard>
-                    );
-                })
-            ) : (
-                <p>데이터를 불러오는 중...</p>
-            )}
+
+                                <ul className="product-color flex-center">
+                                    {item.option.colorName.map((color, idx) => (
+                                        <ColorIcon key={idx}>{color}</ColorIcon>
+                                    ))}
+                                </ul>
+
+                                <TitleBox>
+                                    <p className="pro-script">{item.script}</p>
+                                    <h1 className="pro-title">{item.title}</h1>
+                                </TitleBox>
+                                <PriceBox className="flex-center column">
+                                    <div className="pro-price flex-justfit">
+                                        <div className="price-text">구매가</div>
+                                        <div className="price-num flex-center">
+                                            {item.option.discount && <em>{formatPrice(item.option.discount)}</em>}
+                                            <strong>{formatPrice(item.option.price)}</strong>
+                                            <p>원</p>
+                                        </div>
+                                    </div>
+                                </PriceBox>
+                            </ProductCard>
+                        );
+                    })
+                ) : (
+                    <p>데이터를 불러오는 중...</p>
+                )}
+            </ProductsCardBox>
         </ProductListBox>
     );
 }
@@ -73,8 +81,7 @@ const ProductListBox = styled.ul`
     width: 100%;
     height: 100%;
     padding: 20px;
-    gap: 20px;
-    flex-wrap: wrap;
+
     overflow-y: auto;
     display: flex;
     justify-content: center;
@@ -82,6 +89,28 @@ const ProductListBox = styled.ul`
     @media (max-width: 860px) {
         background-color: #f7f7f7;
     }
+`;
+
+const ProductsLength = styled.div`
+    width: 100%;
+    padding: 20px;
+    gap: 10px;
+
+    & > *,
+    span {
+        font-size: 25px;
+        font-family: '42dot Sans';
+    }
+
+    span {
+        font-weight: 800;
+        color: #2760ff;
+    }
+`;
+
+const ProductsCardBox = styled.section`
+    flex-wrap: wrap;
+    gap: 20px;
 `;
 
 /* ✅ 제품 카드 스타일 */
@@ -100,7 +129,7 @@ const ProductCard = styled.li`
         width: 100%;
         img {
             aspect-ratio: 1/1;
-            width: 70%;
+            width: 80%;
             object-fit: cover;
             border-radius: 10px;
         }
@@ -195,7 +224,7 @@ const PriceBox = styled.div`
 
         strong {
             font-size: 20px;
-            font-weight: 600;
+            font-weight: 800;
             font-family: '42dot Sans';
         }
     }
