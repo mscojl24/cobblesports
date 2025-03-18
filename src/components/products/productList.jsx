@@ -43,12 +43,12 @@ function ProductList() {
                             </ul>
 
                             <TitleBox>
+                                <p className="pro-script">{item.purpose[0]}</p>
                                 <h1 className="pro-title">{item.title}</h1>
-                                <p className="pro-script">{item.script}</p>
                             </TitleBox>
                             <PriceBox className="flex-center column">
                                 <div className="pro-price flex-justfit">
-                                    <div className="price-text">최종혜택가</div>
+                                    <div className="price-text">구매가</div>
                                     <div className="price-num flex-center">
                                         {item.option.discount && <em>{formatPrice(item.option.discount)}</em>}
                                         <strong>{formatPrice(item.option.price)}</strong>
@@ -90,7 +90,7 @@ const ProductCard = styled.li`
     width: calc(100% / 3 - 20px);
     background: #f7f7f7;
     border-radius: 20px;
-    padding: 10px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -143,7 +143,7 @@ const ColorIcon = styled.li`
     padding: 5px 15px;
     border-radius: 100px;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    font-size: 14px;
+    font-size: 12px;
     background-color: #fff;
     background-color: ${(props) => props.color};
     margin: 5px 3px;
@@ -161,13 +161,15 @@ const ColorIcon = styled.li`
 
 /* ✅ 제품 제목 & 설명 */
 const TitleBox = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 100%;
     text-align: center;
     padding: 30px 0px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    gap: 10px;
 
     .pro-script {
-        margin-top: 10px;
         font-size: 14px;
         color: rgba(0, 0, 0, 0.3);
     }
@@ -192,7 +194,7 @@ const PriceBox = styled.div`
         }
 
         strong {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 600;
             font-family: '42dot Sans';
         }
@@ -204,7 +206,6 @@ const PriceBox = styled.div`
     .pro-price,
     .price-num {
         display: flex;
-        align-items: end;
     }
 
     .price-text {
