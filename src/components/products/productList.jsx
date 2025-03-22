@@ -1,27 +1,20 @@
 import { useAtom } from 'jotai';
 import styled from 'styled-components';
-import { productsState } from '../../atoms/useIndexState';
+import { productsState, sortProductsState } from '../../atoms/useIndexState';
 import { formatPrice } from '../../hooks/useFormatPrice';
+import useFilterAndSortProducts from '../../hooks/useSortProductsState';
 
 function ProductList() {
-    const [products] = useAtom(productsState);
+    const [products] = useAtom(sortProductsState); // ✅ 필터링된 리스트 사용
+    useFilterAndSortProducts();
 
-    console.log(products[1]);
-
-    // ✅ 엑셀 날짜 변환 함수 (숫자 → 실제 날짜)
     const excelDateToJSDate = (excelDate) => {
-        if (!excelDate || isNaN(excelDate)) return null; // 숫자가 아니면 null 반환
-        return new Date(1900, 0, excelDate - 1); // 엑셀 날짜 변환
+        if (!excelDate || isNaN(excelDate)) return null;
+        return new Date(1900, 0, excelDate - 1);
     };
 
     return (
-        <ProductListBox className="flex-v-center column">
-            <ProductsLength className="flex-h-center">
-                <h1>검색 결과</h1>
-                <h2>
-                    <span>{products.length}</span>개
-                </h2>
-            </ProductsLength>
+        <ProductListBox className="flex-center column">
             <ProductsCardBox className="flex-v-center">
                 {products.length > 0 ? (
                     products.map((item, index) => {
@@ -31,14 +24,26 @@ function ProductList() {
                         fourMonthsAgo.setMonth(currentDate.getMonth() - 4);
 
                         const isNew = releaseDate && releaseDate > fourMonthsAgo;
+                        const discount = item.option.discount;
+                        const price = item.option.price;
 
                         return (
                             <ProductCard key={index}>
-                                {isNew && <NewBadge>NEW</NewBadge>}
+                                <TitleBox>
+                                    {isNew && <NewBadge>NEW</NewBadge>}
+                                    <p className="pro-script">{isNew}</p>
+                                    <p className="pro-script">{item.script}</p>
+                                    <h1 className="pro-title">
+                                        {item.title}
+                                        <span> · {item.option.display.type} 디스플레이</span>
+                                        <span> · {item.option.size}</span>
+                                        <span> · {item.option.weight}</span>
+                                    </h1>
+                                </TitleBox>
 
                                 <div className="product-image">
                                     <img
-                                        src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${item.option?.img?.mainImg}`}
+                                        src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${item.option?.img[1]}`}
                                         alt={item.title}
                                     />
                                 </div>
@@ -49,17 +54,18 @@ function ProductList() {
                                     ))}
                                 </ul>
 
-                                <TitleBox>
-                                    <p className="pro-script">{item.script}</p>
-                                    <h1 className="pro-title">{item.title}</h1>
-                                </TitleBox>
                                 <PriceBox className="flex-center column">
                                     <div className="pro-price flex-justfit">
                                         <div className="price-text">구매가</div>
                                         <div className="price-num flex-center">
-                                            {item.option.discount && <em>{formatPrice(item.option.discount)}</em>}
-                                            <strong>{formatPrice(item.option.price)}</strong>
-                                            <p>원</p>
+                                            {discount ? (
+                                                <>
+                                                    <em>{formatPrice(price)}원</em>
+                                                    <strong>{formatPrice(discount)}원</strong>
+                                                </>
+                                            ) : (
+                                                <strong>{formatPrice(price)}원</strong>
+                                            )}
                                         </div>
                                     </div>
                                 </PriceBox>
@@ -67,7 +73,7 @@ function ProductList() {
                         );
                     })
                 ) : (
-                    <p>데이터를 불러오는 중...</p>
+                    <p>❌ 연관된 제품 데이터를 찾을 수 없습니다</p>
                 )}
             </ProductsCardBox>
         </ProductListBox>
@@ -91,34 +97,25 @@ const ProductListBox = styled.ul`
     }
 `;
 
-const ProductsLength = styled.div`
-    width: 100%;
-    padding: 20px;
-    gap: 10px;
-
-    & > *,
-    span {
-        font-size: 25px;
-        font-family: '42dot Sans';
-    }
-
-    span {
-        font-weight: 800;
-        color: #2760ff;
-    }
-`;
-
 const ProductsCardBox = styled.section`
+    justify-content: left;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
+    transition: all ease-in-out 0.3s;
+    margin: 20px;
+
+    @media (max-width: 860px) {
+        margin: 0px;
+    }
 `;
 
 /* ✅ 제품 카드 스타일 */
 const ProductCard = styled.li`
     position: relative;
-    width: calc(100% / 3 - 20px);
-    background: #f7f7f7;
-    border-radius: 20px;
+    width: calc(100% / 3 - 10px);
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -139,6 +136,7 @@ const ProductCard = styled.li`
         flex-wrap: wrap;
     }
     @media (max-width: 1500px) {
+        width: calc(100% / 3 - 20px);
         .product-image img {
             width: 90%;
         }
@@ -193,19 +191,26 @@ const TitleBox = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    text-align: center;
     padding: 30px 0px;
 
     gap: 10px;
 
     .pro-script {
-        font-size: 14px;
+        font-size: 13px;
+        font-weight: 500;
         color: rgba(0, 0, 0, 0.3);
     }
     .pro-title {
         font-family: '42dot Sans';
         font-size: clamp(13px, 4vw, 20px);
         font-weight: 600;
+        line-height: 1.5;
+
+        span {
+            font-weight: 400;
+            font-family: '42dot Sans';
+            color: rgba(0, 0, 0, 0.5);
+        }
     }
 `;
 

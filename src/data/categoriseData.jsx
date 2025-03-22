@@ -18,7 +18,7 @@ export const categoriesData = [
         image: `${process.env.PUBLIC_URL}/asset/categories/adventure.png`,
     },
     {
-        title: 'water',
+        title: 'Water',
         subtitle:
             '수영할 때마다 모든 스트로크와 랩 타임을 기록하세요. 풀장과 오픈워터에서 더욱 스마트하게 훈련할 수 있습니다.',
         image: `${process.env.PUBLIC_URL}/asset/categories/water.png`,
