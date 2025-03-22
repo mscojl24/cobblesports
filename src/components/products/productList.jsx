@@ -43,7 +43,7 @@ function ProductList() {
 
                                 <div className="product-image">
                                     <img
-                                        src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${item.option?.img[1]}`}
+                                        src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${item.option?.img?.mainImg[1]}`}
                                         alt={item.title}
                                     />
                                 </div>
