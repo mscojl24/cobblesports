@@ -37,9 +37,7 @@ const useFetchExcelData = (url) => {
                         release: cleanValue(item.release),
                         colorName: item.colorName ? item.colorName.split(',').map((c) => c.trim()) : [],
                         colorCode: item.colorCode ? item.colorCode.split(',').map((c) => c.trim()) : [],
-                        img: {
-                            mainImg: item.mainImg ? item.mainImg.split(',').map((img) => img.trim()) : [],
-                        },
+                        image: item.image ? item.image.split(',').map((img) => img.trim()) : [],
                         display: {
                             type: cleanValue(item.displayType),
                             touch: cleanValue(item.touch),
@@ -78,7 +76,7 @@ const useFetchExcelData = (url) => {
 
                 setProductData(formattedData);
 
-                console.log(formattedData[1]);
+                // console.log(formattedData[1].option.img.mainImg);
             } catch (error) {
                 console.error('엑셀 데이터 로드 실패:', error);
             }
