@@ -23,7 +23,7 @@ function Navi() {
     }, [scrollY]);
 
     const menulist = [
-        { name: 'About', subname: '메인으로', value: '/', type: 'internal' },
+        { name: 'Home', subname: '메인으로', value: '/', type: 'internal' },
         { name: 'Product', subname: '제품안내', value: '/products', type: 'internal' },
         { name: 'Compare', subname: '스펙비교', value: '/compare', type: 'internal' },
         { name: 'Contact', subname: '문의하기', value: 'https://pf.kakao.com/_fcPxaG', type: 'external' },

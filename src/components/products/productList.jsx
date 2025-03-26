@@ -3,14 +3,18 @@ import styled from 'styled-components';
 import { productsState, sortProductsState } from '../../atoms/useIndexState';
 import { formatPrice } from '../../hooks/useFormatPrice';
 import useFilterAndSortProducts from '../../hooks/useSortProductsState';
+import { useState } from 'react'; // ✅ 추가
 
 function ProductList() {
-    const [products] = useAtom(sortProductsState); // ✅ 필터링된 리스트 사용
+    const [selectedImageIndexes, setSelectedImageIndexes] = useState({}); // 각 카드 인덱스 추적 state
+    const [products] = useAtom(sortProductsState);
     useFilterAndSortProducts();
 
-    const excelDateToJSDate = (excelDate) => {
-        if (!excelDate || isNaN(excelDate)) return null;
-        return new Date(1900, 0, excelDate - 1);
+    const handleColorClick = (productIndex, colorIndex) => {
+        setSelectedImageIndexes((prev) => ({
+            ...prev,
+            [productIndex]: colorIndex,
+        }));
     };
 
     return (
@@ -18,39 +22,69 @@ function ProductList() {
             <ProductsCardBox className="flex-v-center">
                 {products.length > 0 ? (
                     products.map((item, index) => {
-                        const releaseDate = excelDateToJSDate(item.option?.release);
-                        const currentDate = new Date();
-                        const fourMonthsAgo = new Date();
-                        fourMonthsAgo.setMonth(currentDate.getMonth() - 4);
+                        const discount = item.spec.discount;
+                        const price = item.spec.price;
 
-                        const isNew = releaseDate && releaseDate > fourMonthsAgo;
-                        const discount = item.option.discount;
-                        const price = item.option.price;
+                        const selectedIndex = selectedImageIndexes[index] ?? 0;
+                        const selectedImage = item.spec?.image[selectedIndex];
+
+                        const isNew = (() => {
+                            if (!item.spec.release) return false;
+                            const releaseDate = new Date(item.spec.release);
+                            const now = new Date();
+                            const fourMonthsAgo = new Date();
+                            fourMonthsAgo.setMonth(now.getMonth() - 4);
+                            return releaseDate >= fourMonthsAgo;
+                        })();
 
                         return (
                             <ProductCard key={index}>
                                 <TitleBox>
-                                    {isNew && <NewBadge>NEW</NewBadge>}
-                                    <p className="pro-script">{isNew}</p>
-                                    <p className="pro-script">{item.script}</p>
+                                    <p className="pro-script">
+                                        {item.spec.release ? new Date(item.spec.release).getFullYear() : 'N/A'}년 출시 |{' '}
+                                        {item.script}
+                                    </p>
                                     <h1 className="pro-title">
                                         {item.title}
-                                        <span> · {item.option.display.type} 디스플레이</span>
-                                        <span> · {item.option.size}</span>
-                                        <span> · {item.option.weight}</span>
+                                        <span> · {item.spec.display.type} 디스플레이</span>
+                                        <span> · {item.spec.size}</span>
+                                        <span> · {item.spec.weight}</span>
                                     </h1>
                                 </TitleBox>
 
                                 <div className="product-image">
+                                    <div className="badge-box">
+                                        {isNew && (
+                                            <NewBadge>
+                                                NEW
+                                                <br />
+                                                2025
+                                            </NewBadge>
+                                        )}
+                                        {discount && (
+                                            <SaleBadge>
+                                                ON
+                                                <br />
+                                                SALE
+                                            </SaleBadge>
+                                        )}
+                                    </div>
                                     <img
-                                        src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${item.option?.image[0]}`}
+                                        src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${selectedImage}`}
                                         alt={item.title}
                                     />
                                 </div>
 
                                 <ul className="product-color flex-center">
-                                    {item.option.colorName.map((color, idx) => (
-                                        <ColorIcon key={idx}>{color}</ColorIcon>
+                                    {item.spec.color.map((color, idx) => (
+                                        <ColorIcon
+                                            className="flex-center"
+                                            key={idx}
+                                            onClick={() => handleColorClick(index, idx)}
+                                            isSelected={selectedIndex === idx}>
+                                            <ColorCircle style={{ backgroundColor: color.colorCode }} />
+                                            {color.colorName}
+                                        </ColorIcon>
                                     ))}
                                 </ul>
 
@@ -122,6 +156,7 @@ const ProductCard = styled.li`
     align-items: center;
 
     .product-image {
+        position: relative;
         text-align: center;
         width: 100%;
         img {
@@ -150,35 +185,55 @@ const ProductCard = styled.li`
             width: 100%;
         }
     }
+
+    .badge-box {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
 `;
 
 /* ✅ NEW 배지 스타일 */
 const NewBadge = styled.div`
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #e65c5c;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background-color: #ff9900;
     color: white;
     font-size: 12px;
-    font-weight: bold;
+    font-weight: 600;
+    font-family: '42dot Sans';
     padding: 5px 10px;
-    border-radius: 5px;
+    border-radius: 60px;
+`;
+
+const SaleBadge = styled(NewBadge)`
+    background-color: #dd5050;
+`;
+
+const ColorCircle = styled.div`
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 /* ✅ 컬러 아이콘 스타일 */
 const ColorIcon = styled.li`
     padding: 5px 15px;
     border-radius: 100px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid ${({ isSelected }) => (isSelected ? 'rgba(0,0,0,0.7)' : ' rgba(0,0,0,0.1)')};
     font-size: 12px;
     background-color: #fff;
-    background-color: ${(props) => props.color};
+    color: ${({ isSelected }) => (isSelected ? '#000' : ' #000')};
     margin: 5px 3px;
     cursor: pointer;
+    gap: 5px;
 
     &:hover {
-        border: 1px solid rgba(49, 80, 255, 0.2);
-        color: #2f67ff;
+        background-color: #f6f6f7;
     }
 
     @media (max-width: 860px) {
@@ -196,7 +251,9 @@ const TitleBox = styled.div`
     gap: 10px;
 
     .pro-script {
-        font-size: 13px;
+        font-family: '42dot Sans';
+        line-height: 1.5;
+        font-size: 14px;
         font-weight: 500;
         color: rgba(0, 0, 0, 0.3);
     }

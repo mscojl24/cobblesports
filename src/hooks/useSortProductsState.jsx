@@ -20,13 +20,12 @@ const useFilterAndSortProducts = () => {
     const [maxValue] = useAtom(maxPriceState);
 
     useEffect(() => {
-        const safeConvertDate = (excelDate) => {
-            if (!excelDate || isNaN(excelDate)) return null;
-            const excelEpoch = new Date(1899, 11, 30);
-            return new Date(excelEpoch.getTime() + excelDate * 24 * 60 * 60 * 1000);
+        const safeConvertDate = (dateString) => {
+            const parsed = new Date(dateString);
+            return isNaN(parsed.getTime()) ? null : parsed;
         };
 
-        const getEffectivePrice = (product) => product.option.discount ?? product.option.price;
+        const getEffectivePrice = (product) => product.spec.discount ?? product.spec.price;
 
         const isSizeMatch = (sizeArray) => {
             if (selectedSize === 'ALL') return true;
@@ -52,7 +51,7 @@ const useFilterAndSortProducts = () => {
         const filtered = products.filter((product) => {
             const price = getEffectivePrice(product);
             const isWithinPrice = typeof price === 'number' && price >= minValue && price <= maxValue;
-            const isSizeOk = isSizeMatch(product.option.size);
+            const isSizeOk = isSizeMatch(product.spec.size);
             const isActivityOk = isActivityMatch(product.activityProfiles);
 
             return isWithinPrice && isSizeOk && isActivityOk;
@@ -60,8 +59,8 @@ const useFilterAndSortProducts = () => {
 
         const sorted = [...filtered].sort((a, b) => {
             if (selectedSorting === '최신순') {
-                const dateA = safeConvertDate(a.option.release)?.getTime() ?? 0;
-                const dateB = safeConvertDate(b.option.release)?.getTime() ?? 0;
+                const dateA = safeConvertDate(a.spec.release)?.getTime() ?? 0;
+                const dateB = safeConvertDate(b.spec.release)?.getTime() ?? 0;
                 return dateB - dateA;
             }
 

@@ -35,12 +35,12 @@ function ProdouctCard({ products }) {
                     <SwiperSlide key={index}>
                         <ProductsImg className="flex-center">
                             <img
-                                src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.option?.img?.mainImg}
+                                src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.option?.image[0]}
                                 alt={item.script}></img>
                         </ProductsImg>
                         <ul className="prodoct-color flex-center">
-                            {item.option.colorCode.map((color, idx) => (
-                                <ColorIcon color={color} key={idx}></ColorIcon>
+                            {item.option.color.map((color, idx) => (
+                                <ColorIcon color={color.colorCode} key={idx} />
                             ))}
                         </ul>
                         <ul className="prodoct-script">

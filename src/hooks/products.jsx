@@ -20,7 +20,7 @@ function Products({ products }) {
                 <Item key={index}>
                     <div className="prodoct-image">
                         <img
-                            src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.option?.img?.mainImg}
+                            src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.option?.image[0]}
                             alt={item.script}
                         />
                     </div>
