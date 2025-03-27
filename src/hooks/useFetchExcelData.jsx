@@ -73,11 +73,11 @@ const useFetchExcelData = (url) => {
                         option: {
                             memory: cleanValue(item.memory),
                             solar: cleanValue(item.solar),
-                            Bezelmaterial: cleanValue(item.bezelmaterial),
+                            bezelmaterial: cleanValue(item.bezelmaterial),
                             flashlight: cleanValue(item.flashlight),
                             altimeter: cleanValue(item.altimeter),
                             music: cleanValue(item.music),
-                            Map: cleanValue(item.map),
+                            map: cleanValue(item.map),
                             sleep: cleanValue(item.sleep),
                             call: cleanValue(item.call),
 

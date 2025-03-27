@@ -10,7 +10,12 @@ export const loderPageState = atom(true);
 
 export const sportsState = atom([]);
 export const orderState = atom('최신순');
-export const sizeState = atom('ALL');
+export const sizeState = atom([]);
+export const waterProofState = atom([]);
+export const batterySMState = atom([]);
+export const batteryGPSState = atom([]);
+
+export const saleState = atom(false);
 
 export const minPriceState = atom(100000);
 export const maxPriceState = atom(3000000);

@@ -39,19 +39,6 @@ function ProductList() {
 
                         return (
                             <ProductCard key={index}>
-                                <TitleBox>
-                                    <p className="pro-script">
-                                        {item.spec.release ? new Date(item.spec.release).getFullYear() : 'N/A'}년 출시 |{' '}
-                                        {item.script}
-                                    </p>
-                                    <h1 className="pro-title">
-                                        {item.title}
-                                        <span> · {item.spec.display.type} 디스플레이</span>
-                                        <span> · {item.spec.size}</span>
-                                        <span> · {item.spec.weight}</span>
-                                    </h1>
-                                </TitleBox>
-
                                 <div className="product-image">
                                     <div className="badge-box">
                                         {isNew && (
@@ -68,6 +55,11 @@ function ProductList() {
                                                 SALE
                                             </SaleBadge>
                                         )}
+                                        <PointBadge>
+                                            네이버
+                                            <br />
+                                            적립5%
+                                        </PointBadge>
                                     </div>
                                     <img
                                         src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${selectedImage}`}
@@ -88,15 +80,27 @@ function ProductList() {
                                     ))}
                                 </ul>
 
+                                <TitleBox>
+                                    <span className="pro-script">{item.script}</span>
+                                    <h1 className="pro-title">
+                                        {item.title}, {item.spec.size}
+                                        <span>
+                                            {' '}
+                                            · {item.spec.display.color} {item.spec.display.type} 디스플레이
+                                        </span>
+                                        {/* <span> · {item.option.bezelmaterial}</span> */}
+                                        <span> · {item.spec.band} 밴드</span>
+                                        <span> · {item.spec.weight}</span>
+                                    </h1>
+                                </TitleBox>
+
                                 <PriceBox className="flex-center column">
                                     <div className="pro-price flex-justfit">
-                                        <div className="price-text">구매가</div>
-                                        <div className="price-num flex-center">
+                                        <div className="price-text">
+                                            {discount && <em>{formatPrice(price)}원</em>} <br />
+                                            <span>최종가</span>{' '}
                                             {discount ? (
-                                                <>
-                                                    <em>{formatPrice(price)}원</em>
-                                                    <strong>{formatPrice(discount)}원</strong>
-                                                </>
+                                                <strong>{formatPrice(discount)}원</strong>
                                             ) : (
                                                 <strong>{formatPrice(price)}원</strong>
                                             )}
@@ -198,19 +202,23 @@ const NewBadge = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     background-color: #ff9900;
     color: white;
     font-size: 12px;
     font-weight: 600;
     font-family: '42dot Sans';
-    padding: 5px 10px;
     border-radius: 60px;
+    margin: 5px 0px;
 `;
 
 const SaleBadge = styled(NewBadge)`
-    background-color: #dd5050;
+    background: #ff5512;
+`;
+
+const PointBadge = styled(NewBadge)`
+    background: linear-gradient(-45deg, #747dff, #1dee9e);
 `;
 
 const ColorCircle = styled.div`
@@ -245,17 +253,22 @@ const ColorIcon = styled.li`
 const TitleBox = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 5px;
     width: 100%;
     padding: 30px 0px;
 
-    gap: 10px;
-
     .pro-script {
+        display: inline-block; /* ✅ 텍스트 길이에 따라 너비 조절 */
+        align-self: flex-start; /* ✅ 부모 column flex 안에서 왼쪽 정렬 */
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        background-color: #fafafa;
         font-family: '42dot Sans';
         line-height: 1.5;
         font-size: 14px;
         font-weight: 500;
-        color: rgba(0, 0, 0, 0.3);
+        padding: 5px 10px;
+        color: rgba(0, 0, 0, 0.7);
     }
     .pro-title {
         font-family: '42dot Sans';
@@ -264,6 +277,7 @@ const TitleBox = styled.div`
         line-height: 1.5;
 
         span {
+            font-size: 16px;
             font-weight: 400;
             font-family: '42dot Sans';
             color: rgba(0, 0, 0, 0.5);
