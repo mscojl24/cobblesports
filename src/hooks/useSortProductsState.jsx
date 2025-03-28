@@ -12,6 +12,8 @@ import {
     waterProofState,
     batterySMState,
     batteryGPSState,
+    sportsSorting,
+    seriesSorting,
 } from '../atoms/useIndexState';
 
 const useFilterAndSortProducts = () => {
@@ -26,6 +28,11 @@ const useFilterAndSortProducts = () => {
     const [selectedWaterProof] = useAtom(waterProofState);
     const [selectBatterySM] = useAtom(batterySMState);
     const [selectBatteryGPS] = useAtom(batteryGPSState);
+    const [selectSportsSort] = useAtom(sportsSorting);
+    const [selectSeriesSort] = useAtom(seriesSorting);
+
+    console.log(selectSeriesSort); // ['베뉴','비보','릴리']
+    console.log(products[1].subtitle); // 릴리2 액티브
 
     useEffect(() => {
         const safeConvertDate = (dateString) => {
@@ -73,6 +80,18 @@ const useFilterAndSortProducts = () => {
             return typeof value === 'number' && value >= min && value <= max;
         };
 
+        const isPurposeMatch = (purposeList) => {
+            if (!selectSportsSort || selectSportsSort === '') return true; // 전체 허용
+            if (!Array.isArray(purposeList)) return false;
+            return purposeList.includes(selectSportsSort); // ✅ 문자열 기준으로 비교
+        };
+
+        const isSeriesMatch = (subtitle) => {
+            if (!Array.isArray(selectSeriesSort) || selectSeriesSort.length === 0) return true;
+            if (!subtitle || typeof subtitle !== 'string') return false;
+            return selectSeriesSort.some((keyword) => subtitle.includes(keyword));
+        };
+
         const filtered = products.filter((product) => {
             const price = getEffectivePrice(product);
             const isWithinPrice = typeof price === 'number' && price >= minValue && price <= maxValue;
@@ -81,8 +100,21 @@ const useFilterAndSortProducts = () => {
             const isWaterProofOk = isWaterProofMatch(product.waterProof?.waterRating, product.waterProof?.divingRating);
             const isBatterySMOk = isBatteryInRange(product.battery.smartwatch, selectBatterySM);
             const isBatteryGPSOk = isBatteryInRange(product.battery.gpsOnly, selectBatteryGPS);
+            const isPurposeOk = isPurposeMatch(product.purpose);
+            const isSeriesOk = isSeriesMatch(product.subtitle);
 
-            return isWithinPrice && isSizeOk && isActivityOk && isWaterProofOk && isBatterySMOk && isBatteryGPSOk;
+            console.log('🔍 제품 subtitle:', product.subtitle, '전체 product:', product);
+
+            return (
+                isWithinPrice &&
+                isSizeOk &&
+                isActivityOk &&
+                isWaterProofOk &&
+                isBatterySMOk &&
+                isBatteryGPSOk &&
+                isPurposeOk &&
+                isSeriesOk
+            );
         });
 
         const sorted = (() => {
@@ -129,10 +161,12 @@ const useFilterAndSortProducts = () => {
         selectedWaterProof,
         selectBatterySM,
         selectBatteryGPS,
+        selectSportsSort, // ✅ 이거 꼭 추가!
         minValue,
         maxValue,
         setSortProducts,
         selectSale,
+        selectSeriesSort,
     ]);
 };
 

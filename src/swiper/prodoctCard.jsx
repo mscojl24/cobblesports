@@ -10,6 +10,7 @@ import { Autoplay } from 'swiper/modules';
 import { useEffect, useState } from 'react';
 import { useAtom } from 'jotai';
 import { scrollXState } from '../atoms/useIndexState';
+import { formatPrice } from '../hooks/useFormatPrice';
 
 function ProdouctCard({ products }) {
     const [scrollX] = useAtom(scrollXState);
@@ -35,18 +36,18 @@ function ProdouctCard({ products }) {
                     <SwiperSlide key={index}>
                         <ProductsImg className="flex-center">
                             <img
-                                src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.option?.image[0]}
+                                src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.spec?.image[0]}
                                 alt={item.script}></img>
                         </ProductsImg>
                         <ul className="prodoct-color flex-center">
-                            {item.option.color.map((color, idx) => (
+                            {item.spec.color.map((color, idx) => (
                                 <ColorIcon color={color.colorCode} key={idx} />
                             ))}
                         </ul>
                         <ul className="prodoct-script">
                             <li>
                                 <h4>{item.title}</h4>
-                                <p>₩ {item.option.price}</p>
+                                <p>{formatPrice(item.spec.price)} 원</p>
                             </li>
                             <li>
                                 <button className="flex-center">

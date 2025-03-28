@@ -20,26 +20,28 @@ function Products({ products }) {
                 <Item key={index}>
                     <div className="prodoct-image">
                         <img
-                            src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.option?.image[0]}
+                            src={process.env.REACT_APP_PUBLIC_URL + `/asset/` + item.spec?.image[0]}
                             alt={item.script}
                         />
                     </div>
                     <ul className="prodoct-script flex-v-center column">
                         <li className="product-name">
-                            <h4>{item.title}</h4>
-                            <p>₩ {formatPrice(item.option.price)}</p>
+                            <h4>
+                                {item.title}, {item.spec.size}
+                            </h4>
+                            <p>₩ {formatPrice(item.spec.price)}</p>
                         </li>
                         <li className="product-options">
                             <div className="text-column">
                                 <strong className="bold">- 배터리</strong>
                                 <span>
                                     {' '}
-                                    최대 {item.battery.smartwatch} / {item.battery.gpsOnly}
+                                    최대 {item.battery.smartwatch}일 / {item.battery.gpsOnly}시간
                                 </span>
                             </div>
                             <div className="text-column">
                                 <strong className="bold">- 디스플레이</strong>
-                                <span> {item.option.display.type}</span>
+                                <span> {item.spec.display.type}</span>
                             </div>
                             <div className="text-column">
                                 <strong className="bold">- GPS방식 </strong>

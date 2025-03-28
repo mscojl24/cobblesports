@@ -8,6 +8,8 @@ import { productsState } from '../../atoms/useIndexState';
 
 function FullRange() {
     const [products] = useAtom(productsState);
+
+    console.log('메인프로덕트', products);
     return (
         <FullRangeSection>
             <FRTitleBox>

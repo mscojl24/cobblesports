@@ -9,9 +9,14 @@ import {
     batterySMState,
     batteryGPSState,
     sortProductsState,
+    sportsSorting,
+    seriesSorting,
 } from '../../atoms/useIndexState';
 import PriceRange from './priceRange';
-import { OptionList, SortingList } from '../../data/productOptionList';
+import { OptionList, SortingList, sportsSortingList } from '../../data/productOptionList';
+import { useState } from 'react';
+
+import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
 
 function Classification() {
     const [selectedSports, setSelectedSports] = useAtom(sportsState); // 스포츠 선택 : []
@@ -21,7 +26,27 @@ function Classification() {
     const [selectedWaterProof, setSelectedWaterProof] = useAtom(waterProofState);
     const [selectBatterySM, setSelectBatterySM] = useAtom(batterySMState);
     const [selectBatteryGPS, setSelectBatteryGPS] = useAtom(batteryGPSState);
+
+    const [selectSportsSort, setSelectSportsSort] = useAtom(sportsSorting);
+    const [selectSeriesSort, setSelectSeriesSort] = useAtom(seriesSorting);
+
+    const [openSections, setOpenSections] = useState([]);
+
     const [products] = useAtom(sortProductsState);
+
+    const toggleSection = (title) => {
+        setOpenSections((prev) => (prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title]));
+    };
+
+    const handleSelect = (name, value) => {
+        if (name === 'sportsSorting') {
+            setSelectSportsSort(value); // 문자열
+        } else if (name === 'seriesSorting') {
+            setSelectSeriesSort(value); // 배열
+        }
+    };
+
+    // 조건부 제품 솔팅
 
     const handleSortingChange = (e) => {
         setSelectedSorting(e.target.value);
@@ -51,8 +76,6 @@ function Classification() {
         }
     };
 
-    console.log(selectBatteryGPS);
-
     return (
         <ClassificationBox className="flex-v-center column">
             <CFTitle>
@@ -76,6 +99,38 @@ function Classification() {
                     </label>
                 </div>
             </OptionListBox>
+
+            <SportsSortingBox>
+                {sportsSortingList.map((section, idx) => (
+                    <div key={idx}>
+                        <SectionHeader onClick={() => toggleSection(section.title)}>
+                            <h2>{section.title}</h2>
+                            <span>
+                                {openSections.includes(section.title) ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+                            </span>
+                        </SectionHeader>
+                        {openSections.includes(section.title) && (
+                            <ul>
+                                {section.tag.map((item, i) => {
+                                    const isSelected =
+                                        section.name === 'sportsSorting'
+                                            ? selectSportsSort === item.value
+                                            : JSON.stringify(selectSeriesSort) === JSON.stringify(item.value);
+
+                                    return (
+                                        <MenuItem
+                                            key={i}
+                                            onClick={() => handleSelect(section.name, item.value)}
+                                            $isSelected={isSelected}>
+                                            {item.name}
+                                        </MenuItem>
+                                    );
+                                })}
+                            </ul>
+                        )}
+                    </div>
+                ))}
+            </SportsSortingBox>
 
             {SortingList.map((list, index) => (
                 <OptionListBox key={index}>
@@ -176,6 +231,40 @@ const CFTitle = styled.div`
         font-family: '42dot Sans';
         font-weight: bold;
         color: #346ce4;
+    }
+`;
+
+const SportsSortingBox = styled.div`
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    ul {
+        padding-bottom: 20px;
+    }
+`;
+
+const SectionHeader = styled.div`
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    h2 {
+        padding: 20px 0px;
+        font-weight: 600;
+    }
+`;
+
+const MenuItem = styled.li`
+    padding: 10px 15px;
+    cursor: pointer;
+    color: ${({ $isSelected }) => ($isSelected ? '#1a1a1a' : '#555')};
+    font-weight: ${({ $isSelected }) => ($isSelected ? '600' : '400')};
+    background-color: ${({ $isSelected }) => ($isSelected ? '#f7f7f7' : '#fff')};
+
+    &:hover {
+        background-color: #1a1a1a;
+        color: #fff;
     }
 `;
 

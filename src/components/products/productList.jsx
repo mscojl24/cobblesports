@@ -4,9 +4,15 @@ import { productsState, sortProductsState } from '../../atoms/useIndexState';
 import { formatPrice } from '../../hooks/useFormatPrice';
 import useFilterAndSortProducts from '../../hooks/useSortProductsState';
 import { useState } from 'react'; // ✅ 추가
+import NotData from './notData';
+import { VscChevronDown } from 'react-icons/vsc';
+import { RiArrowDownSLine } from 'react-icons/ri';
+import { HiOutlinePlusCircle } from 'react-icons/hi';
+import { LuCirclePlus } from 'react-icons/lu';
 
 function ProductList() {
-    const [selectedImageIndexes, setSelectedImageIndexes] = useState({}); // 각 카드 인덱스 추적 state
+    const [selectedImageIndexes, setSelectedImageIndexes] = useState({});
+    const [imageLoading, setImageLoading] = useState({}); // ✅ 이미지 로딩 상태
     const [products] = useAtom(sortProductsState);
     useFilterAndSortProducts();
 
@@ -14,6 +20,18 @@ function ProductList() {
         setSelectedImageIndexes((prev) => ({
             ...prev,
             [productIndex]: colorIndex,
+        }));
+
+        setImageLoading((prev) => ({
+            ...prev,
+            [productIndex]: true,
+        }));
+    };
+
+    const handleImageLoad = (productIndex) => {
+        setImageLoading((prev) => ({
+            ...prev,
+            [productIndex]: false,
         }));
     };
 
@@ -24,7 +42,6 @@ function ProductList() {
                     products.map((item, index) => {
                         const discount = item.spec.discount;
                         const price = item.spec.price;
-
                         const selectedIndex = selectedImageIndexes[index] ?? 0;
                         const selectedImage = item.spec?.image[selectedIndex];
 
@@ -61,57 +78,81 @@ function ProductList() {
                                             적립5%
                                         </PointBadge>
                                     </div>
-                                    <img
-                                        src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${selectedImage}`}
-                                        alt={item.title}
-                                    />
+                                    {/* ✅ 로딩 중일 때 백그라운드 처리 */}
+                                    <div className="image-wrapper">
+                                        {imageLoading[index] && (
+                                            <ImagePlaceholder className="flex-center">Loging...</ImagePlaceholder>
+                                        )}
+                                        <img
+                                            src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${selectedImage}`}
+                                            alt={item.title}
+                                            onLoad={() => handleImageLoad(index)}
+                                            style={{ opacity: imageLoading[index] ? 0 : 1 }}
+                                        />
+                                    </div>
                                 </div>
 
                                 <ul className="product-color flex-center">
-                                    {item.spec.color.map((color, idx) => (
-                                        <ColorIcon
-                                            className="flex-center"
-                                            key={idx}
-                                            onClick={() => handleColorClick(index, idx)}
-                                            isSelected={selectedIndex === idx}>
-                                            <ColorCircle style={{ backgroundColor: color.colorCode }} />
-                                            {color.colorName}
-                                        </ColorIcon>
-                                    ))}
+                                    <RiArrowDownSLine className="select-icon" />
+                                    <ColorIcon
+                                        value={selectedIndex}
+                                        onChange={(e) => handleColorClick(index, Number(e.target.value))}>
+                                        {item.spec.color.map((color, idx) => (
+                                            <option key={idx} value={idx}>
+                                                <ColorCircle style={{ backgroundColor: color.colorCode }} />
+                                                {color.colorName}
+                                            </option>
+                                        ))}
+                                    </ColorIcon>
                                 </ul>
 
-                                <TitleBox>
-                                    <span className="pro-script">{item.script}</span>
+                                <TitleBox className="flex-center">
                                     <h1 className="pro-title">
                                         {item.title}, {item.spec.size}
-                                        <span>
-                                            {' '}
-                                            · {item.spec.display.color} {item.spec.display.type} 디스플레이
-                                        </span>
-                                        {/* <span> · {item.option.bezelmaterial}</span> */}
-                                        <span> · {item.spec.band} 밴드</span>
-                                        <span> · {item.spec.weight}</span>
                                     </h1>
+                                    <em className="pro-script">{item.script}</em>
+                                    {/* <div className="pro-spec">
+                                        <span>
+                                            {item.spec.display.color} {item.spec.display.type} 디스플레이 ·{' '}
+                                            {item.spec.band} 밴드 · {item.spec.weight}
+                                        </span>
+                                    </div> */}
                                 </TitleBox>
 
+                                <SpecBox>
+                                    <span>
+                                        {item.spec.display.touch && '터치형'} {item.spec.display.type}{' '}
+                                        {item.spec.display.color} 디스플레이 | 배터리 최대 {item.battery.smartwatch}일
+                                        지속 | 방수등급 {item.waterProof.waterRating} | 메모리 크기 {item.option.memory}{' '}
+                                        | 디스플레이 크기 {item.spec.display.size}
+                                    </span>
+                                </SpecBox>
                                 <PriceBox className="flex-center column">
-                                    <div className="pro-price flex-justfit">
-                                        <div className="price-text">
-                                            {discount && <em>{formatPrice(price)}원</em>} <br />
-                                            <span>최종가</span>{' '}
-                                            {discount ? (
-                                                <strong>{formatPrice(discount)}원</strong>
-                                            ) : (
-                                                <strong>{formatPrice(price)}원</strong>
+                                    <div className="price-text">
+                                        <span>최종가</span>
+                                        <strong>
+                                            {formatPrice(discount ?? price)}원{' '}
+                                            {discount && (
+                                                <em className="discount-text">
+                                                    -{Math.round(((price - discount) / price) * 100)}% 할인
+                                                </em>
                                             )}
-                                        </div>
+                                        </strong>
                                     </div>
                                 </PriceBox>
+
+                                <BtnBox className="flex-center column">
+                                    <button>구매하기</button>
+                                    <button className="compare flex-center">
+                                        <LuCirclePlus />
+                                        비교하기
+                                    </button>
+                                </BtnBox>
                             </ProductCard>
                         );
                     })
                 ) : (
-                    <p>❌ 연관된 제품 데이터를 찾을 수 없습니다</p>
+                    <NotData />
                 )}
             </ProductsCardBox>
         </ProductListBox>
@@ -119,6 +160,19 @@ function ProductList() {
 }
 
 export default ProductList;
+
+const ImagePlaceholder = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    font-family: 'Big Shoulders';
+    color: rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    font-size: 20px;
+`;
 
 /* ✅ 리스트 컨테이너 스타일 */
 const ProductListBox = styled.ul`
@@ -159,6 +213,20 @@ const ProductCard = styled.li`
     flex-direction: column;
     align-items: center;
 
+    .image-wrapper {
+        position: relative;
+        width: 100%;
+        text-align: center;
+
+        img {
+            width: 80%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: opacity 0.3s ease-in-out;
+        }
+    }
+
     .product-image {
         position: relative;
         text-align: center;
@@ -172,8 +240,18 @@ const ProductCard = styled.li`
     }
 
     .product-color {
+        position: relative;
         flex-wrap: wrap;
+        max-width: 130px;
+        width: 100%;
+
+        .select-icon {
+            position: absolute;
+            right: 5px;
+            color: rgba(0, 0, 0, 0.3);
+        }
     }
+
     @media (max-width: 1500px) {
         width: calc(100% / 3 - 20px);
         .product-image img {
@@ -194,10 +272,11 @@ const ProductCard = styled.li`
         position: absolute;
         top: 10px;
         right: 10px;
+        z-index: 5;
     }
 `;
 
-/* ✅ NEW 배지 스타일 */
+/* ✅ NEW 배지 스타일 -------------------------------------------------*/
 const NewBadge = styled.div`
     display: flex;
     justify-content: center;
@@ -228,56 +307,60 @@ const ColorCircle = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
-/* ✅ 컬러 아이콘 스타일 */
-const ColorIcon = styled.li`
-    padding: 5px 15px;
-    border-radius: 100px;
-    border: 1px solid ${({ isSelected }) => (isSelected ? 'rgba(0,0,0,0.7)' : ' rgba(0,0,0,0.1)')};
-    font-size: 12px;
+/* ✅ 컬러 아이콘 스타일 -------------------------------------------------*/
+const ColorIcon = styled.select`
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: '42dot Sans';
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     background-color: #fff;
-    color: ${({ isSelected }) => (isSelected ? '#000' : ' #000')};
-    margin: 5px 3px;
+    border-radius: 50px;
     cursor: pointer;
-    gap: 5px;
+    text-align: center;
+    appearance: none;
 
     &:hover {
-        background-color: #f6f6f7;
+        background-color: #f6f6f6;
     }
 
-    @media (max-width: 860px) {
-        border: 1px solid rgba(0, 0, 0, 0.5);
+    option {
+        padding: 8px;
     }
 `;
 
-/* ✅ 제품 제목 & 설명 */
+/* ✅ 제품 제목 & 설명 -------------------------------------------------*/
 const TitleBox = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5px;
     width: 100%;
-    padding: 30px 0px;
+    padding: 20px 0px;
 
     .pro-script {
         display: inline-block; /* ✅ 텍스트 길이에 따라 너비 조절 */
-        align-self: flex-start; /* ✅ 부모 column flex 안에서 왼쪽 정렬 */
+        /* align-self: flex-start; */
         border: 1px solid rgba(0, 0, 0, 0.1);
         border-radius: 3px;
         background-color: #fafafa;
         font-family: '42dot Sans';
-        line-height: 1.5;
-        font-size: 14px;
-        font-weight: 500;
+        line-height: 1.3;
+        font-size: 13px;
         padding: 5px 10px;
-        color: rgba(0, 0, 0, 0.7);
+        color: rgba(0, 0, 0, 0.5);
     }
     .pro-title {
         font-family: '42dot Sans';
         font-size: clamp(13px, 4vw, 20px);
         font-weight: 600;
-        line-height: 1.5;
+        margin: 5px 0px;
+        text-align: center;
+    }
 
+    .pro-spec {
         span {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 400;
             font-family: '42dot Sans';
             color: rgba(0, 0, 0, 0.5);
@@ -285,44 +368,86 @@ const TitleBox = styled.div`
     }
 `;
 
+/* ✅ 가격 표기 -------------------------------------------------*/
+
 const PriceBox = styled.div`
     width: 100%;
-    padding: 30px 0px;
+    margin: 10px 0px;
 
-    .pro-price {
+    .price-text {
         width: 100%;
+        margin: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
 
-        em {
-            text-decoration: line-through;
-            font-family: '42dot Sans';
-            color: rgba(0, 0, 0, 0.5);
+        span {
+            font-size: 13px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 5px 10px;
+            border-radius: 30px;
+            color: rgba(0, 0, 0, 0.8);
+            background-color: #f8f8f8;
         }
 
         strong {
-            font-size: 20px;
-            font-weight: 800;
             font-family: '42dot Sans';
+            font-size: 22px;
+            font-weight: bold;
         }
     }
-    .price-num {
-        gap: 5px;
-    }
 
-    .pro-price,
-    .price-num {
-        display: flex;
-    }
-
-    .price-text {
-        padding: 10px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        background-color: #fff;
-        border-radius: 5px;
+    .discount-text {
+        width: 100%;
+        font-family: '42dot Sans';
         font-size: 14px;
+        font-weight: bold;
+        color: #cc3e3e;
     }
 
     .flex-justfit {
         display: flex;
         justify-content: space-between;
+    }
+`;
+
+const SpecBox = styled.div`
+    width: 100%;
+    margin: 10px 0px;
+    text-align: center;
+
+    span {
+        font-family: '42dot Sans';
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.7);
+    }
+`;
+
+const BtnBox = styled.div`
+    width: 100%;
+    margin: 20px 0px;
+    button {
+        width: 100%;
+        border-radius: 100px;
+        margin: 5px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    button:hover {
+        border: 1px solid #000;
+    }
+
+    .compare {
+        gap: 8px;
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(0, 0, 0, 0.9);
+        color: #fff;
+    }
+
+    .compare:hover {
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.5);
     }
 `;

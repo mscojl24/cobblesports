@@ -54,7 +54,7 @@ export const OptionList = [
         ],
     },
     {
-        title: '운동종목',
+        title: '추가 지원 운동',
         name: 'sports',
         tag: [
             { name: '러닝', value: 'running' },
@@ -65,6 +65,37 @@ export const OptionList = [
             { name: '등산', value: 'hiking' },
             { name: '골프', value: 'golf' },
             { name: '피트니스', value: 'fitness' },
+        ],
+    },
+];
+
+export const sportsSortingList = [
+    {
+        title: '사용분류',
+        name: 'sportsSorting',
+        tag: [
+            { name: '전체 항목', value: '' },
+            { name: '러닝', value: '러닝' },
+            { name: '아웃도어', value: '아웃도어' },
+            { name: '수영/다이빙', value: '수영' },
+            { name: '사이클링', value: '사이클링' },
+            { name: '멀티스포츠', value: '멀티스포츠' },
+            { name: '골프', value: '골프' },
+            { name: '피트니스', value: '피트니스' },
+        ],
+    },
+    {
+        title: '제품 시리즈',
+        name: 'seriesSorting',
+        tag: [
+            { name: '전체 항목', value: [] },
+            { name: '포러너', value: ['포러너'] },
+            { name: '피닉스', value: ['피닉스'] },
+            { name: '엔듀로/택틱스', value: ['엔듀로', '택틱스'] },
+            { name: '인스팅트', value: ['인스팅트'] },
+            { name: '어프로치', value: ['어프로치'] },
+            { name: '디센트', value: ['디센트'] },
+            { name: '베뉴/비보/릴리', value: ['베뉴', '비보', '릴리'] },
         ],
     },
 ];

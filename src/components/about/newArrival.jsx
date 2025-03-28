@@ -19,6 +19,8 @@ function NewArrival() {
 
     const filteredProducts = products.filter((product) => selectedProductNums.includes(String(product.productNum)));
 
+    console.log(`신제품`, filteredProducts);
+
     return (
         <NewArrivalSection>
             <NATitleBox>

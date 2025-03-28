@@ -8,6 +8,11 @@ export const sortProductsState = atom([]);
 
 export const loderPageState = atom(true);
 
+export const sportsSorting = atom('');
+export const seriesSorting = atom([]);
+
+// 여기서부터 제품 조건 데이터
+
 export const sportsState = atom([]);
 export const orderState = atom('최신순');
 export const sizeState = atom([]);

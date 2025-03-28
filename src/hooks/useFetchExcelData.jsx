@@ -52,6 +52,7 @@ const useFetchExcelData = (url) => {
                         id: cleanValue(item.id),
                         productNum: cleanValue(item.productNum),
                         title: cleanValue(item.title),
+                        subtitle: cleanValue(item.subtitle),
                         purpose: item.purpose ? item.purpose.split(',').map((p) => p.trim()) : [],
                         script: cleanValue(item.script),
                         spec: {
@@ -68,6 +69,7 @@ const useFetchExcelData = (url) => {
                                 color: cleanValue(item.displayColor),
                                 type: cleanValue(item.displayType),
                                 touch: cleanValue(item.touch),
+                                size: cleanValue(item.displaySize),
                             },
                         },
                         option: {
@@ -115,8 +117,6 @@ const useFetchExcelData = (url) => {
                 });
 
                 setProductData(formattedData);
-
-                console.log(formattedData[1]);
             } catch (error) {
                 console.error('엑셀 데이터 로드 실패:', error);
             }
