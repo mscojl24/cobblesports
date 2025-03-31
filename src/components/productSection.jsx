@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Classification from './products/classification';
 import ProductList from './products/productList';
+import ProductClassification from './products/productClassification';
 
 function ProductSection() {
     return (
@@ -8,6 +9,7 @@ function ProductSection() {
             <CartegoryBox className="flex-h-center">
                 <h2>웨어러블 디바이스</h2>
             </CartegoryBox>
+            <ProductClassification />
             <div className="flex-v-center">
                 <Classification />
                 <ProductList />

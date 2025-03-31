@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { LuCirclePlus } from 'react-icons/lu';
 
 import { useAtom } from 'jotai';
-import { scrollXState } from '../atoms/useIndexState';
+import { compareMax, compareState, scrollXState } from '../atoms/useIndexState';
 import { useEffect, useState } from 'react';
 import { formatPrice } from './useFormatPrice';
 
@@ -13,6 +13,26 @@ function Products({ products }) {
     useEffect(() => {
         setSlice(scrollX > 1500 || scrollX <= 860 ? 10 : 9);
     }, [scrollX]);
+
+    const [compareList, setCompareList] = useAtom(compareState);
+    const [, setCompareMax] = useAtom(compareMax);
+
+    const handleCompareClick = (productNum) => {
+        if (compareList.includes(productNum)) {
+            setCompareMax(false);
+            setTimeout(() => setCompareMax(true), 10);
+            alert('같은 상품은 비교할 수 없습니다. 리스트를 확인해주세요.');
+            return;
+        }
+
+        if (compareList.length >= 4) {
+            setCompareMax(false);
+            setTimeout(() => setCompareMax(true), 10);
+            return;
+        }
+
+        setCompareList([...compareList, productNum]);
+    };
 
     return (
         <ItemBox className="flex-center">
@@ -48,7 +68,7 @@ function Products({ products }) {
                                 <span> {item.spec.gps}</span>
                             </div>
                         </li>
-                        <button className="product-btn flex-center">
+                        <button className="product-btn flex-center" onClick={() => handleCompareClick(item.productNum)}>
                             <LuCirclePlus /> 제품 비교하기
                         </button>
                     </ul>

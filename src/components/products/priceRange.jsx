@@ -1,5 +1,4 @@
 import { useAtom } from 'jotai';
-import React, { useState } from 'react';
 import styled from 'styled-components';
 import { maxPriceState, minPriceState } from '../../atoms/useIndexState';
 

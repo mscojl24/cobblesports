@@ -1,20 +1,45 @@
 import { useAtom } from 'jotai';
 import styled from 'styled-components';
-import { productsState, sortProductsState } from '../../atoms/useIndexState';
+import { productsState, sortProductsState, compareState, compareMax, popupTextState } from '../../atoms/useIndexState';
 import { formatPrice } from '../../hooks/useFormatPrice';
 import useFilterAndSortProducts from '../../hooks/useSortProductsState';
-import { useState } from 'react'; // ✅ 추가
+import { useState } from 'react';
 import NotData from './notData';
-import { VscChevronDown } from 'react-icons/vsc';
 import { RiArrowDownSLine } from 'react-icons/ri';
-import { HiOutlinePlusCircle } from 'react-icons/hi';
 import { LuCirclePlus } from 'react-icons/lu';
 
 function ProductList() {
     const [selectedImageIndexes, setSelectedImageIndexes] = useState({});
-    const [imageLoading, setImageLoading] = useState({}); // ✅ 이미지 로딩 상태
+    const [imageLoading, setImageLoading] = useState({});
     const [products] = useAtom(sortProductsState);
+    const [, setPopupText] = useAtom(popupTextState);
     useFilterAndSortProducts();
+
+    const [compareList, setCompareList] = useAtom(compareState);
+    const [, setCompareMax] = useAtom(compareMax);
+
+    const handleBuyClick = (productNum) => {
+        const url = `https://smartstore.naver.com/cobblesports/products/${productNum}`;
+        window.open(url, '_blank');
+    };
+
+    const handleCompareClick = (productNum) => {
+        if (compareList.includes(productNum)) {
+            setCompareMax(false);
+            setTimeout(() => setCompareMax(true), 10);
+            setPopupText('같은 상품은 비교할 수 없습니다. 리스트를 확인해주세요.');
+            return;
+        }
+
+        if (compareList.length >= 4) {
+            setCompareMax(false);
+            setTimeout(() => setCompareMax(true), 10);
+            setPopupText('비교 상품은 총 4개까지 선택이 가능합니다. 리스트를 삭제해주세요.');
+            return;
+        }
+
+        setCompareList([...compareList, productNum]);
+    };
 
     const handleColorClick = (productIndex, colorIndex) => {
         setSelectedImageIndexes((prev) => ({
@@ -78,7 +103,6 @@ function ProductList() {
                                             적립5%
                                         </PointBadge>
                                     </div>
-                                    {/* ✅ 로딩 중일 때 백그라운드 처리 */}
                                     <div className="image-wrapper">
                                         {imageLoading[index] && (
                                             <ImagePlaceholder className="flex-center">Loging...</ImagePlaceholder>
@@ -99,7 +123,6 @@ function ProductList() {
                                         onChange={(e) => handleColorClick(index, Number(e.target.value))}>
                                         {item.spec.color.map((color, idx) => (
                                             <option key={idx} value={idx}>
-                                                <ColorCircle style={{ backgroundColor: color.colorCode }} />
                                                 {color.colorName}
                                             </option>
                                         ))}
@@ -111,22 +134,8 @@ function ProductList() {
                                         {item.title}, {item.spec.size}
                                     </h1>
                                     <em className="pro-script">{item.script}</em>
-                                    {/* <div className="pro-spec">
-                                        <span>
-                                            {item.spec.display.color} {item.spec.display.type} 디스플레이 ·{' '}
-                                            {item.spec.band} 밴드 · {item.spec.weight}
-                                        </span>
-                                    </div> */}
                                 </TitleBox>
 
-                                <SpecBox>
-                                    <span>
-                                        {item.spec.display.touch && '터치형'} {item.spec.display.type}{' '}
-                                        {item.spec.display.color} 디스플레이 | 배터리 최대 {item.battery.smartwatch}일
-                                        지속 | 방수등급 {item.waterProof.waterRating} | 메모리 크기 {item.option.memory}{' '}
-                                        | 디스플레이 크기 {item.spec.display.size}
-                                    </span>
-                                </SpecBox>
                                 <PriceBox className="flex-center column">
                                     <div className="price-text">
                                         <span>최종가</span>
@@ -142,8 +151,10 @@ function ProductList() {
                                 </PriceBox>
 
                                 <BtnBox className="flex-center column">
-                                    <button>구매하기</button>
-                                    <button className="compare flex-center">
+                                    <button onClick={() => handleBuyClick(item.productNum)}>구매하기</button>
+                                    <button
+                                        className="compare flex-center"
+                                        onClick={() => handleCompareClick(item.productNum)}>
                                         <LuCirclePlus />
                                         비교하기
                                     </button>
@@ -183,6 +194,7 @@ const ProductListBox = styled.ul`
     overflow-y: auto;
     display: flex;
     justify-content: center;
+    background-color: #f7f7f7;
 
     @media (max-width: 860px) {
         background-color: #f7f7f7;
@@ -207,7 +219,7 @@ const ProductCard = styled.li`
     width: calc(100% / 3 - 10px);
     background: #fff;
     border-radius: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -283,7 +295,7 @@ const NewBadge = styled.div`
     align-items: center;
     width: 55px;
     height: 55px;
-    background-color: #ff9900;
+    background-color: hsl(213.96825396825398, 100%, 62.94117647058823%);
     color: white;
     font-size: 12px;
     font-weight: 600;
@@ -293,11 +305,11 @@ const NewBadge = styled.div`
 `;
 
 const SaleBadge = styled(NewBadge)`
-    background: #ff5512;
+    background: #f3703c;
 `;
 
 const PointBadge = styled(NewBadge)`
-    background: linear-gradient(-45deg, #747dff, #1dee9e);
+    background: #212221;
 `;
 
 const ColorCircle = styled.div`
@@ -372,7 +384,6 @@ const TitleBox = styled.div`
 
 const PriceBox = styled.div`
     width: 100%;
-    margin: 10px 0px;
 
     .price-text {
         width: 100%;
@@ -429,8 +440,8 @@ const BtnBox = styled.div`
     margin: 20px 0px;
     button {
         width: 100%;
-        border-radius: 100px;
-        margin: 5px;
+        border-radius: 10px;
+        margin: 7px;
         font-weight: 600;
         cursor: pointer;
     }

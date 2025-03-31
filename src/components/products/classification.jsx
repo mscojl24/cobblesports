@@ -11,15 +11,16 @@ import {
     sortProductsState,
     sportsSorting,
     seriesSorting,
+    classState,
 } from '../../atoms/useIndexState';
 import PriceRange from './priceRange';
 import { OptionList, SortingList, sportsSortingList } from '../../data/productOptionList';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
 
 function Classification() {
-    const [selectedSports, setSelectedSports] = useAtom(sportsState); // 스포츠 선택 : []
+    const [selectedSports, setSelectedSports] = useAtom(sportsState);
     const [selectedSorting, setSelectedSorting] = useAtom(orderState);
     const [selectSale, setSelectSale] = useAtom(saleState);
     const [selectedSize, setSelectedSize] = useAtom(sizeState);
@@ -29,10 +30,69 @@ function Classification() {
 
     const [selectSportsSort, setSelectSportsSort] = useAtom(sportsSorting);
     const [selectSeriesSort, setSelectSeriesSort] = useAtom(seriesSorting);
+    const [activeClassList, setActiveClassList] = useAtom(classState);
+
+    console.log(activeClassList);
 
     const [openSections, setOpenSections] = useState([]);
-
     const [products] = useAtom(sortProductsState);
+
+    useEffect(() => {
+        const classes = [];
+
+        if (selectSale) classes.push('할인 제품 우선');
+
+        sportsSortingList.forEach((section) => {
+            section.tag.forEach((tag) => {
+                if (section.name === 'sportsSorting' && tag.value === selectSportsSort) {
+                    classes.push(tag.name);
+                }
+                if (
+                    section.name === 'seriesSorting' &&
+                    JSON.stringify(tag.value) === JSON.stringify(selectSeriesSort)
+                ) {
+                    classes.push(tag.name);
+                }
+            });
+        });
+
+        SortingList.forEach((sort) => {
+            sort.tag.forEach((tag) => {
+                if (tag.value === selectedSorting) classes.push(tag.name);
+            });
+        });
+
+        OptionList.forEach((option) => {
+            option.tag.forEach((tag) => {
+                const targetState = {
+                    size: selectedSize,
+                    waterproof: selectedWaterProof,
+                    batterySM: selectBatterySM.map(String),
+                    batteryGPS: selectBatteryGPS.map(String),
+                    sports: selectedSports,
+                }[option.name];
+
+                const value = String(tag.value);
+
+                if (targetState?.includes(value)) {
+                    classes.push(tag.name);
+                }
+            });
+        });
+
+        setActiveClassList(classes);
+    }, [
+        selectSale,
+        selectSportsSort,
+        selectSeriesSort,
+        selectedSorting,
+        selectedSize,
+        selectedWaterProof,
+        selectBatterySM,
+        selectBatteryGPS,
+        selectedSports,
+        setActiveClassList,
+    ]);
 
     const toggleSection = (title) => {
         setOpenSections((prev) => (prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title]));
@@ -40,13 +100,11 @@ function Classification() {
 
     const handleSelect = (name, value) => {
         if (name === 'sportsSorting') {
-            setSelectSportsSort(value); // 문자열
+            setSelectSportsSort(value);
         } else if (name === 'seriesSorting') {
-            setSelectSeriesSort(value); // 배열
+            setSelectSeriesSort(value);
         }
     };
-
-    // 조건부 제품 솔팅
 
     const handleSortingChange = (e) => {
         setSelectedSorting(e.target.value);
@@ -68,7 +126,7 @@ function Classification() {
             case 'batteryGPS':
                 setSelectBatteryGPS((prev) => toggleInArray(prev, value));
                 break;
-            case 'sports': // ✅ 추가
+            case 'sports':
                 setSelectedSports((prev) => toggleInArray(prev, value));
                 break;
             default:
@@ -208,6 +266,7 @@ const ClassificationBox = styled.aside`
     gap: 10px;
     background-color: #fff;
     padding: 40px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const CFTitle = styled.div`

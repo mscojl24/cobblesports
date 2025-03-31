@@ -31,10 +31,12 @@ const useFilterAndSortProducts = () => {
     const [selectSportsSort] = useAtom(sportsSorting);
     const [selectSeriesSort] = useAtom(seriesSorting);
 
-    console.log(selectSeriesSort); // ['베뉴','비보','릴리']
-    console.log(products[1].subtitle); // 릴리2 액티브
-
     useEffect(() => {
+        if (!Array.isArray(products) || products.length === 0) {
+            setSortProducts([]); // 혹은 초기화된 상태로 설정
+            return;
+        }
+
         const safeConvertDate = (dateString) => {
             const parsed = new Date(dateString);
             return isNaN(parsed.getTime()) ? null : parsed;
@@ -88,22 +90,25 @@ const useFilterAndSortProducts = () => {
 
         const isSeriesMatch = (subtitle) => {
             if (!Array.isArray(selectSeriesSort) || selectSeriesSort.length === 0) return true;
-            if (!subtitle || typeof subtitle !== 'string') return false;
+            if (typeof subtitle !== 'string') return false;
             return selectSeriesSort.some((keyword) => subtitle.includes(keyword));
         };
 
         const filtered = products.filter((product) => {
+            if (!product || typeof product !== 'object') return false;
+
             const price = getEffectivePrice(product);
             const isWithinPrice = typeof price === 'number' && price >= minValue && price <= maxValue;
-            const isSizeOk = isSizeMatch(product.spec.size);
-            const isActivityOk = isActivityMatch(product.activityProfiles);
-            const isWaterProofOk = isWaterProofMatch(product.waterProof?.waterRating, product.waterProof?.divingRating);
-            const isBatterySMOk = isBatteryInRange(product.battery.smartwatch, selectBatterySM);
-            const isBatteryGPSOk = isBatteryInRange(product.battery.gpsOnly, selectBatteryGPS);
-            const isPurposeOk = isPurposeMatch(product.purpose);
-            const isSeriesOk = isSeriesMatch(product.subtitle);
-
-            console.log('🔍 제품 subtitle:', product.subtitle, '전체 product:', product);
+            const isSizeOk = isSizeMatch(product?.spec?.size);
+            const isActivityOk = isActivityMatch(product?.activityProfiles ?? {});
+            const isWaterProofOk = isWaterProofMatch(
+                product?.waterProof?.waterRating,
+                product?.waterProof?.divingRating
+            );
+            const isBatterySMOk = isBatteryInRange(product?.battery?.smartwatch, selectBatterySM);
+            const isBatteryGPSOk = isBatteryInRange(product?.battery?.gpsOnly, selectBatteryGPS);
+            const isPurposeOk = isPurposeMatch(product?.purpose);
+            const isSeriesOk = isSeriesMatch(product?.subtitle ?? '');
 
             return (
                 isWithinPrice &&

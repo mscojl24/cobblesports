@@ -8,6 +8,15 @@ export const sortProductsState = atom([]);
 
 export const loderPageState = atom(true);
 
+export const compareState = atom([]);
+
+export const compareMax = atom(false);
+export const popupTextState = atom('');
+
+export const classState = atom([]);
+
+// 여기는 정렬 데이터
+
 export const sportsSorting = atom('');
 export const seriesSorting = atom([]);
 

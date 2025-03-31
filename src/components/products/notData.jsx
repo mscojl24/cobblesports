@@ -1,47 +1,18 @@
 import styled from 'styled-components';
 import { TbReload } from 'react-icons/tb';
 import { MdOutlineNotInterested } from 'react-icons/md';
+import { useResetClass } from '../../hooks/useResetClass';
+import { classState } from '../../atoms/useIndexState';
 import { useAtom } from 'jotai';
 
-import {
-    sportsState,
-    orderState,
-    sizeState,
-    minPriceState,
-    maxPriceState,
-    saleState,
-    waterProofState,
-    batterySMState,
-    batteryGPSState,
-    sportsSorting,
-    seriesSorting,
-} from '../../atoms/useIndexState';
-
 function NotData() {
-    const [, setSports] = useAtom(sportsState);
-    const [, setOrder] = useAtom(orderState);
-    const [, setSize] = useAtom(sizeState);
-    const [, setMinPrice] = useAtom(minPriceState);
-    const [, setMaxPrice] = useAtom(maxPriceState);
-    const [, setSale] = useAtom(saleState);
-    const [, setWaterproof] = useAtom(waterProofState);
-    const [, setBatterySM] = useAtom(batterySMState);
-    const [, setBatteryGPS] = useAtom(batteryGPSState);
-    const [, setSportsSort] = useAtom(sportsSorting);
-    const [, setselectSeriesSort] = useAtom(seriesSorting);
+    const [, setActiveClassList] = useAtom(classState);
+
+    const resetClass = useResetClass(); // 훅처럼 사용하지만 반환된 함수는 일반 함수
 
     const handleFilterReload = () => {
-        setSports([]);
-        setOrder('최신순');
-        setSize([]);
-        setMinPrice(0);
-        setMaxPrice(3000000);
-        setSale(false);
-        setWaterproof([]);
-        setBatterySM([]);
-        setBatteryGPS([]);
-        setSportsSort('');
-        setselectSeriesSort([]);
+        resetClass();
+        setActiveClassList([]);
     };
 
     return (

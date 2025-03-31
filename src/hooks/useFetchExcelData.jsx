@@ -16,12 +16,6 @@ const useFetchExcelData = (url) => {
                 const jsonData = XLSX.utils.sheet_to_json(sheet);
 
                 // ✅ 데이터 변환 함수
-                const cleanValue = (value) => {
-                    if (value === undefined || value === null || value === 'NaN') return null;
-                    if (typeof value === 'string' && value.trim().toLowerCase() === 'true') return true;
-                    if (typeof value === 'string' && value.trim().toLowerCase() === 'false') return false;
-                    return value;
-                };
 
                 const formattedData = jsonData.map((item) => {
                     const cleanValue = (value) => {
