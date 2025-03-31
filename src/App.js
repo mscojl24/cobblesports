@@ -38,7 +38,7 @@ function App() {
     }, []);
 
     return (
-        <Router>
+        <Router basename="/">
             <Navi />
             <BoxMargin>
                 <Routes>
