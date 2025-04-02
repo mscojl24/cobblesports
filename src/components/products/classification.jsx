@@ -11,15 +11,17 @@ import {
     sortProductsState,
     sportsSorting,
     seriesSorting,
-    classState,
 } from '../../atoms/useIndexState';
+
 import PriceRange from './priceRange';
 import { OptionList, SortingList, sportsSortingList } from '../../data/productOptionList';
 import { useEffect, useState } from 'react';
-
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
+import { useFilterClassState } from '../../hooks/useFilterClassList'; // ✅ 훅으로 분리된 필터 태그 관리
 
 function Classification() {
+    useFilterClassState(); // 필터 태그 업데이트 훅 사용
+
     const [selectedSports, setSelectedSports] = useAtom(sportsState);
     const [selectedSorting, setSelectedSorting] = useAtom(orderState);
     const [selectSale, setSelectSale] = useAtom(saleState);
@@ -27,83 +29,23 @@ function Classification() {
     const [selectedWaterProof, setSelectedWaterProof] = useAtom(waterProofState);
     const [selectBatterySM, setSelectBatterySM] = useAtom(batterySMState);
     const [selectBatteryGPS, setSelectBatteryGPS] = useAtom(batteryGPSState);
-
     const [selectSportsSort, setSelectSportsSort] = useAtom(sportsSorting);
     const [selectSeriesSort, setSelectSeriesSort] = useAtom(seriesSorting);
-    const [activeClassList, setActiveClassList] = useAtom(classState);
-
-    console.log(activeClassList);
-
-    const [openSections, setOpenSections] = useState([]);
     const [products] = useAtom(sortProductsState);
 
     useEffect(() => {
-        const classes = [];
+        window.scrollTo({ top: 350, behavior: 'smooth' });
+    }, [products]);
 
-        if (selectSale) classes.push('할인 제품 우선');
-
-        sportsSortingList.forEach((section) => {
-            section.tag.forEach((tag) => {
-                if (section.name === 'sportsSorting' && tag.value === selectSportsSort) {
-                    classes.push(tag.name);
-                }
-                if (
-                    section.name === 'seriesSorting' &&
-                    JSON.stringify(tag.value) === JSON.stringify(selectSeriesSort)
-                ) {
-                    classes.push(tag.name);
-                }
-            });
-        });
-
-        SortingList.forEach((sort) => {
-            sort.tag.forEach((tag) => {
-                if (tag.value === selectedSorting) classes.push(tag.name);
-            });
-        });
-
-        OptionList.forEach((option) => {
-            option.tag.forEach((tag) => {
-                const targetState = {
-                    size: selectedSize,
-                    waterproof: selectedWaterProof,
-                    batterySM: selectBatterySM.map(String),
-                    batteryGPS: selectBatteryGPS.map(String),
-                    sports: selectedSports,
-                }[option.name];
-
-                const value = String(tag.value);
-
-                if (targetState?.includes(value)) {
-                    classes.push(tag.name);
-                }
-            });
-        });
-
-        setActiveClassList(classes);
-    }, [
-        selectSale,
-        selectSportsSort,
-        selectSeriesSort,
-        selectedSorting,
-        selectedSize,
-        selectedWaterProof,
-        selectBatterySM,
-        selectBatteryGPS,
-        selectedSports,
-        setActiveClassList,
-    ]);
+    const [openSections, setOpenSections] = useState(() => sportsSortingList.map((section) => section.title));
 
     const toggleSection = (title) => {
         setOpenSections((prev) => (prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title]));
     };
 
     const handleSelect = (name, value) => {
-        if (name === 'sportsSorting') {
-            setSelectSportsSort(value);
-        } else if (name === 'seriesSorting') {
-            setSelectSeriesSort(value);
-        }
+        if (name === 'sportsSorting') setSelectSportsSort(value);
+        else if (name === 'seriesSorting') setSelectSeriesSort(value);
     };
 
     const handleSortingChange = (e) => {
@@ -158,38 +100,7 @@ function Classification() {
                 </div>
             </OptionListBox>
 
-            <SportsSortingBox>
-                {sportsSortingList.map((section, idx) => (
-                    <div key={idx}>
-                        <SectionHeader onClick={() => toggleSection(section.title)}>
-                            <h2>{section.title}</h2>
-                            <span>
-                                {openSections.includes(section.title) ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
-                            </span>
-                        </SectionHeader>
-                        {openSections.includes(section.title) && (
-                            <ul>
-                                {section.tag.map((item, i) => {
-                                    const isSelected =
-                                        section.name === 'sportsSorting'
-                                            ? selectSportsSort === item.value
-                                            : JSON.stringify(selectSeriesSort) === JSON.stringify(item.value);
-
-                                    return (
-                                        <MenuItem
-                                            key={i}
-                                            onClick={() => handleSelect(section.name, item.value)}
-                                            $isSelected={isSelected}>
-                                            {item.name}
-                                        </MenuItem>
-                                    );
-                                })}
-                            </ul>
-                        )}
-                    </div>
-                ))}
-            </SportsSortingBox>
-
+            {/* 정렬 */}
             {SortingList.map((list, index) => (
                 <OptionListBox key={index}>
                     <h2>{list.title}</h2>
@@ -209,6 +120,7 @@ function Classification() {
                 </OptionListBox>
             ))}
 
+            {/* 기타 옵션 */}
             {OptionList.map((list, index) => (
                 <OptionListBox key={index}>
                     <h2>{list.title}</h2>
@@ -249,6 +161,53 @@ function Classification() {
                 </OptionListBox>
             ))}
 
+            {/* 사용분류 / 시리즈 */}
+            <SportsSortingBox>
+                {sportsSortingList.map((section, idx) => {
+                    const isApplied =
+                        section.name === 'sportsSorting'
+                            ? selectSportsSort !== '' // 전체 항목이 '' 값
+                            : selectSeriesSort.length > 0; // 전체 항목이 빈 배열
+
+                    return (
+                        <div key={idx}>
+                            <SectionHeader onClick={() => toggleSection(section.title)}>
+                                <h2 className="flex-center">
+                                    {section.title}
+                                    {isApplied ? (
+                                        <em className="selected flex-center"> 적용중 </em>
+                                    ) : (
+                                        <em className="selected-un flex-center"> 미적용 </em>
+                                    )}
+                                </h2>
+                                <span>
+                                    {openSections.includes(section.title) ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+                                </span>
+                            </SectionHeader>
+                            {openSections.includes(section.title) && (
+                                <ul>
+                                    {section.tag.map((item, i) => {
+                                        const isSelected =
+                                            section.name === 'sportsSorting'
+                                                ? selectSportsSort === item.value
+                                                : JSON.stringify(selectSeriesSort) === JSON.stringify(item.value);
+
+                                        return (
+                                            <MenuItem
+                                                key={i}
+                                                onClick={() => handleSelect(section.name, item.value)}
+                                                $isSelected={isSelected}>
+                                                {item.name}
+                                            </MenuItem>
+                                        );
+                                    })}
+                                </ul>
+                            )}
+                        </div>
+                    );
+                })}
+            </SportsSortingBox>
+
             <OptionListBox>
                 <h2>가격설정</h2>
                 <PriceRange />
@@ -267,6 +226,11 @@ const ClassificationBox = styled.aside`
     background-color: #fff;
     padding: 40px;
     border-right: 1px solid rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    @media (max-width: 860px) {
+        display: none;
+    }
 `;
 
 const CFTitle = styled.div`
@@ -312,6 +276,24 @@ const SectionHeader = styled.div`
         padding: 20px 0px;
         font-weight: 600;
     }
+
+    .selected {
+        font-size: 12px;
+        color: #fff;
+        padding: 5px 10px;
+        background-color: #3e8bff;
+        border-radius: 50px;
+        margin-left: 10px;
+    }
+
+    .selected-un {
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.2);
+        padding: 5px 10px;
+        background-color: #f2f2f2;
+        border-radius: 50px;
+        margin-left: 10px;
+    }
 `;
 
 const MenuItem = styled.li`
@@ -353,5 +335,6 @@ const OptionListBox = styled.div`
     .tag-radio {
         width: 20px;
         height: 20px;
+        accent-color: #000;
     }
 `;

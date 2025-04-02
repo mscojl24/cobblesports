@@ -9,11 +9,11 @@ function ProductSection() {
             <CartegoryBox className="flex-h-center">
                 <h2>웨어러블 디바이스</h2>
             </CartegoryBox>
-            <ProductClassification />
-            <div className="flex-v-center">
+            <div className="flex-v-center product-box">
                 <Classification />
                 <ProductList />
             </div>
+            <ProductClassification />
         </ProductBox>
     );
 }
@@ -22,11 +22,14 @@ export default ProductSection;
 
 const ProductBox = styled.section`
     width: 100%;
+
+    .product-box {
+    }
 `;
 
 const CartegoryBox = styled.article`
     width: 100%;
-    height: 300px;
+    height: 200px;
     background: url(${process.env.REACT_APP_PUBLIC_URL}/asset/cobble-categoty-image-01.png);
     background-position: center;
     background-size: cover;

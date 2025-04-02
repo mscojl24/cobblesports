@@ -1,102 +1,106 @@
 import { useAtom } from 'jotai';
 import styled from 'styled-components';
 import { maxPriceState, minPriceState } from '../../atoms/useIndexState';
+import { useState } from 'react';
 
 const PriceRange = () => {
     const minLimit = 0;
     const maxLimit = 3000000;
     const step = 100000;
 
-    // ✅ 내부 상태 관리
-    const [minValue, setMinValue] = useAtom(minPriceState);
-    const [maxValue, setMaxValue] = useAtom(maxPriceState);
+    const [minValueAtom, setMinValue] = useAtom(minPriceState);
+    const [maxValueAtom, setMaxValue] = useAtom(maxPriceState);
 
-    // ✅ 슬라이더 변경 핸들러 (최소값)
+    // ✅ 내부 상태 (슬라이더 및 인풋용)
+    const [tempMin, setTempMin] = useState(minValueAtom);
+    const [tempMax, setTempMax] = useState(maxValueAtom);
+
     const handleMinChange = (e) => {
         const value = Number(e.target.value);
-        if (value < maxValue - step) setMinValue(value);
+        if (value < tempMax - step) setTempMin(value);
     };
 
-    // ✅ 슬라이더 변경 핸들러 (최대값)
     const handleMaxChange = (e) => {
         const value = Number(e.target.value);
-        if (value > minValue + step) setMaxValue(value);
+        if (value > tempMin + step) setTempMax(value);
     };
 
-    // ✅ 입력 필드 변경 핸들러 (최소값)
     const handleMinInputChange = (e) => {
         let value = Number(e.target.value.replace(/,/g, ''));
-        if (!isNaN(value) && value >= minLimit && value < maxValue - step) {
-            setMinValue(value);
+        if (!isNaN(value) && value >= minLimit && value < tempMax - step) {
+            setTempMin(value);
         }
     };
 
-    // ✅ 입력 필드 변경 핸들러 (최대값)
     const handleMaxInputChange = (e) => {
         let value = Number(e.target.value.replace(/,/g, ''));
-        if (!isNaN(value) && value <= maxLimit && value > minValue + step) {
-            setMaxValue(value);
+        if (!isNaN(value) && value <= maxLimit && value > tempMin + step) {
+            setTempMax(value);
         }
     };
 
-    // ✅ 1000 단위 콤마(,)를 추가하는 함수
     const formatCurrency = (value) => {
         return `₩ ${value.toLocaleString()}`;
     };
 
+    const applyPrice = () => {
+        setMinValue(tempMin);
+        setMaxValue(tempMax);
+    };
+
     return (
         <Container>
-            {/* 슬라이더 트랙 & 프로그레스 바 */}
             <SliderContainer>
                 <SliderTrack>
                     <ProgressBar
                         style={{
-                            left: `${((minValue - minLimit) / (maxLimit - minLimit)) * 100}%`,
-                            width: `${((maxValue - minValue) / (maxLimit - minLimit)) * 100}%`,
+                            left: `${((tempMin - minLimit) / (maxLimit - minLimit)) * 100}%`,
+                            width: `${((tempMax - tempMin) / (maxLimit - minLimit)) * 100}%`,
                         }}
                     />
                 </SliderTrack>
 
-                {/* 최소값 조절 핸들 */}
                 <RangeInput
                     type="range"
                     min={minLimit}
                     max={maxLimit}
                     step={step}
-                    value={minValue}
+                    value={tempMin}
                     onChange={handleMinChange}
                 />
 
-                {/* 최대값 조절 핸들 */}
                 <RangeInput
                     type="range"
                     min={minLimit}
                     max={maxLimit}
                     step={step}
-                    value={maxValue}
+                    value={tempMax}
                     onChange={handleMaxChange}
                 />
             </SliderContainer>
+
             <PriceMaxMin className="flex-center">
                 <span>십만원</span>
                 <span>삼백만원</span>
             </PriceMaxMin>
 
-            {/* 하단 입력 필드 */}
             <InputContainer>
                 <PriceInput>
-                    <input type="text" value={formatCurrency(minValue)} onChange={handleMinInputChange} />
+                    <input type="text" value={formatCurrency(tempMin)} onChange={handleMinInputChange} />
                 </PriceInput>
                 <span> - </span>
                 <PriceInput>
-                    <input type="text" value={formatCurrency(maxValue)} onChange={handleMaxInputChange} />
+                    <input type="text" value={formatCurrency(tempMax)} onChange={handleMaxInputChange} />
                 </PriceInput>
             </InputContainer>
+
+            <Confirmation onClick={applyPrice}>가격 적용하기</Confirmation>
         </Container>
     );
 };
 
 export default PriceRange;
+
 const Container = styled.div`
     width: 100%;
 
@@ -128,7 +132,7 @@ const SliderTrack = styled.div`
 const ProgressBar = styled.div`
     position: absolute;
     height: 5px;
-    background: #1f87ff;
+    background: #000;
     border-radius: 3px;
 `;
 
@@ -200,5 +204,21 @@ const PriceInput = styled.div`
         outline: none;
         background: transparent;
         color: rgba(0, 0, 0, 0.5);
+    }
+`;
+
+const Confirmation = styled.button`
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    border-color: rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 1);
+    color: #fff;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.7);
     }
 `;

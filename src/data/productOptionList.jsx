@@ -74,7 +74,7 @@ export const sportsSortingList = [
         title: '사용분류',
         name: 'sportsSorting',
         tag: [
-            { name: '전체 항목', value: '' },
+            { name: '전체 분류', value: '' },
             { name: '러닝', value: '러닝' },
             { name: '아웃도어', value: '아웃도어' },
             { name: '수영/다이빙', value: '수영' },
@@ -88,7 +88,7 @@ export const sportsSortingList = [
         title: '제품 시리즈',
         name: 'seriesSorting',
         tag: [
-            { name: '전체 항목', value: [] },
+            { name: '전체 시리즈', value: [] },
             { name: '포러너', value: ['포러너'] },
             { name: '피닉스', value: ['피닉스'] },
             { name: '엔듀로/택틱스', value: ['엔듀로', '택틱스'] },

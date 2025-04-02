@@ -6,9 +6,12 @@ import LoderPage from './components/loderPage';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { useAtom } from 'jotai';
 import { loderPageState, scrollXState, scrollYState, compareMax, popupTextState } from './atoms/useIndexState.jsx';
+import { IoNotificationsOutline, IoNotificationsSharp } from 'react-icons/io5';
+
 import { useEffect } from 'react';
 import ProductSection from './components/productSection';
 import useFetchExcelData from './hooks/useFetchExcelData';
+import { MdNotificationsActive } from 'react-icons/md';
 
 function App() {
     const [, setScrollY] = useAtom(scrollYState);
@@ -50,25 +53,34 @@ function App() {
                 </Routes>
             </BoxMargin>
             {loderPage && <LoderPage />}
-            {isCompareMax && <BottomAlertBox>{popupText}</BottomAlertBox>}
+            {isCompareMax && (
+                <BottomAlertBox className="flex-center">
+                    <MdNotificationsActive color="#333" />
+                    {popupText}
+                </BottomAlertBox>
+            )}
         </Router>
     );
 }
 
 const BottomAlertBox = styled.div`
     position: fixed;
-    bottom: 40px;
+    bottom: 80px;
     left: 50%;
+    max-width: 100%;
     transform: translateX(-50%);
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
     font-size: 16px;
     padding: 12px 30px;
     border-radius: 50px;
-    border: 1px solid rgba(0, 0, 0, 1);
     z-index: 9999;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
     font-family: '42dot Sans';
+    font-weight: 500;
     animation: fadeInOut 3s ease forwards;
+    white-space: nowrap;
+    gap: 7px;
 
     @keyframes fadeInOut {
         0% {
@@ -78,12 +90,16 @@ const BottomAlertBox = styled.div`
         10%,
         90% {
             opacity: 1;
-            transform: translateX(-50%) translateY(0);
+            transform: translateX(-50%) translateY(0px);
         }
         100% {
             opacity: 0;
             transform: translateX(-50%) translateY(20px);
         }
+    }
+
+    @media (max-width: 860px) {
+        font-size: 14px;
     }
 `;
 

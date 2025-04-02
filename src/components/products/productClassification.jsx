@@ -3,10 +3,84 @@ import { IoOptionsOutline } from 'react-icons/io5';
 import { RiResetRightFill } from 'react-icons/ri';
 
 import { useAtom } from 'jotai';
-import { classState } from '../../atoms/useIndexState';
+import { useResetClass } from '../../hooks/useResetClass';
+import {
+    batteryGPSState,
+    batterySMState,
+    maxPriceState,
+    minPriceState,
+    orderState,
+    saleState,
+    seriesSorting,
+    sizeState,
+    sportsSorting,
+    sportsState,
+    waterProofState,
+    classState,
+} from '../../atoms/useIndexState';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 function ProductClassification() {
+    const resetClass = useResetClass();
     const [activeClassList] = useAtom(classState);
+
+    const [, setClassList] = useAtom(classState);
+
+    const [, setSports] = useAtom(sportsState);
+    const [, setOrder] = useAtom(orderState);
+    const [, setSize] = useAtom(sizeState);
+    const [, setSale] = useAtom(saleState);
+    const [, setWaterproof] = useAtom(waterProofState);
+    const [, setBatterySM] = useAtom(batterySMState);
+    const [, setBatteryGPS] = useAtom(batteryGPSState);
+    const [, setSportsSort] = useAtom(sportsSorting);
+    const [, setSeriesSort] = useAtom(seriesSorting);
+
+    const handleDeleteClass = (tag) => {
+        setClassList((prev) => prev.filter((t) => t.title !== tag.title));
+
+        switch (tag.key) {
+            case 'sale':
+                setSale(false);
+                break;
+
+            case 'Sorting':
+                setOrder('최신순');
+                break;
+
+            case 'size':
+                setSize((prev) => prev.filter((v) => v !== tag.value));
+                break;
+
+            case 'waterproof':
+                setWaterproof((prev) => prev.filter((v) => v !== tag.value));
+                break;
+
+            case 'batterySM':
+                setBatterySM((prev) => prev.filter((v) => v !== tag.value));
+                break;
+
+            case 'batteryGPS':
+                setBatteryGPS((prev) => prev.filter((v) => v !== tag.value));
+                break;
+
+            case 'sports':
+                setSports((prev) => prev.filter((v) => v !== tag.value));
+                break;
+
+            case 'sportsSorting':
+                setSportsSort('');
+                break;
+
+            case 'seriesSorting':
+                setSeriesSort([]);
+                break;
+
+            default:
+                break;
+        }
+    };
+
     return (
         <ClassBox className="flex-h-center">
             <FilterLength className="flex-h-center">
@@ -17,11 +91,16 @@ function ProductClassification() {
             </FilterLength>
             <FilterClass className="flex-h-center">
                 {activeClassList.map((tag, index) => (
-                    <li key={index}>{tag}</li>
+                    <li key={index}>
+                        {tag.title}
+                        <RiDeleteBin6Line onClick={() => handleDeleteClass(tag)} />
+                    </li>
                 ))}
-                <li className="reset-class flex-center">
-                    <RiResetRightFill />
-                </li>
+                {activeClassList.length >= 1 && (
+                    <li className="reset-class flex-center">
+                        <RiResetRightFill onClick={resetClass} />
+                    </li>
+                )}
             </FilterClass>
         </ClassBox>
     );
@@ -30,9 +109,13 @@ function ProductClassification() {
 export default ProductClassification;
 
 const ClassBox = styled.nav`
+    position: fixed;
+    bottom: 0px;
     width: 100%;
     height: 60px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    z-index: 99;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const FilterLength = styled.div`
@@ -50,6 +133,20 @@ const FilterLength = styled.div`
         em {
             font-family: '42dot Sans';
             color: #3b68fa;
+        }
+    }
+
+    @media (max-width: 860px) {
+        padding: 0px 20px;
+        min-width: 170px;
+        font-size: 20px;
+        span {
+            font-weight: bold;
+
+            em {
+                font-family: '42dot Sans';
+                color: #3b68fa;
+            }
         }
     }
 `;

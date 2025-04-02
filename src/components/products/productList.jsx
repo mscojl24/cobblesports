@@ -34,7 +34,7 @@ function ProductList() {
         if (compareList.length >= 4) {
             setCompareMax(false);
             setTimeout(() => setCompareMax(true), 10);
-            setPopupText('비교 상품은 총 4개까지 선택이 가능합니다. 리스트를 삭제해주세요.');
+            setPopupText('비교 상품은 총 4개까지 선택이 가능합니다.');
             return;
         }
 
@@ -81,74 +81,60 @@ function ProductList() {
 
                         return (
                             <ProductCard key={index}>
-                                <div className="product-image">
-                                    <div className="badge-box">
-                                        {isNew && (
-                                            <NewBadge>
-                                                NEW
-                                                <br />
-                                                2025
-                                            </NewBadge>
-                                        )}
-                                        {discount && (
-                                            <SaleBadge>
-                                                ON
-                                                <br />
-                                                SALE
-                                            </SaleBadge>
-                                        )}
-                                        <PointBadge>
-                                            네이버
-                                            <br />
-                                            적립5%
-                                        </PointBadge>
-                                    </div>
-                                    <div className="image-wrapper">
-                                        {imageLoading[index] && (
-                                            <ImagePlaceholder className="flex-center">Loging...</ImagePlaceholder>
-                                        )}
-                                        <img
-                                            src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${selectedImage}`}
-                                            alt={item.title}
-                                            onLoad={() => handleImageLoad(index)}
-                                            style={{ opacity: imageLoading[index] ? 0 : 1 }}
-                                        />
-                                    </div>
-                                </div>
-
-                                <ul className="product-color flex-center">
-                                    <RiArrowDownSLine className="select-icon" />
-                                    <ColorIcon
-                                        value={selectedIndex}
-                                        onChange={(e) => handleColorClick(index, Number(e.target.value))}>
-                                        {item.spec.color.map((color, idx) => (
-                                            <option key={idx} value={idx}>
-                                                {color.colorName}
-                                            </option>
-                                        ))}
-                                    </ColorIcon>
-                                </ul>
-
-                                <TitleBox className="flex-center">
-                                    <h1 className="pro-title">
-                                        {item.title}, {item.spec.size}
-                                    </h1>
-                                    <em className="pro-script">{item.script}</em>
-                                </TitleBox>
-
-                                <PriceBox className="flex-center column">
-                                    <div className="price-text">
-                                        <span>최종가</span>
-                                        <strong>
-                                            {formatPrice(discount ?? price)}원{' '}
-                                            {discount && (
-                                                <em className="discount-text">
-                                                    -{Math.round(((price - discount) / price) * 100)}% 할인
-                                                </em>
+                                <div>
+                                    <div className="product-image">
+                                        <div className="badge-box">
+                                            {isNew && <NewBadge>NEW 2025</NewBadge>}
+                                            {discount && <SaleBadge>ON SALE</SaleBadge>}
+                                            <PointBadge>네이버 적립5%</PointBadge>
+                                        </div>
+                                        <div className="image-wrapper">
+                                            {imageLoading[index] && (
+                                                <ImagePlaceholder className="flex-center">Loging...</ImagePlaceholder>
                                             )}
-                                        </strong>
+                                            <img
+                                                src={`${process.env.REACT_APP_PUBLIC_URL}/asset/${selectedImage}`}
+                                                alt={item.title}
+                                                onLoad={() => handleImageLoad(index)}
+                                                style={{ opacity: imageLoading[index] ? 0 : 1 }}
+                                            />
+                                        </div>
                                     </div>
-                                </PriceBox>
+
+                                    <ul className="product-color flex-center">
+                                        <RiArrowDownSLine className="select-icon" />
+                                        <ColorIcon
+                                            value={selectedIndex}
+                                            onChange={(e) => handleColorClick(index, Number(e.target.value))}>
+                                            {item.spec.color.map((color, idx) => (
+                                                <option key={idx} value={idx}>
+                                                    {color.colorName}
+                                                </option>
+                                            ))}
+                                        </ColorIcon>
+                                    </ul>
+
+                                    <TitleBox className="flex-center">
+                                        <h1 className="pro-title">
+                                            {item.title}, {item.spec.size}
+                                        </h1>
+                                        <em className="pro-script">{item.script}</em>
+                                    </TitleBox>
+
+                                    <PriceBox className="flex-center column">
+                                        <div className="price-text">
+                                            <span className="price-tag">최종가</span>
+                                            <strong>
+                                                {formatPrice(discount ?? price)}원{' '}
+                                                {discount && (
+                                                    <em className="discount-text">
+                                                        -{Math.round(((price - discount) / price) * 100)}% 할인
+                                                    </em>
+                                                )}
+                                            </strong>
+                                        </div>
+                                    </PriceBox>
+                                </div>
 
                                 <BtnBox className="flex-center column">
                                     <button onClick={() => handleBuyClick(item.productNum)}>구매하기</button>
@@ -193,33 +179,36 @@ const ProductListBox = styled.ul`
 
     overflow-y: auto;
     display: flex;
-    justify-content: center;
-    background-color: #f7f7f7;
+    justify-content: space-between;
+    align-items: end;
 
     @media (max-width: 860px) {
-        background-color: #f7f7f7;
+        padding: 0px;
     }
 `;
 
 const ProductsCardBox = styled.section`
     justify-content: left;
     flex-wrap: wrap;
-    gap: 10px;
     transition: all ease-in-out 0.3s;
     margin: 20px;
 
+    border: 1px solid rgba(0, 0, 0, 0.1);
+
     @media (max-width: 860px) {
         margin: 0px;
+        border: none;
     }
 `;
 
 /* ✅ 제품 카드 스타일 */
 const ProductCard = styled.li`
     position: relative;
-    width: calc(100% / 3 - 10px);
+    width: calc(100% / 3);
     background: #fff;
-    border-radius: 10px;
-    /* border: 1px solid rgba(0, 0, 0, 0.1); */
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
     padding: 30px;
     display: flex;
     flex-direction: column;
@@ -265,16 +254,7 @@ const ProductCard = styled.li`
     }
 
     @media (max-width: 1500px) {
-        width: calc(100% / 3 - 20px);
-        .product-image img {
-            width: 90%;
-        }
-    }
-
-    @media (max-width: 860px) {
-        width: calc(100% / 2 - 20px);
-        background-color: #fff;
-
+        width: calc(100% / 2);
         .product-image img {
             width: 100%;
         }
@@ -285,6 +265,18 @@ const ProductCard = styled.li`
         top: 10px;
         right: 10px;
         z-index: 5;
+    }
+
+    @media (max-width: 860px) {
+        .badge-box {
+            display: flex;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 5;
+            gap: 5px;
+        }
+        padding: 10px;
     }
 `;
 
@@ -300,8 +292,17 @@ const NewBadge = styled.div`
     font-size: 12px;
     font-weight: 600;
     font-family: '42dot Sans';
-    border-radius: 60px;
+    border-radius: 50px;
     margin: 5px 0px;
+    padding: 7px;
+
+    @media (max-width: 860px) {
+        font-size: 10px;
+        width: auto;
+        padding: 5px 10px;
+        border-radius: 0px;
+        height: 30px;
+    }
 `;
 
 const SaleBadge = styled(NewBadge)`
@@ -310,6 +311,11 @@ const SaleBadge = styled(NewBadge)`
 
 const PointBadge = styled(NewBadge)`
     background: #212221;
+
+    @media (max-width: 860px) {
+        background: #f7f7f7;
+        color: #000;
+    }
 `;
 
 const ColorCircle = styled.div`
@@ -406,6 +412,10 @@ const PriceBox = styled.div`
             font-family: '42dot Sans';
             font-size: 22px;
             font-weight: bold;
+
+            @media (max-width: 1500px) {
+                font-size: 18px;
+            }
         }
     }
 
@@ -420,6 +430,12 @@ const PriceBox = styled.div`
     .flex-justfit {
         display: flex;
         justify-content: space-between;
+    }
+
+    @media (max-width: 1500px) {
+        .price-tag {
+            display: none;
+        }
     }
 `;
 
@@ -460,5 +476,13 @@ const BtnBox = styled.div`
     .compare:hover {
         border: 1px solid rgba(0, 0, 0, 0.5);
         background: rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 860px) {
+        button {
+            border-radius: 0px;
+            margin: 3px;
+            font-size: 14px;
+        }
     }
 `;
