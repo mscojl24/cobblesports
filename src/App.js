@@ -53,7 +53,7 @@ function App() {
                 </Routes>
             </BoxMargin>
             {loderPage && <LoderPage />}
-            {isCompareMax && (
+            {popupText && (
                 <BottomAlertBox className="flex-center">
                     <MdNotificationsActive color="#333" />
                     {popupText}

@@ -1,17 +1,21 @@
 import styled from 'styled-components';
 import Classification from './products/classification';
-import ProductList from './products/productList';
 import ProductClassification from './products/productClassification';
+import ProductsList from './products/productsList';
+import { sortProductsState } from '../atoms/useIndexState';
+import { useAtom } from 'jotai';
 
 function ProductSection() {
+    const [products] = useAtom(sortProductsState);
+
     return (
         <ProductBox>
             <CartegoryBox className="flex-h-center">
                 <h2>웨어러블 디바이스</h2>
             </CartegoryBox>
-            <div className="flex-v-center product-box">
+            <div className="flex-v-center product-box" style={{ alignItems: 'flex-start' }}>
                 <Classification />
-                <ProductList />
+                <ProductsList products={products} />
             </div>
             <ProductClassification />
         </ProductBox>
@@ -35,7 +39,7 @@ const CartegoryBox = styled.article`
     background-size: cover;
 
     h2 {
-        font-size: clamp(20px, 6vw, 40px);
+        font-size: clamp(20px, 6vw, 30px);
         font-weight: 500;
         margin: 0px 10%;
     }

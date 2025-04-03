@@ -81,7 +81,7 @@ function ProductList() {
 
                         return (
                             <ProductCard key={index}>
-                                <div>
+                                <div className="flex-center column">
                                     <div className="product-image">
                                         <div className="badge-box">
                                             {isNew && <NewBadge>NEW 2025</NewBadge>}
@@ -210,6 +210,7 @@ const ProductCard = styled.li`
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
     padding: 30px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
