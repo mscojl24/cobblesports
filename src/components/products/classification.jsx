@@ -34,7 +34,9 @@ function Classification() {
     const [products] = useAtom(sortProductsState);
 
     useEffect(() => {
-        window.scrollTo({ top: 300, behavior: 'smooth' });
+        if (products.length > 0) {
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
     }, [products]);
 
     const [openSections, setOpenSections] = useState(() => sportsSortingList.map((section) => section.title));
@@ -226,12 +228,15 @@ const ClassificationBox = styled.aside`
     justify-content: flex-start;
     max-height: calc(100vh - 50px); // 화면 높이 - 네비 등 여백
     overflow-y: auto;
+    padding: 40px;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     width: 400px;
     gap: 10px;
     background-color: #fff;
-    padding: 40px;
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
 
     /* 스크롤바 스타일 (선택사항) */
     &::-webkit-scrollbar {

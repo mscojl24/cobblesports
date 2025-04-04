@@ -22,8 +22,6 @@ function ProductsList({ products }) {
     const [compareList, setCompareList] = useAtom(compareState);
     const [, setCompareMax] = useAtom(compareMax);
 
-    console.log(compareList);
-
     // 이미지가 없을 경우에도 로딩 상태를 false로 설정
     useEffect(() => {
         products.forEach((item, index) => {
@@ -106,7 +104,7 @@ function ProductsList({ products }) {
     };
 
     return (
-        <ProductsListBox>
+        <ProductsListBox className="flex-center">
             <ProductsCard className="flex-h-center">
                 {products.length > 0 ? (
                     products.map((item, index) => {
@@ -125,7 +123,7 @@ function ProductsList({ products }) {
                         })();
 
                         return (
-                            <li key={index} className="flex-center column">
+                            <li key={index} className="flex-h-center column">
                                 <ProImage className="product-image flex-center">
                                     {/* 컬러 선택 셀렉트 버튼 */}
                                     <ColorSelectWrapper>
@@ -181,13 +179,26 @@ function ProductsList({ products }) {
                                         <strong className="pro-title">
                                             {item.title}, {item.spec.size}
                                         </strong>
-                                        <em className="pro-price">{formatPrice(discount ?? price)}원 </em>
+                                        <em className="pro-price">
+                                            {formatPrice(discount ?? price)}원{' '}
+                                            {discount && (
+                                                <em className="discount-text">
+                                                    -{Math.round(((price - discount) / price) * 100)}% 할인
+                                                </em>
+                                            )}
+                                        </em>
+                                        <span className="pro-spec">
+                                            <strong>배터리</strong> 최대 {item.battery.smartwatch}일 ·{' '}
+                                            {item.battery.gpsOnly}시간 | <strong>디스플레이</strong>{' '}
+                                            {item.spec.display.size} | <strong>무게</strong> {item.spec.weight} |{' '}
+                                            <strong>방수등급</strong> {item.waterProof.waterRating}
+                                        </span>
                                     </div>
 
                                     <BtnBox className="flex-center column">
                                         <button onClick={() => handleBuyClick(item.productNum)}>
                                             <strong className="btn-text">제품 구매하기 </strong>{' '}
-                                            <FaCirclePlus fontSize="20px" />
+                                            <FaCirclePlus fontSize="22px" className="btn-icon" />
                                         </button>
                                         <button
                                             className={`compare ${
@@ -202,7 +213,9 @@ function ProductsList({ products }) {
                         );
                     })
                 ) : (
-                    <NotData />
+                    <div className="not-data-wrapper">
+                        <NotData />
+                    </div>
                 )}
             </ProductsCard>
         </ProductsListBox>
@@ -213,17 +226,41 @@ export default ProductsList;
 
 const ProductsListBox = styled.section`
     width: 100%;
+    margin-bottom: 100px;
 `;
 
 const ProductsCard = styled.ul`
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 20px;
+    min-height: 500px;
+
+    @media (min-width: 860px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1200px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
 
     li {
-        position: relative;
-        width: calc(100% / 4 - 10px);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    // ✅ 제품이 없을 때 NotDataBox만 있을 경우 중앙 정렬
+    & > .not-data-wrapper {
+        grid-column: 1 / -1; // 전체 열 차지
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    @media (max-width: 860px) {
+        padding: 10px;
     }
 `;
 
@@ -232,12 +269,14 @@ const ProductsCard = styled.ul`
 const ProImage = styled.div`
     position: relative;
     background-color: #f8f8f8;
-    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.02);
 
     .image-wrapper {
         position: relative;
         width: 100%;
-        aspect-ratio: 1/1;
+        display: flex;
+        align-items: center;
+        aspect-ratio: 6/7;
         text-align: center;
 
         img {
@@ -255,6 +294,16 @@ const ProImage = styled.div`
         right: 20px;
         z-index: 1;
         gap: 3px;
+    }
+
+    @media (max-width: 860px) {
+        .badge-box {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            z-index: 1;
+            gap: 3px;
+        }
     }
 `;
 
@@ -276,9 +325,14 @@ const ImagePlaceholder = styled.div`
 const ProScript = styled.div`
     padding: 20px;
     width: 100%;
-    background-color: #f8f8f8;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+
+    /* background-color: #f8f8f8; */
     margin-top: 10px;
-    border-radius: 10px;
 
     & > * {
         line-height: 1.5;
@@ -290,6 +344,23 @@ const ProScript = styled.div`
     .pro-price {
         font-family: '42dot Sans';
     }
+
+    .pro-spec {
+        margin-top: 15px;
+        font-size: 13px;
+        font-weight: 400;
+        word-break: break-all;
+        color: rgba(0, 0, 0, 0.6);
+        font-family: '42dot Sans';
+    }
+
+    .discount-text {
+        width: 100%;
+        font-family: '42dot Sans';
+        font-size: 14px;
+        font-weight: bold;
+        color: #cc3e3e;
+    }
 `;
 
 /* ✅ 컬러 아이콘 스타일 -------------------------------------------------*/
@@ -300,6 +371,11 @@ const ColorSelectWrapper = styled.div`
     left: 20px;
     z-index: 10;
     width: auto;
+
+    @media (max-width: 860px) {
+        top: 10px;
+        left: 10px;
+    }
 `;
 
 const ColorSelectButton = styled.button`
@@ -373,8 +449,7 @@ const NewBadge = styled.div`
         font-size: 10px;
         width: auto;
         padding: 5px 10px;
-        border-radius: 0px;
-        height: 30px;
+        border-radius: 30px;
     }
 `;
 
@@ -402,12 +477,12 @@ const BtnBox = styled.div`
         justify-content: space-between;
 
         /* width: 60%; */
-        padding: 15px 20px;
+        padding: 15px 15px 15px 20px;
         gap: 10px;
         margin: 3px;
         font-weight: 600;
         cursor: pointer;
-        background-color: #fff;
+        background-color: #f8f8f8;
         border: none;
         border-radius: 50px;
 
@@ -417,6 +492,13 @@ const BtnBox = styled.div`
         }
 
         .btn-icon {
+            color: #0873ff;
+        }
+    }
+
+    button:hover {
+        .btn-icon {
+            color: #000;
         }
     }
 
@@ -441,9 +523,12 @@ const BtnBox = styled.div`
 
     @media (max-width: 860px) {
         button {
-            border-radius: 0px;
+            border-radius: 10px;
             margin: 3px;
             font-size: 14px;
+        }
+        .compare {
+            font-size: 12px;
         }
     }
 `;

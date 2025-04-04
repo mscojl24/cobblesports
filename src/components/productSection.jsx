@@ -2,22 +2,62 @@ import styled from 'styled-components';
 import Classification from './products/classification';
 import ProductClassification from './products/productClassification';
 import ProductsList from './products/productsList';
-import { sortProductsState } from '../atoms/useIndexState';
+import { compareState, sortProductsState } from '../atoms/useIndexState';
 import { useAtom } from 'jotai';
+import ClassProductsIcon from './products/classProductIcon';
+import { IoSearch } from 'react-icons/io5';
+import { useMemo, useState } from 'react';
+import { LuDelete } from 'react-icons/lu';
 
 function ProductSection() {
     const [products] = useAtom(sortProductsState);
+    const [compareList] = useAtom(compareState);
+    const [searchKeyword, setSearchKeyword] = useState('');
+
+    const filteredProducts = useMemo(() => {
+        if (!searchKeyword.trim()) return products;
+
+        // 검색어 전처리: 소문자 + 공백 제거
+        const keyword = searchKeyword.trim().toLowerCase().replace(/\s+/g, '');
+
+        return products.filter((product) => {
+            const title = (product.title || '').toLowerCase().replace(/\s+/g, '');
+            const subtitle = (product.subtitle || '').toLowerCase().replace(/\s+/g, '');
+            return title.includes(keyword) || subtitle.includes(keyword);
+        });
+    }, [products, searchKeyword]);
 
     return (
         <ProductBox>
-            <CartegoryBox className="flex-h-center">
-                <h2>웨어러블 디바이스</h2>
+            <CartegoryBox className="flex-h-center column">
+                <h1>Find Your Fit</h1>
+                <em>원하는 제품을, 원하는 조건에 맞춰 검색하세요.</em>
+                <div className="search flex-center">
+                    {searchKeyword.length >= 1 ? (
+                        <LuDelete
+                            className="search-icon"
+                            onClick={() => {
+                                setSearchKeyword('');
+                            }}
+                        />
+                    ) : (
+                        <IoSearch className="search-icon" />
+                    )}
+                    <input
+                        type="text"
+                        className="search-box"
+                        placeholder="찾는 제품이 있나요?"
+                        value={searchKeyword}
+                        onChange={(e) => setSearchKeyword(e.target.value)}
+                    />
+                </div>
             </CartegoryBox>
+            <ProductClassification />
             <div className="flex-v-center product-box" style={{ alignItems: 'flex-start' }}>
                 <Classification />
-                <ProductsList products={products} />
+                <ProductsList products={filteredProducts} />
             </div>
-            <ProductClassification />
+            {compareList.length >= 1 && <ClassProductsIcon />}
         </ProductBox>
     );
 }
@@ -26,21 +66,54 @@ export default ProductSection;
 
 const ProductBox = styled.section`
     width: 100%;
-
-    .product-box {
-    }
 `;
 
 const CartegoryBox = styled.article`
     width: 100%;
-    height: 200px;
-    background: url(${process.env.REACT_APP_PUBLIC_URL}/asset/cobble-categoty-image-01.png);
+    /* background: url(${process.env.REACT_APP_PUBLIC_URL}/asset/cobble-categoty-image-01.png);
     background-position: center;
-    background-size: cover;
+    background-size: cover; */
+    padding: 100px;
 
-    h2 {
-        font-size: clamp(20px, 6vw, 30px);
-        font-weight: 500;
-        margin: 0px 10%;
+    gap: 20px;
+    h1 {
+        font-family: anton;
+        font-weight: 400;
+        font-size: clamp(20px, 6vw, 50px);
+    }
+
+    em {
+        font-size: clamp(13px, 5vw, 20px);
+    }
+    .search {
+        margin-top: 20px;
+        position: relative;
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 20px;
+        font-size: 25px;
+        color: rgba(0, 0, 0, 0.1);
+    }
+    .search-box {
+        padding: 20px 30px;
+        width: 300px;
+        min-width: 200px;
+        /* background-color: #f8f8f8; */
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        font-family: '42dot Sans';
+        font-size: 18px;
+    }
+
+    .search-box:focus {
+        outline: none;
+    }
+
+    .search-box::placeholder {
+        color: rgba(0, 0, 0, 0.2);
+        font-size: 16px;
+        font-family: '42dot Sans';
     }
 `;

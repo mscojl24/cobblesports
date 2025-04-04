@@ -88,7 +88,7 @@ video {
     font: inherit;
     vertical-align: baseline;
     box-sizing: border-box;
-    font-family: Raleway, '42dot Sans', serif;
+    font-family: Raleway, '42dot Sans';
 }
 
 article,
@@ -134,7 +134,7 @@ button {
     border-radius: 5px;
     padding: 10px 20px;
     font-size: 16px;
-    font-family: Raleway, '42dot Sans', serif;
+    font-family: Raleway, '42dot Sans';
     font-weight: 300;
 }
 

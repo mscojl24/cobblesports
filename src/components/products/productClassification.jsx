@@ -97,8 +97,8 @@ function ProductClassification() {
                     </li>
                 ))}
                 {activeClassList.length >= 1 && (
-                    <li className="reset-class flex-center">
-                        <RiResetRightFill onClick={resetClass} />
+                    <li className="reset-class flex-center" onClick={resetClass}>
+                        <RiResetRightFill />
                     </li>
                 )}
             </FilterClass>

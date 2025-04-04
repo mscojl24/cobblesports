@@ -4,10 +4,24 @@ import Products from '../../hooks/products';
 
 import { MdAllInclusive } from 'react-icons/md';
 import { useAtom } from 'jotai';
-import { productsState } from '../../atoms/useIndexState';
+import { productsState, scrollXState } from '../../atoms/useIndexState';
+import ProductsList from '../products/productsList';
+import { useEffect, useState } from 'react';
 
 function FullRange() {
+    const [scrollX] = useAtom(scrollXState);
     const [products] = useAtom(productsState);
+    const [number, setNumber] = useState(8);
+
+    useEffect(() => {
+        if (scrollX <= 860) {
+            setNumber(8);
+        } else if (scrollX <= 1500) {
+            setNumber(6);
+        } else {
+            setNumber(8);
+        }
+    }, [scrollX]);
 
     return (
         <FullRangeSection>
@@ -17,7 +31,7 @@ function FullRange() {
                 <p>필요한 아이템을 빠르게 비교하고 찾아보세요!</p>
             </FRTitleBox>
             <FRItemBox className="flex-v-center">
-                <Products products={products} />
+                <ProductsList products={products.slice(0, number)} />
             </FRItemBox>
         </FullRangeSection>
     );

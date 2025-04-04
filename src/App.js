@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import ProductSection from './components/productSection';
 import useFetchExcelData from './hooks/useFetchExcelData';
 import { MdNotificationsActive } from 'react-icons/md';
+import CompareSection from './components/compareSection.jsx';
 
 function App() {
     const [, setScrollY] = useAtom(scrollYState);
@@ -49,7 +50,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<MainSection />} />
                     <Route path="/products" element={<ProductSection />} />
-                    <Route path="/compare" element={<MainSection />} />
+                    <Route path="/compare" element={<CompareSection />} />
                 </Routes>
             </BoxMargin>
             {loderPage && <LoderPage />}

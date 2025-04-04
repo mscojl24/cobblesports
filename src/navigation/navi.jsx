@@ -23,7 +23,7 @@ function Navi() {
     }, [scrollY]);
 
     const menulist = [
-        { name: 'Home', subname: '메인으로', value: '/', type: 'internal' },
+        { name: 'Main', subname: '메인으로', value: '/', type: 'internal' },
         { name: 'Product', subname: '제품안내', value: '/products', type: 'internal' },
         { name: 'Compare', subname: '스펙비교', value: '/compare', type: 'internal' },
         { name: 'Contact', subname: '문의하기', value: 'https://pf.kakao.com/_fcPxaG', type: 'external' },
@@ -62,8 +62,8 @@ function Navi() {
                                 data-value={menu.value}
                                 onClick={handleMenuClick} // ✅ 클릭 이벤트 하나로 처리
                             >
-                                <p className="default flex-center">{menu.name}</p>
-                                <p className="hovered flex-center">{menu.subname}</p>
+                                <p className="default flex-center">{menu.subname}</p>
+                                <p className="hovered flex-center">{menu.name}</p>
                             </li>
                         ))}
                     </MenuList>
@@ -97,10 +97,10 @@ const NavigateSection = styled.nav`
     align-items: center;
     width: 100%;
     height: 70px;
-    padding: 0 50px;
+    padding: 0 20px;
     background-color: white;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    position: fixed;
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+    position: absolute;
     top: 0;
     left: 0;
     z-index: 99;
@@ -114,18 +114,21 @@ const NavigateSection = styled.nav`
 `;
 
 const LogoBox = styled.div`
-    width: 150px;
+    width: 120px;
+    transform: scale(0.8);
 `;
 
 const MenuList = styled.ul`
     display: flex;
 
     li {
+        display: flex;
         position: relative;
-        font-weight: 600;
+        font-weight: 500;
         cursor: pointer;
         height: 35px;
         width: 100px;
+        gap: 10px;
         font-size: 15px;
         overflow: hidden;
         transition: color 0.2s ease-in-out;
@@ -144,8 +147,6 @@ const MenuList = styled.ul`
         position: absolute;
         top: 100%;
         left: 0;
-        font-size: 16px;
-        font-weight: 400;
     }
 
     li:hover .default {

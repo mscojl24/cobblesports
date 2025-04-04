@@ -34,8 +34,13 @@ function NotData() {
 export default NotData;
 
 const NotDataBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     width: 100%;
-    height: 300px;
+    height: 100%; // ← 중요! 부모가 꽉 차야 중앙정렬 됨
     text-align: center;
     line-height: 1.5;
     gap: 20px;

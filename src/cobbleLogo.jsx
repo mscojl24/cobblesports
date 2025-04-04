@@ -47,7 +47,7 @@ const LogoText = styled.li`
     color: #222;
 
     span {
-        font-family: 'Anton', serif;
+        font-family: 'Anton';
         animation: moveloder 5s ease-in-out infinite both;
         animation-delay: ${(props) => props.start}s;
     }
