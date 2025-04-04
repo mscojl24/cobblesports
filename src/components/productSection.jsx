@@ -17,13 +17,21 @@ function ProductSection() {
     const filteredProducts = useMemo(() => {
         if (!searchKeyword.trim()) return products;
 
-        // 검색어 전처리: 소문자 + 공백 제거
         const keyword = searchKeyword.trim().toLowerCase().replace(/\s+/g, '');
 
         return products.filter((product) => {
             const title = (product.title || '').toLowerCase().replace(/\s+/g, '');
             const subtitle = (product.subtitle || '').toLowerCase().replace(/\s+/g, '');
-            return title.includes(keyword) || subtitle.includes(keyword);
+            const script = (product.script || '').toLowerCase().replace(/\s+/g, '');
+
+            // purpose 배열 요소도 동일하게 전처리해서 비교
+            const purposeList = Array.isArray(product.purpose)
+                ? product.purpose.map((p) => (p || '').toLowerCase().replace(/\s+/g, ''))
+                : [];
+
+            const matchPurpose = purposeList.some((p) => p.includes(keyword));
+
+            return title.includes(keyword) || subtitle.includes(keyword) || script.includes(keyword) || matchPurpose;
         });
     }, [products, searchKeyword]);
 
@@ -46,7 +54,7 @@ function ProductSection() {
                     <input
                         type="text"
                         className="search-box"
-                        placeholder="찾는 제품이 있나요?"
+                        placeholder="원하는 종목 및 제품명을 작성하세요"
                         value={searchKeyword}
                         onChange={(e) => setSearchKeyword(e.target.value)}
                     />
