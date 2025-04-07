@@ -49,6 +49,7 @@ const useFetchExcelData = (url) => {
                         subtitle: cleanValue(item.subtitle),
                         purpose: item.purpose ? item.purpose.split(',').map((p) => p.trim()) : [],
                         script: cleanValue(item.script),
+                        message: cleanValue(item.message),
                         spec: {
                             price: cleanValue(item.price),
                             size: cleanValue(item.size),

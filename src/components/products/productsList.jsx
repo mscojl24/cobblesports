@@ -146,7 +146,7 @@ function ProductsList({ products }) {
                                                         className={selectedIndex === idx ? 'selected' : ''}
                                                         onClick={() => handleColorSelect(index, idx)}>
                                                         <ColorCode className="color-code" $code={color.colorCode} />
-                                                        {color.colorName}
+                                                        <span>{color.colorName}</span>
                                                     </li>
                                                 ))}
                                             </ColorSelectList>
@@ -187,12 +187,14 @@ function ProductsList({ products }) {
                                                 </em>
                                             )}
                                         </em>
-                                        <span className="pro-spec">
+
+                                        <span className="pro-spec">{item.message}</span>
+                                        {/* <span className="pro-spec">
                                             <strong>배터리</strong> 최대 {item.battery.smartwatch}일 ·{' '}
                                             {item.battery.gpsOnly}시간 | <strong>디스플레이</strong>{' '}
                                             {item.spec.display.size} | <strong>무게</strong> {item.spec.weight} |{' '}
                                             <strong>방수등급</strong> {item.waterProof.waterRating}
-                                        </span>
+                                        </span> */}
                                     </div>
 
                                     <BtnBox className="flex-center column">
@@ -352,6 +354,18 @@ const ProScript = styled.div`
         word-break: break-all;
         color: rgba(0, 0, 0, 0.6);
         font-family: '42dot Sans';
+
+        strong {
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    .spec-box {
+        padding: 20px;
+        background-color: #f8f8f8;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.02);
     }
 
     .discount-text {
@@ -402,6 +416,7 @@ const ColorSelectList = styled.ul`
     position: absolute;
     top: 30px;
     left: 0;
+
     background: white;
     border: 1px solid #ccc;
     list-style: none;
@@ -411,15 +426,18 @@ const ColorSelectList = styled.ul`
 
     li {
         display: flex;
-        gap: 5px;
+        flex-direction: row;
+        align-items: center;
+
+        gap: 6px;
         width: 100%;
-        padding: 6px 10px;
+        padding: 8px;
         font-size: 13px;
         cursor: pointer;
         color: rgba(0, 0, 0, 0.8);
 
         &:hover {
-            background-color: #f2f2f2;
+            background-color: #f8f8f8;
         }
 
         &.selected {
@@ -430,9 +448,9 @@ const ColorSelectList = styled.ul`
 `;
 
 const ColorCode = styled.div`
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: ${(props) => props.$code};
 `;

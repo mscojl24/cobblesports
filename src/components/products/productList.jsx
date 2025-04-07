@@ -160,10 +160,14 @@ export default ProductList;
 
 const ImagePlaceholder = styled.div`
     position: absolute;
+    display: flex;
+
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    aspect-ratio: 1/1;
+
     border-radius: 10px;
     font-family: 'Big Shoulders';
     color: rgba(0, 0, 0, 0.3);

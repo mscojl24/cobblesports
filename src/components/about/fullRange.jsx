@@ -14,9 +14,9 @@ function FullRange() {
     const [number, setNumber] = useState(8);
 
     useEffect(() => {
-        if (scrollX <= 860) {
+        if (scrollX >= 860) {
             setNumber(8);
-        } else if (scrollX <= 1500) {
+        } else if (scrollX < 860) {
             setNumber(6);
         } else {
             setNumber(8);

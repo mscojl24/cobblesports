@@ -1,6 +1,7 @@
 import { useAtom } from 'jotai';
 import { compareState } from '../atoms/useIndexState';
 import styled from 'styled-components';
+import CompareProduct from './compare/compareProduct';
 
 function CompareSection() {
     const [compareList] = useAtom(compareState);
@@ -8,9 +9,10 @@ function CompareSection() {
     return (
         <CompareBox>
             <CompareTitle className="flex-center column">
-                <h1>제품 비교하기</h1>
-                <em>다양한 제품을 비교해보고 구매하세요.</em>
+                <h1>Compare Now</h1>
+                <em>다양한 제품을 비교해보고 스펙을 확인하세요.</em>
             </CompareTitle>
+            <CompareProduct />
         </CompareBox>
     );
 }
@@ -19,13 +21,16 @@ export default CompareSection;
 
 const CompareBox = styled.section`
     width: 100%;
-    padding: 100px;
 `;
 
 const CompareTitle = styled.div`
+    padding: 100px;
     gap: 20px;
+    text-align: center;
     h1 {
-        font-size: clamp(20px, 6vw, 40px);
+        font-size: clamp(20px, 6vw, 50px);
+        font-family: anton;
+        font-weight: 400;
     }
 
     em {

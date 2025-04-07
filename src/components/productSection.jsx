@@ -91,6 +91,7 @@ const CartegoryBox = styled.article`
     }
 
     em {
+        text-align: center;
         font-size: clamp(13px, 5vw, 20px);
     }
     .search {
