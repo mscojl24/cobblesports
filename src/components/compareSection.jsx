@@ -31,6 +31,7 @@ const CompareTitle = styled.div`
         font-size: clamp(20px, 6vw, 50px);
         font-family: anton;
         font-weight: 400;
+        opacity: 0.1;
     }
 
     em {

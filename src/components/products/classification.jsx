@@ -35,7 +35,7 @@ function Classification() {
 
     useEffect(() => {
         if (products.length > 0) {
-            window.scrollTo({ top: 300, behavior: 'smooth' });
+            window.scrollTo({ top: 450, behavior: 'smooth' });
         }
     }, [products]);
 
