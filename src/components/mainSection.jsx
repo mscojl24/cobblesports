@@ -13,7 +13,7 @@ function MainSection() {
     return (
         <MainBox>
             <SwiperMain />
-            <Recommended />
+            {/* <Recommended /> */}
             <SNSList />
             <FindCategory />
             <TopPicks />

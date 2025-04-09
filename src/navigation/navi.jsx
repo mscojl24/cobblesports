@@ -95,12 +95,15 @@ const NavigateSection = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    position: fixed;
     width: 100%;
     height: 70px;
     padding: 0 20px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(20px);
     /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
     z-index: 99;

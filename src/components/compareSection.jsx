@@ -7,7 +7,7 @@ function CompareSection() {
     const [compareList] = useAtom(compareState);
 
     return (
-        <CompareBox>
+        <CompareBox className="flex-center column">
             <CompareTitle className="flex-center column">
                 <h1>Compare Now</h1>
                 <em>다양한 제품을 비교해보고 스펙을 확인하세요.</em>

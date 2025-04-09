@@ -8,6 +8,7 @@ function SelectListPopup({ onClose }) {
     const [compareList, setCompareList] = useAtom(compareState);
     const [, setPopupText] = useAtom(popupTextState);
     const [searchTerm, setSearchTerm] = useState('');
+    const [confirmedSearchTerm, setConfirmedSearchTerm] = useState('');
 
     const handleSelect = (productNum) => {
         if (compareList.includes(String(productNum))) {
@@ -25,21 +26,31 @@ function SelectListPopup({ onClose }) {
         onClose();
     };
 
-    const selectableProducts = products.filter(
-        (p) => !compareList.includes(String(p.productNum)) && p.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const handleSearch = (e) => {
+        e.preventDefault();
+        setConfirmedSearchTerm(searchTerm);
+    };
+
+    const selectableProducts = products.filter((p) => {
+        const isAlreadySelected = compareList.includes(String(p.productNum));
+        const titleMatch = p.title?.toLowerCase().includes(confirmedSearchTerm.toLowerCase());
+        const subtitleMatch = p.subtitle?.toLowerCase().includes(confirmedSearchTerm.toLowerCase());
+        return !isAlreadySelected && (titleMatch || subtitleMatch);
+    });
 
     return (
         <PopupOverlay onClick={onClose}>
             <PopupBox onClick={(e) => e.stopPropagation()}>
                 <h3>비교 제품 선택</h3>
-                <SearchBox>
+                <SearchBox className="flex-center" onSubmit={handleSearch}>
                     <input
+                        className="search-input"
                         type="text"
                         placeholder="제품명을 검색해보세요"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
+                    <input className="submit-input" type="submit" value="검색" />
                 </SearchBox>
                 <ul className="popup-list">
                     {selectableProducts.map((item) => (
@@ -55,7 +66,9 @@ function SelectListPopup({ onClose }) {
                             </div>
                         </li>
                     ))}
-                    {selectableProducts.length === 0 && <NoResult>검색 결과가 없습니다.</NoResult>}
+                    {selectableProducts.length === 0 && (
+                        <NoResult>검색 결과가 없습니다. 제품명을 정확히 확인해주세요.</NoResult>
+                    )}
                 </ul>
             </PopupBox>
         </PopupOverlay>
@@ -71,21 +84,32 @@ const PopupOverlay = styled.div`
     z-index: 99;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(119, 119, 119, 0.4);
     backdrop-filter: blur(30px);
     transition: all ease-in-out 0.3s;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    animation: openModal 0.3s ease-in-out forwards;
+
+    @keyframes openModal {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
 `;
 
 const PopupBox = styled.div`
     background: #fff;
     padding: 30px;
     border-radius: 10px;
-    max-width: 80vh;
-    max-height: 80vh;
+    width: 80vh;
+    height: 80vh;
     overflow-y: auto;
 
     ul {
@@ -130,6 +154,12 @@ const PopupBox = styled.div`
                 gap: 5px;
             }
         }
+
+        @media (max-width: 860px) {
+            li {
+                width: 100%;
+            }
+        }
     }
 
     h3 {
@@ -137,14 +167,15 @@ const PopupBox = styled.div`
     }
 `;
 
-const SearchBox = styled.div`
+const SearchBox = styled.form`
     margin-top: 10px;
+    gap: 10px;
 
     input {
         width: 100%;
         padding: 10px 15px;
         border: 1px solid #ccc;
-        border-radius: 8px;
+        border-radius: 5px;
         font-size: 14px;
         font-family: '42dot Sans';
         transition: all 0.2s;
@@ -154,6 +185,18 @@ const SearchBox = styled.div`
             border-color: #0873ff;
             box-shadow: 0 0 0 3px rgba(8, 115, 255, 0.1);
         }
+    }
+
+    .submit-input {
+        cursor: pointer;
+        width: 20%;
+        background-color: #3564ff;
+        border: none;
+        color: #fff;
+    }
+
+    .submit-input:hover {
+        background-color: #6a99ff;
     }
 `;
 
