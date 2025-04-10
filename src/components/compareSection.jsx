@@ -9,8 +9,8 @@ function CompareSection() {
     return (
         <CompareBox className="flex-center column">
             <CompareTitle className="flex-center column">
-                <h1>Compare Now</h1>
-                <em>다양한 제품을 비교해보고 스펙을 확인하세요.</em>
+                <h1>The Comparison</h1>
+                <em>고민하지 말고, 비교하세요.</em>
             </CompareTitle>
             <CompareProduct />
         </CompareBox>
@@ -28,13 +28,19 @@ const CompareTitle = styled.div`
     gap: 20px;
     text-align: center;
     h1 {
-        font-size: clamp(20px, 6vw, 50px);
-        font-family: anton;
-        font-weight: 400;
-        opacity: 0.1;
+        font-size: clamp(20px, 6vw, 40px);
+        font-family: '42dot Sans';
+        font-weight: bold;
+        letter-spacing: -1px;
+        text-transform: uppercase;
+        /* opacity: 0.1; */
     }
 
     em {
         font-size: clamp(13px, 5vw, 20px);
+    }
+
+    @media (max-width: 860px) {
+        padding: 50px;
     }
 `;

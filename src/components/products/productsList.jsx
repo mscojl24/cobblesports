@@ -64,10 +64,10 @@ function ProductsList({ products }) {
             setCompareList(updated);
             showPopup('비교 리스트에서 제거되었습니다.');
         } else {
-            if (compareList.length >= 4) {
+            if (compareList.length >= 3) {
                 setCompareMax(false);
                 setTimeout(() => setCompareMax(true), 10);
-                showPopup('비교 상품은 총 4개까지 선택이 가능합니다.');
+                showPopup('비교 상품은 총 3개까지 선택이 가능합니다.');
                 return;
             }
 
@@ -483,7 +483,7 @@ const PointBadge = styled(NewBadge)`
 
 /* ✅ 버튼 스타일 -------------------------------------------------*/
 
-const BtnBox = styled.div`
+export const BtnBox = styled.div`
     width: 100%;
     margin-top: 20px;
     justify-content: right;

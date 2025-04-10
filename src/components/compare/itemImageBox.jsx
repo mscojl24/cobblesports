@@ -24,20 +24,22 @@ function ItemImageBox({ item, index, onRemove, onEmptyClick, imageIndex = 0, onC
     };
 
     const selectedColorName = item.spec.color?.[imageIndex]?.colorName ?? '컬러';
+    const selectedColorCode = item.spec.color?.[imageIndex]?.colorCode ?? '컬러';
 
     return (
         <ItemImage className="flex-center">
             {/* 컬러 선택 셀렉트 버튼 */}
             <ColorSelectWrapper>
                 <ColorSelectButton
+                    $colorcode={selectedColorCode}
                     onClick={() => {
                         if (item.spec.color.length > 1) {
                             setOpenColorSelect((prev) => !prev);
                         }
                     }}>
+                    <div className="color-code"></div>
                     {selectedColorName}
-                    {item.spec.color.length === 1 && ' (단일컬러)'}
-                    {item.spec.color.length > 1 && <RiArrowDownSLine />}
+                    {item.spec.color.length <= 1 ? ' (단일)' : <RiArrowDownSLine />}
                 </ColorSelectButton>
 
                 {openColorSelect && item.spec.color.length > 1 && (
@@ -65,14 +67,14 @@ function ItemImageBox({ item, index, onRemove, onEmptyClick, imageIndex = 0, onC
 
 export default ItemImageBox;
 
-// ---- styled components 그대로 복사 또는 재사용 ----
+//  이미지 섹션 ------------------------------------------
 
 const ItemImage = styled.div`
     position: relative;
     width: 100%;
     text-align: center;
     background: #f8f8f8;
-    border: 1px solid rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.03);
     aspect-ratio: 6/7;
     gap: 10px;
     transition: all ease-in-out 0.3s;
@@ -112,6 +114,8 @@ const ItemImage = styled.div`
     }
 `;
 
+//  리무브 버튼 ------------------------------------------
+
 const RemoveBtn = styled.button`
     position: absolute;
     top: 20px;
@@ -131,38 +135,74 @@ const RemoveBtn = styled.button`
         color: #000000;
         box-shadow: 0px 0px 10px rgba(43, 8, 8, 0.2);
     }
+
+    @media (max-width: 1500px) {
+        top: 10px;
+        right: 10px;
+
+        padding: 5px;
+    }
 `;
 
+//  컬러 셀렉트 버튼 ------------------------------------------
 const ColorSelectWrapper = styled.div`
     position: absolute;
-    top: 20px;
-    left: 20px;
+    bottom: 20px;
+    right: 20px;
     z-index: 10;
+
+    transition: all ease-in-out 0.3s;
+
+    @media (max-width: 1500px) {
+        bottom: 10px;
+        right: 10px;
+    }
 `;
 
 const ColorSelectButton = styled.button`
-    background: transparent;
     border: none;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    /* border-bottom: 2px solid rgba(0, 0, 0, 0.2); */
+
     font-size: 14px;
     color: #333;
     font-family: '42dot Sans';
     display: flex;
     align-items: center;
-    gap: 4px;
-    padding: 5px 0px;
+    gap: 5px;
+
     cursor: pointer;
+
+    .color-code {
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        background-color: ${(props) => props.$colorcode};
+    }
+
+    @media (max-width: 1500px) {
+        padding: 5px 10px;
+        font-size: 12px;
+
+        .color-code {
+        }
+    }
 `;
 
 const ColorSelectList = styled.ul`
     position: absolute;
-    top: 30px;
+    top: 40px;
     left: 0;
     background: white;
-    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
     list-style: none;
-    padding: 6px 0;
-    width: max-content;
+    padding: 5px;
+    width: 100%;
     z-index: 100;
 
     li {
@@ -183,12 +223,21 @@ const ColorSelectList = styled.ul`
             color: #000;
         }
     }
+
+    @media (max-width: 1500px) {
+        top: 30px;
+    }
 `;
 
 const ColorCode = styled.div`
-    width: 12px;
-    height: 12px;
-    border-radius: 3px;
+    width: 10px;
+    height: 10px;
+    border-radius: 12px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     background-color: ${(props) => props.$code};
+
+    @media (max-width: 1500px) {
+        width: 8px;
+        height: 8px;
+    }
 `;
