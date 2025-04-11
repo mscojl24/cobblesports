@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { TbHelpSquareRoundedFilled } from 'react-icons/tb';
 import styled from 'styled-components';
+import ScriptPopup from './scriptPopup';
 
 function ItemFunction({ item }) {
     const [selectedScript, setSelectedScript] = useState(null);
@@ -25,7 +26,7 @@ function ItemFunction({ item }) {
         },
         { name: '음악 저장/재생', value: 'music' },
         {
-            name: '심전도 측정 (ECG)',
+            name: 'ECG (심전도)',
             value: 'ecg',
             script: '가민의 ECG (심전도) 기능은 심장의 전기 신호를 측정하여 심박 리듬 이상 여부를 확인할 수 있는 건강 모니터링 기능입니다. 현재 이 기능은 일부 지원 모델에서만 사용할 수 있으며, 미국 등 일부 국가에서만 제한적으로 제공됩니다. (국내 미지원)',
         },
@@ -35,7 +36,7 @@ function ItemFunction({ item }) {
             script: '그린 컨투어(Green Contour) 기능은 골프장에서 퍼팅 그린의 기울기와 지형 윤곽을 시각적으로 표시해주는 고급 골프 기능입니다. 그린 컨투어 데이터는 지원되는 골프장과 호환 기기에서만 제공되며, 일부 지도 데이터는 별도 유료로 제공될 수 있습니다.',
         },
         {
-            name: '러닝 다이나믹스',
+            name: '러닝다이나믹스',
             value: 'runningDynamics',
             script: '러닝 다이나믹스는 러닝 자세와 효율성을 분석해주는 가민의 고급 기능으로, 케이던스·보폭·지면 접촉 시간 등 6가지 데이터를 통해 러닝폼을 정밀하게 측정하고 개선할 수 있도록 도와줍니다. (일부 기기의 경우 센서 연동 필요)',
         },
@@ -80,14 +81,7 @@ function ItemFunction({ item }) {
                 })}
             </FunctionBox>
 
-            {selectedScript && (
-                <ScriptPopup onClick={() => setSelectedScript(null)}>
-                    <div className="popup-inner" onClick={(e) => e.stopPropagation()}>
-                        <p>{selectedScript}</p>
-                        <button onClick={() => setSelectedScript(null)}>닫기</button>
-                    </div>
-                </ScriptPopup>
-            )}
+            {selectedScript && <ScriptPopup content={selectedScript} onClose={() => setSelectedScript(null)} />}
         </>
     );
 }
@@ -149,38 +143,4 @@ const Subscription = styled(Active)`
     border: 1px solid #ff4d4f;
     color: #ff4d4f;
     background: #fff5f5;
-`;
-
-const ScriptPopup = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .popup-inner {
-        background: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        max-width: 500px;
-        width: 90%;
-        font-size: 14px;
-        line-height: 1.6;
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #1472ff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    }
 `;
