@@ -1,15 +1,20 @@
 import { useAtom } from 'jotai';
+import { useState } from 'react';
+import React from 'react';
+
 import styled from 'styled-components';
 import { compareState, popupTextState, productsState } from '../../atoms/useIndexState';
-import { useState } from 'react';
+
 import SelectListPopup from './selectListPopup';
-import ItemMainInfo from './itemMainInfo';
-import ItemDetailedInfo from './itemDetailedInfo';
 import ItemImageBox from './itemImageBox';
-import React from 'react';
-import { LuGitCompareArrows } from 'react-icons/lu';
-import { MdDisplaySettings, MdOutlineAspectRatio, MdOutlineSportsTennis } from 'react-icons/md';
+import ItemMainInfo from './itemMainInfo';
 import ItemSportsProfile from './itemSportsProfile';
+import ItemSpec from './itemSpec';
+import ItemBattery from './itemBattery';
+
+import { MdDisplaySettings, MdOutlineSportsTennis } from 'react-icons/md';
+import { RiBattery2ChargeLine } from 'react-icons/ri';
+import ItemFunction from './itemFounction';
 
 function CompareProduct() {
     const [compareList, setCompareList] = useAtom(compareState);
@@ -79,11 +84,35 @@ function CompareProduct() {
             <SpecBox>
                 <div className="specbox-title flex-h-center">
                     <MdDisplaySettings color="#ccc" />
-                    제품 스펙 비교
+                    제품 스펙
                 </div>
                 <div className="specbox-info flex-h-center">
                     {paddedList.map((item, index) => {
-                        return <ItemDetailedInfo key={index} item={item} />;
+                        return <ItemSpec key={index} item={item} />;
+                    })}
+                </div>
+            </SpecBox>
+
+            <SpecBox>
+                <div className="specbox-title flex-h-center">
+                    <RiBattery2ChargeLine color="#ccc" />
+                    배터리 타임
+                </div>
+                <div className="specbox-info flex-h-center">
+                    {paddedList.map((item, index) => {
+                        return <ItemBattery key={index} item={item} />;
+                    })}
+                </div>
+            </SpecBox>
+
+            <SpecBox>
+                <div className="specbox-title flex-h-center">
+                    <MdDisplaySettings color="#ccc" />
+                    세부 기능
+                </div>
+                <div className="specbox-info flex-h-center">
+                    {paddedList.map((item, index) => {
+                        return <ItemFunction key={index} item={item} />;
                     })}
                 </div>
             </SpecBox>
@@ -162,6 +191,7 @@ const SpecBox = styled.div`
     }
 
     .specbox-info {
+        align-items: flex-start;
         gap: 30px;
     }
 

@@ -80,7 +80,7 @@ const useFetchExcelData = (url) => {
 
                             /*신규 추가 데이터*/
 
-                            iqstore: cleanValue(item.call),
+                            iqstore: cleanValue(item.IQstore),
                             ecg: cleanValue(item.ECG),
                             compass: cleanValue(item.compass),
                             runningDynamics: cleanValue(item.runningDynamics),
@@ -88,6 +88,8 @@ const useFetchExcelData = (url) => {
                             pacePro: cleanValue(item.pacePro),
                             tactical: cleanValue(item.tactical),
                             greenContuer: cleanValue(item.greenContuer),
+                            hotKey: cleanValue(item.hotKey),
+                            mgrs: cleanValue(item.MGRS),
                         },
                         waterProof: {
                             waterRating: cleanValue(item.waterRating),
@@ -96,7 +98,7 @@ const useFetchExcelData = (url) => {
                         activityProfiles: {
                             running: cleanValue(item.running),
                             swim: cleanValue(item.swim),
-                            indoorSwim: cleanValue(item.indoorSwim),
+                            indoorSwim: cleanValue(item.poolOnly),
                             cycling: cleanValue(item.cycling),
                             multisport: cleanValue(item.multisport),
                             hiking: cleanValue(item.hiking),

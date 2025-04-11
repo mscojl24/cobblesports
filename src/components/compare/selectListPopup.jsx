@@ -61,7 +61,9 @@ function SelectListPopup({ onClose }) {
                                 className="item-image"
                             />
                             <div className="info flex-v-center column">
-                                <strong>{item.title}</strong>
+                                <strong>
+                                    {item.title} ({item.spec.size})
+                                </strong>
                                 <em className="sub-title">{item.subtitle}</em>
                             </div>
                         </li>
@@ -142,6 +144,7 @@ const PopupBox = styled.div`
             }
             strong {
                 font-family: '42dot Sans';
+                line-height: 1.3;
             }
 
             em {

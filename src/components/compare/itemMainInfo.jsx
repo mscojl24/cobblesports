@@ -27,7 +27,7 @@ function ItemMainInfo({ item }) {
                             </em>
                         )}{' '}
                         {formatPrice(item.spec.discount ?? item.spec.price)}원{' '}
-                        {item.spec.discount && <del> {formatPrice(item.spec.price - item.spec.discount)}</del>}{' '}
+                        {item.spec.discount && <del> {formatPrice(item.spec.price)}</del>}{' '}
                     </h2>
                     <ButtonBox className="flex-center column">
                         <button onClick={() => handleBuyClick(item.productNum)}>
