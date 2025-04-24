@@ -14,7 +14,11 @@ function TopPicks() {
             <TopPicksCard>
                 {bestSellersData.map((item, index) => (
                     <TPCard key={index + 1} $bgimg={item.image}>
-                        <div className="card-image">
+                        <div
+                            className="card-image"
+                            onClick={() => {
+                                window.open(item.link, '_blank', 'noopener,noreferrer');
+                            }}>
                             <div className="card-num flex-center">0{index + 1}</div>
                         </div>
                         <div className="card-text">

@@ -189,16 +189,10 @@ function ProductsList({ products }) {
                                         </em>
 
                                         <span className="pro-spec">{item.message}</span>
-                                        {/* <span className="pro-spec">
-                                            <strong>배터리</strong> 최대 {item.battery.smartwatch}일 ·{' '}
-                                            {item.battery.gpsOnly}시간 | <strong>디스플레이</strong>{' '}
-                                            {item.spec.display.size} | <strong>무게</strong> {item.spec.weight} |{' '}
-                                            <strong>방수등급</strong> {item.waterProof.waterRating}
-                                        </span> */}
                                     </div>
 
                                     <BtnBox className="flex-center column">
-                                        <button onClick={() => handleBuyClick(item.productNum)}>
+                                        <button className="sell" onClick={() => handleBuyClick(item.productNum)}>
                                             <strong className="btn-text">제품 구매하기 </strong>{' '}
                                             <FaCirclePlus fontSize="22px" className="btn-icon" />
                                         </button>
@@ -235,16 +229,8 @@ const ProductsCard = styled.ul`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    padding: 20px;
+    padding: 10px;
     min-height: 500px;
-
-    @media (min-width: 860px) {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    @media (min-width: 1200px) {
-        grid-template-columns: repeat(4, 1fr);
-    }
 
     li {
         display: flex;
@@ -261,8 +247,13 @@ const ProductsCard = styled.ul`
         height: 100%;
     }
 
-    @media (max-width: 860px) {
-        padding: 10px;
+    @media (min-width: 860px) {
+        padding: 20px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1200px) {
+        grid-template-columns: repeat(4, 1fr);
     }
 `;
 
@@ -374,6 +365,14 @@ const ProScript = styled.div`
         font-size: 14px;
         font-weight: bold;
         color: #cc3e3e;
+    }
+
+    @media (max-width: 860px) {
+        padding: 10px;
+
+        .pro-spec {
+            font-size: 12px;
+        }
     }
 `;
 
@@ -541,12 +540,24 @@ export const BtnBox = styled.div`
 
     @media (max-width: 860px) {
         button {
-            border-radius: 10px;
+            /* border-radius: 3px; */
             margin: 3px;
-            font-size: 14px;
+            padding: 10px 10px 10px 20px;
+
+            .btn-text {
+                font-size: 13px;
+            }
+            .btn-icon {
+                font-size: 20px;
+            }
         }
+
         .compare {
             font-size: 12px;
+        }
+
+        .sell {
+            width: 100%;
         }
     }
 `;

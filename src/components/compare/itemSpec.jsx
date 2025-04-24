@@ -76,7 +76,7 @@ const Spec = styled.div`
 
     .spec-title {
         padding: 20px 0px;
-        font-size: clamp(16px, 5vw, 20px);
+        font-size: clamp(16px, 4vw, 20px);
         font-weight: 600;
         font-family: '42dot Sans';
 

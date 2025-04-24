@@ -11,6 +11,8 @@ import {
     sortProductsState,
     sportsSorting,
     seriesSorting,
+    isMobileFilterOpenState,
+    scrollXState,
 } from '../../atoms/useIndexState';
 
 import PriceRange from './priceRange';
@@ -21,6 +23,10 @@ import { useFilterClassState } from '../../hooks/useFilterClassList'; // ✅ 훅
 
 function Classification() {
     useFilterClassState(); // 필터 태그 업데이트 훅 사용
+
+    //모바일 해상도 필터메뉴 상태관리
+    const [mobileFilterOpen, setMobileFilterOpen] = useAtom(isMobileFilterOpenState);
+    const [scrollX] = useAtom(scrollXState);
 
     const [selectedSports, setSelectedSports] = useAtom(sportsState);
     const [selectedSorting, setSelectedSorting] = useAtom(orderState);
@@ -33,13 +39,17 @@ function Classification() {
     const [selectSeriesSort, setSelectSeriesSort] = useAtom(seriesSorting);
     const [products] = useAtom(sortProductsState);
 
+    const [openSections, setOpenSections] = useState(() => sportsSortingList.map((section) => section.title));
+
     useEffect(() => {
         if (products.length > 0) {
-            window.scrollTo({ top: 450, behavior: 'smooth' });
+            window.scrollTo({ top: 300, behavior: 'smooth' });
         }
-    }, [products]);
 
-    const [openSections, setOpenSections] = useState(() => sportsSortingList.map((section) => section.title));
+        if (scrollX >= 860) {
+            setMobileFilterOpen(true);
+        }
+    }, [products, scrollX]);
 
     const toggleSection = (title) => {
         setOpenSections((prev) => (prev.includes(title) ? prev.filter((t) => t !== title) : [...prev, title]));
@@ -79,7 +89,7 @@ function Classification() {
     };
 
     return (
-        <ClassificationBox className="flex-v-center column">
+        <ClassificationBox className="flex-v-center column" $mobileFilterOpen={mobileFilterOpen}>
             <CFTitle>
                 <h1>제품 카테고리</h1>
                 <span>
@@ -102,6 +112,52 @@ function Classification() {
                 </div>
             </OptionListBox>
 
+            {/* 사용분류 / 시리즈 */}
+            <SportsSortingBox>
+                {sportsSortingList.map((section, idx) => {
+                    const isApplied =
+                        section.name === 'sportsSorting'
+                            ? selectSportsSort !== '' // 전체 항목이 '' 값
+                            : selectSeriesSort.length > 0; // 전체 항목이 빈 배열
+
+                    return (
+                        <div key={idx}>
+                            <SectionHeader onClick={() => toggleSection(section.title)}>
+                                <h2 className="flex-center">
+                                    {section.title}
+                                    {isApplied ? (
+                                        <em className="selected flex-center"> 적용중 </em>
+                                    ) : (
+                                        <em className="selected-un flex-center"> 미적용 </em>
+                                    )}
+                                </h2>
+                                <span>
+                                    {openSections.includes(section.title) ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
+                                </span>
+                            </SectionHeader>
+                            {openSections.includes(section.title) && (
+                                <ul>
+                                    {section.tag.map((item, i) => {
+                                        const isSelected =
+                                            section.name === 'sportsSorting'
+                                                ? selectSportsSort === item.value
+                                                : JSON.stringify(selectSeriesSort) === JSON.stringify(item.value);
+
+                                        return (
+                                            <MenuItem
+                                                key={i}
+                                                onClick={() => handleSelect(section.name, item.value)}
+                                                $isSelected={isSelected}>
+                                                {item.name}
+                                            </MenuItem>
+                                        );
+                                    })}
+                                </ul>
+                            )}
+                        </div>
+                    );
+                })}
+            </SportsSortingBox>
             {/* 정렬 */}
             {SortingList.map((list, index) => (
                 <OptionListBox key={index}>
@@ -163,53 +219,6 @@ function Classification() {
                 </OptionListBox>
             ))}
 
-            {/* 사용분류 / 시리즈 */}
-            <SportsSortingBox>
-                {sportsSortingList.map((section, idx) => {
-                    const isApplied =
-                        section.name === 'sportsSorting'
-                            ? selectSportsSort !== '' // 전체 항목이 '' 값
-                            : selectSeriesSort.length > 0; // 전체 항목이 빈 배열
-
-                    return (
-                        <div key={idx}>
-                            <SectionHeader onClick={() => toggleSection(section.title)}>
-                                <h2 className="flex-center">
-                                    {section.title}
-                                    {isApplied ? (
-                                        <em className="selected flex-center"> 적용중 </em>
-                                    ) : (
-                                        <em className="selected-un flex-center"> 미적용 </em>
-                                    )}
-                                </h2>
-                                <span>
-                                    {openSections.includes(section.title) ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
-                                </span>
-                            </SectionHeader>
-                            {openSections.includes(section.title) && (
-                                <ul>
-                                    {section.tag.map((item, i) => {
-                                        const isSelected =
-                                            section.name === 'sportsSorting'
-                                                ? selectSportsSort === item.value
-                                                : JSON.stringify(selectSeriesSort) === JSON.stringify(item.value);
-
-                                        return (
-                                            <MenuItem
-                                                key={i}
-                                                onClick={() => handleSelect(section.name, item.value)}
-                                                $isSelected={isSelected}>
-                                                {item.name}
-                                            </MenuItem>
-                                        );
-                                    })}
-                                </ul>
-                            )}
-                        </div>
-                    );
-                })}
-            </SportsSortingBox>
-
             <OptionListBox>
                 <h2>가격설정</h2>
                 <PriceRange />
@@ -228,7 +237,7 @@ const ClassificationBox = styled.aside`
     justify-content: flex-start;
     max-height: calc(100vh - 50px); // 화면 높이 - 네비 등 여백
     overflow-y: auto;
-    padding: 40px;
+    padding: 0px;
 
     &::-webkit-scrollbar {
         display: none;
@@ -248,11 +257,44 @@ const ClassificationBox = styled.aside`
     }
 
     @media (max-width: 860px) {
-        display: none;
+        display: ${({ $mobileFilterOpen }) => ($mobileFilterOpen ? 'none' : 'block')};
+
+        position: fixed;
+        top: auto;
+        bottom: 50px;
+        left: 0px;
+        z-index: 99;
+        width: 100%;
+        padding: 0px;
+
+        max-height: calc(60vh - 50px);
+        animation: movebar 0.1s ease-in-out forwards;
+        box-shadow: 0px -30px 20px rgba(0, 0, 0, 0.1);
+
+        border-radius: 20px;
+    }
+
+    @keyframes movebar {
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0px);
+        }
     }
 `;
 
+//
 const CFTitle = styled.div`
+    padding: 0px 30px;
+
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+
     width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 1);
     display: flex;
@@ -274,25 +316,29 @@ const CFTitle = styled.div`
         font-weight: bold;
         color: #346ce4;
     }
+
+    @media (max-width: 860px) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
 `;
 
+// 사용(스포츠) 분류 및 제품 시리즈 섹션
 const SportsSortingBox = styled.div`
+    padding: 20px 30px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     ul {
         padding-bottom: 20px;
     }
 `;
-
 const SectionHeader = styled.div`
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 
     h2 {
-        padding: 20px 0px;
         font-weight: 600;
     }
 
@@ -314,7 +360,6 @@ const SectionHeader = styled.div`
         margin-left: 10px;
     }
 `;
-
 const MenuItem = styled.li`
     padding: 10px 15px;
     cursor: pointer;
@@ -328,8 +373,9 @@ const MenuItem = styled.li`
     }
 `;
 
+// 옵션 리스트 섹션
 const OptionListBox = styled.div`
-    padding-bottom: 20px;
+    padding: 20px 30px;
     width: 100%;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
@@ -338,7 +384,7 @@ const OptionListBox = styled.div`
     }
 
     h2 {
-        padding: 20px 0px;
+        padding-bottom: 20px;
         font-weight: 600;
     }
 

@@ -17,6 +17,8 @@ import {
     sportsState,
     waterProofState,
     classState,
+    isMobileFilterOpenState,
+    scrollXState,
 } from '../../atoms/useIndexState';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
@@ -35,6 +37,10 @@ function ProductClassification() {
     const [, setBatteryGPS] = useAtom(batteryGPSState);
     const [, setSportsSort] = useAtom(sportsSorting);
     const [, setSeriesSort] = useAtom(seriesSorting);
+
+    //모바일 해상도 필터메뉴 상태관리
+    const [mobileFilterOpen, setMobileFilterOpen] = useAtom(isMobileFilterOpenState);
+    const [scrollX] = useAtom(scrollXState);
 
     const handleDeleteClass = (tag) => {
         setClassList((prev) => prev.filter((t) => t.title !== tag.title));
@@ -83,10 +89,13 @@ function ProductClassification() {
 
     return (
         <ClassBox className="flex-h-center">
-            <FilterLength className="flex-h-center">
-                <IoOptionsOutline />{' '}
+            <FilterLength className="flex-h-center" onClick={() => setMobileFilterOpen(!mobileFilterOpen)}>
+                <div className="filter-icon">
+                    <IoOptionsOutline />
+                    <div className="click-motion"> </div>
+                </div>
                 <span>
-                    필터 적용중 <em>({activeClassList.length})</em>
+                    필터 적용 <em>({activeClassList.length})</em>
                 </span>
             </FilterLength>
             <FilterClass className="flex-h-center">
@@ -114,7 +123,7 @@ const ClassBox = styled.nav`
     width: 100%;
     height: 60px;
     background-color: #fff;
-    z-index: 99;
+    z-index: 100;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
@@ -133,6 +142,31 @@ const FilterLength = styled.div`
         em {
             font-family: '42dot Sans';
             color: #3b68fa;
+        }
+    }
+
+    .filter-icon {
+        position: relative;
+        width: 30px;
+        height: 30px;
+    }
+
+    .click-motion {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+        top: 0px;
+        left: 0px;
+
+        background-color: rgba(118, 177, 255, 0.4);
+    }
+
+    @keyframes clickmotion {
+        100% {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(118, 177, 255, 0.1);
         }
     }
 

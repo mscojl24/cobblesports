@@ -96,7 +96,7 @@ const NavigateSection = styled.nav`
     justify-content: space-between;
     align-items: center;
 
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 70px;
     padding: 0 20px;
@@ -106,7 +106,7 @@ const NavigateSection = styled.nav`
     /* position: absolute; */
     top: 0;
     left: 0;
-    z-index: 99;
+    z-index: 90;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
     transform: ${({ $isVisible }) => ($isVisible ? 'translateY(0)' : 'translateY(-100%)')};
     opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};

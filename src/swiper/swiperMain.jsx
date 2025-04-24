@@ -74,7 +74,11 @@ function SwiperMain() {
                                 </div>
                             </TitleText>
                             <ActButton>
-                                <button className="store-btn flex-center">
+                                <button
+                                    className="store-btn flex-center"
+                                    onClick={() => {
+                                        window.open(data.link, '_blank', 'noopener,noreferrer');
+                                    }}>
                                     <span className="btn-text">{data.linkBtn.text}</span>
                                     <TfiArrowRight />
                                 </button>

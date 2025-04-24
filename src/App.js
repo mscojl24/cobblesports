@@ -4,7 +4,7 @@ import Navi from './navigation/navi';
 import MainSection from './components/mainSection';
 import LoderPage from './components/loderPage';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { loderPageState, scrollXState, scrollYState, compareMax, popupTextState } from './atoms/useIndexState.jsx';
 import { IoNotificationsOutline, IoNotificationsSharp } from 'react-icons/io5';
 
@@ -13,10 +13,11 @@ import ProductSection from './components/productSection';
 import useFetchExcelData from './hooks/useFetchExcelData';
 import { MdNotificationsActive } from 'react-icons/md';
 import CompareSection from './components/compareSection.jsx';
+import ScrollToTop from './components/scrollToTop.jsx';
 
 function App() {
-    const [, setScrollY] = useAtom(scrollYState);
-    const [, setScrollX] = useAtom(scrollXState);
+    const setScrollY = useSetAtom(scrollYState);
+    const setScrollX = useSetAtom(scrollXState);
     const [loderPage] = useAtom(loderPageState);
     const [isCompareMax] = useAtom(compareMax);
     const [popupText] = useAtom(popupTextState);
@@ -47,6 +48,7 @@ function App() {
         <Router basename="/">
             <Navi />
             <BoxMargin>
+                <ScrollToTop />
                 <Routes>
                     <Route path="/" element={<MainSection />} />
                     <Route path="/products" element={<ProductSection />} />

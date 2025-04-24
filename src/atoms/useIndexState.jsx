@@ -33,3 +33,7 @@ export const saleState = atom(false);
 
 export const minPriceState = atom(100000);
 export const maxPriceState = atom(3000000);
+
+// 모바일 조건창 팝업
+
+export const isMobileFilterOpenState = atom(false); // 모바일 필터 메뉴 열림 상태

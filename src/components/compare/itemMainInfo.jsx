@@ -66,11 +66,13 @@ const MainBox = styled.section`
     margin-bottom: 10px;
     height: 260px;
 
+    position: sticky;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     .title-box {
         display: flex;
         flex-direction: column;
+        top: 0px;
 
         * {
             font-family: '42dot Sans';

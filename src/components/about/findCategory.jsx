@@ -3,6 +3,9 @@ import { MdKeyboardArrowRight } from 'react-icons/md';
 
 import { categoriesData } from '../../data/categoriseData';
 import { useEffect, useState } from 'react';
+import { useAtom } from 'jotai';
+import { loderPageState, sportsSorting } from '../../atoms/useIndexState';
+import { useNavigate } from 'react-router-dom';
 
 const sportsArray = ['러닝을', '수영을', '모험을', '골프를', '사이클링을', '웰니스를'];
 
@@ -11,6 +14,9 @@ function FindCategory() {
     const [sportText, setSportText] = useState('');
     const [charIndex, setCharIndex] = useState(0);
     const [deleting, setDeleting] = useState(false);
+    const [selectSportsSort, setSelectSportsSort] = useAtom(sportsSorting);
+    const [loderPage, setLoderPage] = useAtom(loderPageState);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const currentWord = sportsArray[sportIndex];
@@ -40,6 +46,15 @@ function FindCategory() {
         return () => clearTimeout(typingTimer);
     }, [charIndex, deleting, sportIndex]);
 
+    const handleCategoryClick = (value) => {
+        setSelectSportsSort(value);
+
+        setLoderPage(true); // 로딩 페이지 활성화
+        setTimeout(() => {
+            navigate('/products');
+        }, 1000); // 약간의 delay 후 이동 (자연스럽게 보이도록)
+    };
+
     return (
         <FindCategorySection className="flex-center column">
             <FindCategoryTitle className="flex-v-center column">
@@ -55,7 +70,11 @@ function FindCategory() {
                         <div className="card-box">
                             <h2 className="card-title">{item.title}</h2>
                             <h3 className="card-subtitle">{item.subtitle}</h3>
-                            <button className="card-button">
+                            <button
+                                className="card-button"
+                                onClick={() => {
+                                    handleCategoryClick(item.value);
+                                }}>
                                 Learn More <MdKeyboardArrowRight />
                             </button>
                         </div>

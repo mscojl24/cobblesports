@@ -28,6 +28,8 @@ export const useFilterClassState = () => {
     const [selectSeriesSort] = useAtom(seriesSorting);
     const [, setActiveClassList] = useAtom(classState);
 
+    console.log(selectSportsSort);
+
     useEffect(() => {
         const classes = [];
 

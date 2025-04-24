@@ -103,6 +103,7 @@ export default PriceRange;
 
 const Container = styled.div`
     width: 100%;
+    margin-bottom: 20px;
 
     .max-min-box {
         gap: 10px;

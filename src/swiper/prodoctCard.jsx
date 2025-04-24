@@ -20,6 +20,11 @@ function ProdouctCard({ products }) {
         setSlidesPerView(scrollX > 1500 ? 5 : scrollX > 860 ? 3 : 2);
     }, [scrollX]);
 
+    const handleBuyClick = (productNum) => {
+        const url = `https://smartstore.naver.com/cobblesports/products/${productNum}`;
+        window.open(url, '_blank');
+    };
+
     return (
         <NPItem>
             <Swiper
@@ -50,7 +55,11 @@ function ProdouctCard({ products }) {
                                 <p>{formatPrice(item.spec.price)} 원</p>
                             </li>
                             <li>
-                                <button className="flex-center">
+                                <button
+                                    className="flex-center"
+                                    onClick={() => {
+                                        handleBuyClick(item.productNum);
+                                    }}>
                                     <TbShoppingCartShare />
                                 </button>
                             </li>
@@ -69,6 +78,7 @@ const NPItem = styled.aside`
 
     /* <-------------------------- Swiper 스크립트 섹션 -------------------------------> */
     .prodoct-script {
+        padding: 0px 10px;
         display: flex;
         justify-content: space-between;
 

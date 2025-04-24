@@ -117,6 +117,14 @@ const Function = styled.li`
     .popup-icon:hover {
         color: #1985f1;
     }
+
+    @media (max-width: 860px) {
+        padding: 20px 10px 20px 20px;
+
+        .gap {
+            font-size: 14px;
+        }
+    }
 `;
 
 const Active = styled.div`

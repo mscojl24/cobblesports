@@ -1,6 +1,6 @@
 {
     "name": "cobblesports",
-    "homepage": "https://mscojl24.github.io/cobblesports/",
+    "homepage": ".",
     "version": "0.1.0",
     "private": true,
     "dependencies": {

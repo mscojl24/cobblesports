@@ -1,14 +1,24 @@
 import { useAtom } from 'jotai';
 import styled, { keyframes } from 'styled-components';
-import { compareState } from '../../atoms/useIndexState';
-import { FcBarChart, FcComboChart, FcFinePrint, FcTimeline } from 'react-icons/fc';
+import { compareState, loderPageState } from '../../atoms/useIndexState';
+import { FcTimeline } from 'react-icons/fc';
+import { useNavigate } from 'react-router-dom';
 
 function ClassProductsIcon() {
     const [compareList] = useAtom(compareState);
+    const [, setLoderPage] = useAtom(loderPageState);
+    const navigate = useNavigate(); // ✅ 선언
+
+    const handleClick = () => {
+        setLoderPage(true); // 로딩 페이지 활성화
+        setTimeout(() => {
+            navigate('/compare');
+        }, 1000); // 약간의 delay 후 이동 (자연스럽게 보이도록)
+    };
 
     return (
         <>
-            <MoveIcon>
+            <MoveIcon onClick={handleClick}>
                 <strong className="flex-center">
                     <FcTimeline /> 제품 비교하기
                 </strong>

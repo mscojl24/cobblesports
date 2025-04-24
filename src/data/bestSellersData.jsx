@@ -5,6 +5,7 @@ export const bestSellersData = [
         image: '/asset/bestseller/bestseller-image-02.png',
         price: '799,000',
         discount: '38',
+        link: 'https://smartstore.naver.com/cobblesports/products/8718519427',
     },
     {
         title: 'Edge 1040 Solar',
@@ -12,6 +13,7 @@ export const bestSellersData = [
         image: '/asset/bestseller/bestseller-image-07.png',
         price: '759,000',
         discount: '23',
+        link: 'https://smartstore.naver.com/cobblesports/products/3827472527',
     },
     {
         title: 'Rally RS 100/200',
@@ -19,6 +21,7 @@ export const bestSellersData = [
         image: '/asset/bestseller/bestseller-image-06.png',
         price: '990,000',
         discount: '28',
+        link: 'https://smartstore.naver.com/cobblesports/search?q=%EB%9E%A0%EB%A6%AC%20RS',
     },
     {
         title: 'Forerunner 55',
@@ -26,11 +29,13 @@ export const bestSellersData = [
         image: '/asset/bestseller/bestseller-image-01.png',
         price: '169,000',
         discount: '28',
+        link: 'https://smartstore.naver.com/cobblesports/category/224dbde4d8d241598e597c443212ecdb?cp=1',
     },
     {
         title: 'Forerunner 165',
         subtitle: '가민 포러너 165',
         image: '/asset/bestseller/bestseller-image-03.png',
         price: '459,000',
+        link: 'https://smartstore.naver.com/cobblesports/category/f044e10ec5914eab8051d3312d392974?cp=1',
     },
 ];

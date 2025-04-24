@@ -81,13 +81,15 @@ const CartegoryBox = styled.article`
     /* background: url(${process.env.REACT_APP_PUBLIC_URL}/asset/cobble-categoty-image-01.png);
     background-position: center;
     background-size: cover; */
-    padding: 100px;
+    padding: 50px;
 
     gap: 20px;
     h1 {
-        font-family: anton;
-        font-weight: 400;
-        font-size: clamp(20px, 6vw, 50px);
+        font-size: clamp(20px, 6vw, 40px);
+        font-family: '42dot Sans';
+        font-weight: bold;
+        letter-spacing: -1px;
+        text-transform: uppercase;
     }
 
     em {
@@ -114,6 +116,10 @@ const CartegoryBox = styled.article`
         border-radius: 8px;
         font-family: '42dot Sans';
         font-size: 18px;
+
+        @media (max-width: 860px) {
+            padding: 20px;
+        }
     }
 
     .search-box:focus {
