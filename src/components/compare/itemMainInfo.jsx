@@ -39,7 +39,7 @@ function ItemMainInfo({ item }) {
             </MainBox>
             <MessageBox>
                 <div className="flex-h-center purpose-box">
-                    {item.purpose.map((tag, index) => (
+                    {item.purpose.slice(0, 3).map((tag, index) => (
                         <span key={index} className="purpose-tag">
                             {tag}
                         </span>
@@ -147,6 +147,7 @@ const MessageBox = styled.div`
     }
 
     .purpose-tag {
+        font-family: '42dot Sans';
         padding: 8px 15px;
         border-radius: 50px;
         background-color: #f3f3f3;
