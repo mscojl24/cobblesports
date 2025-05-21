@@ -33,6 +33,48 @@ export const swiperMainData = [
       },
    },
    {
+      index: 10,
+      title: 'Garmin/Forerunner 570',
+      subtitle: '프리미엄 GPS 러닝 스마트워치',
+      description:
+         'Forerunner 570, More than just a runner’s watch—it’s your edge in every stride. With a brilliant AMOLED display, multi-band GPS, and advanced training tools like Training Readiness, HRV Status, and Running Power, it helps you understand your body and optimize every workout. Smart training starts here.',
+
+      image: '/asset/cobble-background-image-03.png',
+      link: 'https://mkt.shopping.naver.com/link/68144ff22f0ac5782176a4ee',
+      linkBtn: {
+         text: '신제품 확인하기',
+         icon: <FcFlashOn size="24px" />,
+      },
+   },
+   {
+      index: 11,
+      title: 'Garmin/Forerunner 970',
+      subtitle: '프리미엄 GPS 러닝 스마트워치',
+      description:
+         'High-end running watch with sapphire glass, titanium bezel, and AMOLED display. Equipped with Training Readiness, HRV Status, Running Power, and Multi-band GPS. Supports calls and voice control with built-in speaker/mic, plus LED flashlight for safety in the dark.',
+
+      image: '/asset/cobble-background-image-04.png',
+      link: 'https://mkt.shopping.naver.com/link/68144ff22f0ac5782176a4ee',
+      linkBtn: {
+         text: '신제품 확인하기',
+         icon: <FcFlashOn size="24px" />,
+      },
+   },
+   {
+      index: 12,
+      title: 'Garmin/HRM-200,HRM-600',
+      subtitle: '가민 심박수 모니터',
+      description:
+         'When training demands precision, this strap delivers. Track advanced running dynamics and swimming metrics with improved sensors and dual Bluetooth + ANT+ connectivity. Engineered for lasting comfort and rock-solid performance—no matter the conditions.',
+
+      image: '/asset/cobble-background-image-05.png',
+      link: 'https://mkt.shopping.naver.com/link/68144ff22f0ac5782176a4ee',
+      linkBtn: {
+         text: '신제품 확인하기',
+         icon: <FcFlashOn size="24px" />,
+      },
+   },
+   {
       index: 9,
       title: 'Garmin/Instinct 3 Tactical',
       subtitle: '아웃도어 전술 GPS 스마트워치',
@@ -55,48 +97,6 @@ export const swiperMainData = [
 
       image: '/asset/cobble-background-image-08.png',
       link: 'https://mkt.shopping.naver.com/link/6811e1bcefd7a65d554727f6',
-      linkBtn: {
-         text: '신제품 확인하기',
-         icon: <FcFlashOn size="24px" />,
-      },
-   },
-   {
-      index: 7,
-      title: 'Garmin/vivoactivce 6',
-      subtitle: '웰니스 & 피트니스 GPS 스마트워치',
-      description:
-         'The Garmin Vívomove 6 is a sleek wellness-focused smartwatch equipped with a vibrant AMOLED display and essential health insights. It tracks daily activity, heart rate, sleep quality, and stress levels, while also offering advanced features like Body Battery energy monitoring and nap detection to help optimize recovery and performance throughout your day.',
-
-      image: '/asset/cobble-background-image-07.png',
-      link: 'https://mkt.shopping.naver.com/link/6811e1c3efd7a65d554727f7',
-      linkBtn: {
-         text: '신제품 확인하기',
-         icon: <FcFlashOn size="24px" />,
-      },
-   },
-   {
-      index: 3,
-      title: 'Garmin/Tactix 8 AMOLED',
-      subtitle: 'GPS 택티컬 스마트워치',
-      description:
-         'The Garmin Tactix 8 is designed for professionals who demand precision, durability, and tactical functionality. Now featuring a built-in speaker, microphone, and dive capability, it performs in the toughest environments. Stay ahead with advanced GPS, night vision compatibility, and a rugged military-grade design—your ultimate tactical companion.',
-
-      image: '/asset/cobble-background-image-03.png',
-      link: 'https://mkt.shopping.naver.com/link/6811e1c3815d2663a4629cb5',
-      linkBtn: {
-         text: '신제품 확인하기',
-         icon: <FcFlashOn size="24px" />,
-      },
-   },
-   {
-      index: 4,
-      title: 'Garmin/Instint 3 Series',
-      subtitle: '러기드 아웃도어 GPS 스마트워치',
-      description:
-         'The Garmin Instinct 3 is designed for those who embrace the outdoors. With military-grade durability, advanced GPS, and long battery life, it keeps you on track in any environment. Stay connected with smart features, health monitoring, and real-time navigation—your perfect adventure companion.',
-
-      image: '/asset/cobble-background-image-04.png',
-      link: 'https://mkt.shopping.naver.com/link/6811e1c3fd7d167e0fea7020',
       linkBtn: {
          text: '신제품 확인하기',
          icon: <FcFlashOn size="24px" />,
