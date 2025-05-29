@@ -26,7 +26,7 @@ export const swiperMainData = [
          'Choosing the right gear has never been easier. Our smart selection tool analyzes your preferences and recommends the ideal Garmin device for your activities. Whether you need advanced GPS, dive capabilities, or tactical features, we help you find the perfect match—so you can focus on performance.',
 
       image: '/asset/cobble-background-image-02.png',
-      link: 'https://cobblesports.com/#/products',
+      link: 'https://www.cobblesports.com/#/products',
       linkBtn: {
          text: '제품 찾아보기',
          icon: <FcPlus size="24px" />,
