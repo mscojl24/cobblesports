@@ -8,6 +8,7 @@ import ClassProductsIcon from './products/classProductIcon'
 import { IoSearch } from 'react-icons/io5'
 import { useMemo, useState } from 'react'
 import { LuDelete } from 'react-icons/lu'
+import ProductSchema from '../productSchema'
 
 function ProductSection() {
    const [products] = useAtom(sortProductsState)
@@ -46,6 +47,7 @@ function ProductSection() {
 
    return (
       <ProductBox>
+         <ProductSchema />
          <CartegoryBox className="flex-h-center column">
             <h1>Find Your Fit</h1>
             <em>원하는 제품을, 원하는 조건에 맞춰 검색하세요.</em>
