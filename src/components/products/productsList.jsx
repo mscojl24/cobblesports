@@ -179,7 +179,10 @@ function ProductsList({ products }) {
                            </div>
 
                            {/* 제품 이미지 출력 */}
-                           <div className="image-wrapper">
+                           <div
+                              className="image-wrapper"
+                              onClick={() => handleBuyClick(item.link)}
+                           >
                               {imageLoading[index] && (
                                  <ImagePlaceholder className="flex-center">
                                     Loading...
@@ -312,14 +315,24 @@ const ProImage = styled.div`
       align-items: center;
       aspect-ratio: 6/7;
       text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
 
       img {
          width: 100%;
          aspect-ratio: 1/1;
          object-fit: cover;
          border-radius: 10px;
-         transition: opacity 0.3s ease-in-out;
+         transition: all 0.3s ease-in-out;
       }
+
+      img:hover {
+         transform: translateY(-10px);
+      }
+   }
+
+   .image-wrapper:hover {
+      background: linear-gradient(150deg, rgba(0, 0, 0, 0) 30%, #e9e9e9);
    }
 
    .badge-box {

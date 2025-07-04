@@ -7,7 +7,7 @@ function Footer() {
          <CompanyInfo className="flex-v-center column">
             <h1 className="company-name">유한회사 코블스포츠</h1>
             <div className="information-text flex-v-center column">
-               <small> 대표자 : 박준아 | 사업자등록번호 : 489-86-02035</small>
+               <small> 대표자 : 이권표 | 사업자등록번호 : 489-86-02035</small>
                <small>
                   {' '}
                   본사주소 : (우)35264 대전광역시 서구 계룡로 599, 102호 |
